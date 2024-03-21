@@ -11,7 +11,6 @@ int main( void )
   std::vector<Data> data;
   /* Sample: (:key1 30ull:key2 0xFFFF:key3 "LOLOLOL":) */
 
-  std::cout << "Input data in format (:key1 <number>ull:key2 0x<hex>:key3 \"<string>\":)\n" << std::endl;
   std::string input;
 
   while (true)
@@ -49,10 +48,11 @@ int main( void )
       return d1.key1_ < d2.key1_;
     });
 
-  std::cout << "Data:\n";
   std::copy(
     std::begin(data),
     std::end(data),
     std::ostream_iterator< Data >(std::cout, "\n")
   );
+
+  return EXIT_SUCCESS;
 }
