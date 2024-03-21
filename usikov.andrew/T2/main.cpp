@@ -19,7 +19,7 @@ int main( void )
 
     std::getline(std::cin, buf, '\n');
 
-    if (buf == "")
+    if (buf == "" || std::cin.eof())
       break;
 
     input += buf + '\n';
