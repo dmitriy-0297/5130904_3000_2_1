@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __IOTYPES_H_
+#define __IOTYPES_H_
 
 #include <iostream>
 #include <vector>
@@ -65,3 +66,4 @@ namespace usikov
   std::istream & operator >>( std::istream &stream, Data &res );
   std::ostream & operator <<( std::ostream &stream, const Data &data );
 }
+#endif // __IOTYPES_H_

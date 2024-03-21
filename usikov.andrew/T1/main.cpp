@@ -26,7 +26,6 @@ int main( void )
     input += buf + '\n';
   }
 
-  int cnt = 0;
   std::stringstream ss(input);
   std::copy_if(
     std::istream_iterator<Data>(ss),
