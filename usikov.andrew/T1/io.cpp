@@ -170,7 +170,7 @@ std::ostream & usikov::operator <<( std::ostream &stream, const usikov::Data &da
   StreamGuard guard(stream);
 
   stream << "(:key1 " << data.key1_ << 
-            "ull:key2 " << std::uppercase << std::hex << "0x" << data.key2_ << 
+            "ull:key2 " << std::uppercase << std::hex << "0x" << data.key2_ <<
             ":key3 \"" << data.key3_ << "\":)";
   return stream;
 }

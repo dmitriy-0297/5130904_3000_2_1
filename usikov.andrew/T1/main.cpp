@@ -37,7 +37,7 @@ int main( void )
     }
   );
 
-  std::sort(data.begin(), data.end(), 
+  std::sort(data.begin(), data.end(),
     []( const Data &d1, const Data &d2 )
     {
       if (d1.key1_ == d2.key1_)
