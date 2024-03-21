@@ -1,5 +1,6 @@
 #include <sstream>
 #include <algorithm>
+#include <iterator>
 
 #include "iotypes.h"
 
