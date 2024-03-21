@@ -49,14 +49,15 @@ namespace usikov
 
   class StreamGuard
   {
+  public:
+    StreamGuard( std::basic_ios<char> &ref );
+    ~StreamGuard( void );
+
+  private:
     std::basic_ios<char> &strm_;
     char fill_;
     std::streamsize prec_;
     std::basic_ios<char>::fmtflags flags_;
-
-  public:
-    StreamGuard( std::basic_ios<char> &ref );
-    ~StreamGuard( void );
   };
 
   std::istream & operator >>( std::istream &stream, Delim &&res );
