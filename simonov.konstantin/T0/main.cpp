@@ -1,6 +1,6 @@
-﻿﻿#include <iostream>
+#include <iostream>
 
-int main(void)
+int main()
 {
   std::cout << "simonov.konstantin\n";
   return EXIT_SUCCESS;
