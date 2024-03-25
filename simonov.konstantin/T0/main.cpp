@@ -2,6 +2,6 @@
 
 int main()
 {
-  std::cout << "simonow.konstantin\n";
+  std::cout << "simonov.konstantin\n";
   return EXIT_SUCCESS;
 }
