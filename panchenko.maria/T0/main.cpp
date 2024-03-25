@@ -2,6 +2,6 @@
 
 int main()
 {
-  std::cout << "Panchenko.Maria\n";
+  std::cout << "panchenko.maria\n";
   return 0;
 }
