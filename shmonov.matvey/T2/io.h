@@ -7,14 +7,14 @@
 #include <regex>
 #include <iomanip>
 
-namespace shmonov {
+namespace shmonov
+{
   bool isDBL_SCI(const std::string& str);
   bool isChar(const std::string& str);
   bool isString(const std::string& str);
 
-
-
-  struct DataStruct {  // 
+  struct DataStruct 
+  {
     double key1;  // DBL SCI 5.45e-2
     char key2;  // CHR LIT 'c'
     std::string key3;
@@ -35,6 +35,5 @@ namespace shmonov {
     std::streamsize precision_;
     std::basic_ios< char >::fmtflags fmt_;
   };
-
 }
 #endif
