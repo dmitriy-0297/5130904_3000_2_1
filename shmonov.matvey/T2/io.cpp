@@ -68,7 +68,7 @@ std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::DataStruct 
 
 bool shmonov::isDBL_SCI(const std::string& str)
 {
-  std::regex pattern("^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$");
+  std::regex pattern("^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$");
   return std::regex_match(str, pattern);
 }
 bool shmonov::isChar(const std::string& str)
