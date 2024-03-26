@@ -13,7 +13,7 @@ namespace shmonov
   bool isChar(const std::string& str);
   bool isString(const std::string& str);
 
-  struct DataStruct 
+  struct DataStruct
   {
     double key1;  // DBL SCI 5.45e-2
     char key2;  // CHR LIT 'c'

@@ -2,10 +2,10 @@
 
 #include "io.h"
 
-std::istream & shmonov::operator>>(std::istream &in, shmonov::DataStruct &ds) 
+std::istream & shmonov::operator>>(std::istream &in, shmonov::DataStruct &ds)
 {
   std::istream::sentry sentry(in);
-  if (!sentry) 
+  if (!sentry)
   {
     return in;
   }

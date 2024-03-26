@@ -17,9 +17,9 @@ int main( void )  // (:key1 5.45e-2:key2 'c':key3 "Hello world!")
       [](const DataStruct &ds) { return ds.valid; }
   );
   std::sort(
-      vec.begin(), 
+      vec.begin(),
       vec.end(),
-      [](const DataStruct &lhs, const DataStruct &rhs) 
+      [](const DataStruct &lhs, const DataStruct &rhs)
       {
         if (lhs.key1 < rhs.key1)
         {
