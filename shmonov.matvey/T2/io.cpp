@@ -70,10 +70,12 @@ std::string shmonov::myScientific(double x)
   while (out[i - 1] == '0' && out[i - 2] != '.')
   {
     out.erase(i - 1, 1);
+    i = std::min(out.find('E'), out.find('e'));
   }
   while (out[i + 2] == '0')
   {
     out.erase(i + 2, 1);
+    i = std::min(out.find('E'), out.find('e'));
   }
   return out;
 }
