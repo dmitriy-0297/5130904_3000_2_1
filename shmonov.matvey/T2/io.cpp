@@ -58,7 +58,7 @@ std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::DataStruct 
     return out;
   }
   iofmtguard fmtguard(out);
-  ds.key1 + 1;
+  ds.key1 += 1;
   return (out << "(:key1 1.0e-1:key2 'a':key3 \"Data\":)");
 }
 
