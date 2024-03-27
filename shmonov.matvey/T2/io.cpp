@@ -51,7 +51,7 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::DataStruct &ds)
   return in;
 }
 
-std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::DataStruct &ds) {
+std::ostream & shmonov::operator<<(std::ostream &out, shmonov::DataStruct &ds) {
   std::ostream::sentry sentry(out);
   if (!sentry)
   {
