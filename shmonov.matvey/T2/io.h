@@ -24,7 +24,7 @@ namespace shmonov
   std::istream& operator>>(std::istream& in, DataStruct& ds);
   std::ostream& operator<<(std::ostream& out, const DataStruct& ds);
   std::string myScientific(double x);
-  
+
   class iofmtguard
   {
   public:
