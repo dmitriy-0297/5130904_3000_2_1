@@ -51,15 +51,15 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::DataStruct &ds)
   return in;
 }
 
-std::ostream & shmonov::operator<<(std::ostream &out, shmonov::DataStruct &ds) {
+std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::DataStruct &ds) {
   std::ostream::sentry sentry(out);
   if (!sentry)
   {
     return out;
   }
   iofmtguard fmtguard(out);
-  ds.key1 += 1;
-  return (out << "(:key1 1.0e-1:key2 'a':key3 \"Data\":)");
+  out << "(:key1 1.0e-1:key2 'a':key3 \"" << ds.key3 << "\":)";
+  return out;
 }
 
 bool shmonov::isDBL_SCI(const std::string& str)
