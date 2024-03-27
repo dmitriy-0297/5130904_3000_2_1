@@ -50,7 +50,21 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::DataStruct &ds)
   }
   return in;
 }
-
+std::string shmonov::myScientific(double x)
+{
+  std::stringstream ss;
+  ss << std::scientific << x;
+  std::string out = ss.str();
+  while (out[out.find('e') - 1] == '0' && out[out.find('e') - 2] != '.')
+  {
+    out.erase(out.find('e') - 1, 1);
+  }
+  while (out[out.find('e') + 2] == '0')
+  {
+    out.erase(out.find('e') + 2, 1);
+  }
+  return out;
+}
 std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::DataStruct &ds) {
   std::ostream::sentry sentry(out);
   if (!sentry)
@@ -58,7 +72,7 @@ std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::DataStruct 
     return out;
   }
   iofmtguard fmtguard(out);
-  out << "(:key1 1.0e-1:key2 'a':key3 \"" << ds.key3 << "\":)";
+  out << "(:key1 " << myScientific(ds.key1) << ":key2 '" << ds.key2 << "':key3 \"" << ds.key3 << "\":)";
   return out;
 }
 
