@@ -1,5 +1,23 @@
 #include "io.h"
 
+std::pair<std::string, std::string> shmonov::getNextPair(std::string &s)
+{
+  s.erase(0, s.find(':') + 1); // remove ':' from the beginning of string
+  std::string key = s.substr(0, 4);
+  s.erase(0, 5);
+  std::string value;
+  if (key == "key3")
+  {
+    value = s.substr(0, s.find('"', 1) + 1);
+    s.erase(0, value.size());
+  }
+  else
+  {
+    value = s.substr(0, s.find(':'));
+    s.erase(0, value.size());
+  }
+  return std::make_pair(key, value); // key, value
+}
 std::istream & shmonov::operator>>(std::istream &in, shmonov::DataStruct &ds)
 {
   std::istream::sentry sentry(in);
@@ -8,44 +26,37 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::DataStruct &ds)
     return in;
   }
 
-  std::string str;
-  std::getline(in, str);
-  std::istringstream iss(str.substr(1, str.size() - 2));
-  std::string token;
   ds.valid = true;
-
-  while (std::getline(iss, token, ':'))
+  std::string token;
+  getline(in, token);
+  while (!token.empty())
   {
-    if (!token.empty())
+    std::pair<std::string, std::string> pair = shmonov::getNextPair(token);
+    if (pair.first == "key1")
     {
-      std::string key = token.substr(0, 4);
-      std::string value = token.substr(5);
-      if (key == "key1")
+      if (!shmonov::isDBL_SCI(pair.second))
       {
-        if (!shmonov::isDBL_SCI(value))
-        {
-          ds.valid = false;
-          break;
-        }
-        ds.key1 = std::stod(value);
+        ds.valid = false;
+        break;
       }
-      else if (key == "key2")
+      ds.key1 = std::stod(pair.second);
+    }
+    else if (pair.first == "key2")
+    {
+      if (!shmonov::isChar(pair.second)) {
+        ds.valid = false;
+        break;
+      }
+      ds.key2 = pair.second[1];
+    }
+    else if (pair.first == "key3")
+    {
+      if (!shmonov::isString(pair.second))
       {
-        if (!shmonov::isChar(value)) {
-          ds.valid = false;
-          break;
-        }
-        ds.key2 = value[1];
+        ds.valid = false;
+        break;
       }
-      else if (key == "key3")
-      {
-        if (!shmonov::isString(value))
-        {
-          ds.valid = false;
-          break;
-        }
-        ds.key3 = value.substr(1, value.size() - 2);
-      }
+      ds.key3 = pair.second.substr(1, pair.second.size() - 2);
     }
   }
   return in;
@@ -55,13 +66,14 @@ std::string shmonov::myScientific(double x)
   std::stringstream ss;
   ss << std::scientific << x;
   std::string out = ss.str();
-  while (out[out.find('e') - 1] == '0' && out[out.find('e') - 2] != '.')
+  size_t i = std::min(out.find('E'), out.find('e'));
+  while (out[i - 1] == '0' && out[i - 2] != '.')
   {
-    out.erase(out.find('e') - 1, 1);
+    out.erase(i - 1, 1);
   }
-  while (out[out.find('e') + 2] == '0')
+  while (out[i + 2] == '0')
   {
-    out.erase(out.find('e') + 2, 1);
+    out.erase(i + 2, 1);
   }
   return out;
 }
