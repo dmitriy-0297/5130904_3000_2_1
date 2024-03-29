@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <cmath>
+#include <iterator>
 #include "DataStruct.h"
 
 int main()
