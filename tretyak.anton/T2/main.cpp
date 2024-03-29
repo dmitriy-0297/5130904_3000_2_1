@@ -26,10 +26,10 @@ int main()
     std::istream_iterator<Data>(iss),
     std::istream_iterator<Data>(),
     std::back_inserter(data),
-    [](const Data &tData) { return tData.status; }
+    [](const Data &tData) {return tData.status;}
   );
   std::sort(data.begin(), data.end(),
-    []( const Data &tData1, const Data &tData2 )
+    [](const Data &tData1, const Data &tData2)
     {
       if(tData1.key1 != tData2.key1)
       {

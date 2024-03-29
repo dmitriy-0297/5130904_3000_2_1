@@ -4,7 +4,7 @@
 #include "DataStruct.h"
 
 tretyak::ResourceGard::ResourceGard(std::basic_ios<char> &strm):
- strm_(strm), 
+ strm_(strm),
  fill_(strm.fill()),
  precision_(strm.precision()),
  fmtFlags_(strm.flags())
@@ -56,7 +56,7 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::HexIO &&elem)
     return in;
   }
   if(!(in >> DelimIO{{"0x","0X"}}))
-  { 
+  {
     return in;
   }
   if(!(in >> std::hex >> elem.ref))
