@@ -1,6 +1,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <limits>
 #include "DataStruct.h"
 
 tretyak::ResourceGard::ResourceGard(std::basic_ios<char> &strm):
