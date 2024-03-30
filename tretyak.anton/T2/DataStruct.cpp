@@ -108,58 +108,73 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
   {
     return in;
   }
-
+  Data iData;
   in >> DelimIO{{"(:"}};
   if(!in)
   {
-    in.setstate(std::ios_base::failbit);
+    in.clear();
+    elem.status = false;
     return in;
   }
-
   for(int i = 0; i < 3; i++)
   {
     std::string key;
     if(!(in >> key))
     {
-      in.setstate(std::ios_base::failbit);
+      in.clear();
+      elem.status = false;
       return in;
     }
     if(key == "key1")
     {
-      in >> HexIO{elem.key1};
+      if(!(in >> HexIO{iData.key1}))
+      {
+        in.clear();
+        elem.status = false;
+        return in;
+      }
     }
     else if(key == "key2")
     {
-      in >> ComplexIO{elem.key2};
+      if(!(in >> ComplexIO{iData.key2}))
+      {
+        in.clear();
+        elem.status = false;
+        return in;
+      }
     }
     else if(key == "key3")
     {
-      in >> StringIO{elem.key3};
+      if(!(in >> StringIO{iData.key3}))
+      {
+        in.clear();
+        elem.status = false;
+        return in;
+      }
     }
     else
     {
-      in.setstate(std::ios_base::failbit);
+      in.clear();
+      elem.status = false;
       return in;
     }
     in >> DelimIO{{":"}};
     if(!in)
     {
-      in.setstate(std::ios_base::failbit);
+      in.clear();
+      elem.status = false;
       return in;
     }
   }
   in >> DelimIO{{")"}};
   if(!in)
   {
-    in.setstate(std::ios_base::failbit);
+    in.clear();
+    elem.status = false;
     return in;
   }
-  if(!in)
-  {
-    elem.status = false;
-    in.clear();
-    while (in.get() != '\n' && in.peek() != EOF) {}
-  }
+  elem = iData;
+  elem.status = true;
   return in;
 }
 
@@ -173,7 +188,7 @@ std::ostream& tretyak::operator<<(std::ostream &op, const tretyak::Data &elem)
   ResourceGard rGard(op);
 
   op << "(:key1 " << std::uppercase << std::hex << "0x" << elem.key1 <<
-        ":key2 " << "#e" << elem.key2 <<
+        ":key2 " << "#e(" << elem.key2.real() << " " << elem.key2.imag() << ")" <<
         ":key3 \"" << elem.key3 << "\":)";
   return op;
 }

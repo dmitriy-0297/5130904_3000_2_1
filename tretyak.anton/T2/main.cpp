@@ -14,7 +14,7 @@ int main()
   for(;;)
   {
     std::string line;
-    if((getline(std::cin, line, '\n')) && !line.empty() && !(std::cin.eof()))
+    if(getline(std::cin, line, '\n') && !line.empty() && !(std::cin.eof()))
     {
       content += line + '\n';
     }
