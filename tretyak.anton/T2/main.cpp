@@ -5,17 +5,18 @@
 #include <iterator>
 #include "DataStruct.h"
 
+using namespace tretyak;
+
 int main()
 {
-  using tretyak::Data;
   std::vector<Data> data;
-  std::string line;
   std::string content;
   for(;;)
   {
+    std::string line;
     if((getline(std::cin, line)) && (!line.empty() || std::cin.eof()))
     {
-      content += line + "\n";
+      content += line + '\n';
     }
     else
     {
@@ -47,6 +48,6 @@ int main()
       }
     }
   );
-  std::copy(data.begin(), data.end(), std::ostream_iterator<Data>(std::cout, "\n"));
+  std::copy(std::begin(data), std::end(data), std::ostream_iterator<Data>(std::cout, "\n"));
   return EXIT_SUCCESS;
 }
