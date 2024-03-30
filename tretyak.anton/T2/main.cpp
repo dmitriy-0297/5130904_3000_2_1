@@ -13,7 +13,7 @@ int main()
   std::string content;
   for(;;)
   {
-    if((getline(std::cin, line)) && !line.empty())
+    if((getline(std::cin, line)) && (!line.empty() || std::cin.eof()))
     {
       content += line + "\n";
     }
