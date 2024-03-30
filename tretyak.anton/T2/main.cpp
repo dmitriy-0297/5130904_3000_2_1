@@ -14,7 +14,7 @@ int main()
   for(;;)
   {
     std::string line;
-    if((getline(std::cin, line)) && (!line.empty() || std::cin.eof()))
+    if((getline(std::cin, line, '\n')) && !line.empty() && !(std::cin.eof()))
     {
       content += line + '\n';
     }
@@ -48,6 +48,6 @@ int main()
       }
     }
   );
-  std::copy(std::begin(data), std::end(data), std::ostream_iterator<Data>(std::cout, "\n"));
+  std::copy(data.begin(), data.end(), std::ostream_iterator<Data>(std::cout, "\n"));
   return EXIT_SUCCESS;
 }
