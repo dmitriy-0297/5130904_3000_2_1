@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IO_H
+#define IO_H
+
 #include <string>
 #include <iostream>
 #include <vector>
@@ -59,3 +61,4 @@ namespace simonov
 	void whichKeyYouWrote(const std::string& key, Data& data, std::istream& stream, bool flags[]);
 }
 
+#endif // !IO_H

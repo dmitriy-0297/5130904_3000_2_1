@@ -39,7 +39,9 @@ int main()
       if (data1.key1 == data2.key1)
       {
         if (data1.key2 == data2.key2)
+        {
           return data1.key3.length() < data2.key3.length();
+        }
         return data1.key2 < data2.key2;
       }
       return data1.key1 < data2.key1;

@@ -103,7 +103,9 @@ std::istream& simonov::operator>>(std::istream& in, Data& data)
   for (int i = 0; i < 3; i++)
   {
     if (!keys[i])
+    {
       in.setstate(std::istream::failbit);
+    }
   }
 
   data = input;
@@ -128,9 +130,7 @@ std::ostream& simonov::operator<<(std::ostream& out, const simonov::Data& data)
 
   StreamGuard temp(out);
 
-  out << "(:key1 " << data.key1 << "ull:key2 "
-    << std::oct << "0" << data.key2 << ":key3 \""
-    << data.key3 << "\":)";
+  out << "(:key1 " << data.key1 << "ull:key2 " << std::oct << "0" << data.key2 << ":key3 \"" << data.key3 << "\":)";
   return out;
 }
 
