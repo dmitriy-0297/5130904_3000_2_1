@@ -11,10 +11,10 @@ int main()
 {
   std::vector<Data> data;
   std::string content;
-  for(;;)
+  for (;;)
   {
     std::string line;
-    if(getline(std::cin, line, '\n') && !line.empty() && !(std::cin.eof()))
+    if (getline(std::cin, line, '\n') && !line.empty() && !(std::cin.eof()))
     {
       content += line + '\n';
     }
@@ -33,11 +33,11 @@ int main()
   std::sort(data.begin(), data.end(),
     [](const Data &tData1, const Data &tData2)
     {
-      if(tData1.key1 != tData2.key1)
+      if (tData1.key1 != tData2.key1)
       {
         return tData1.key1 <tData2.key1;
       }
-      else if((tData1.key2.real() != tData2.key2.real()) || (tData1.key2.imag() != tData2.key2.imag()))
+      else if ((tData1.key2.real() != tData2.key2.real()) || (tData1.key2.imag() != tData2.key2.imag()))
       {
         return abs(sqrt(pow(tData1.key2.real(), 2)+pow(tData1.key2.imag(), 2))) <
                abs(sqrt(pow(tData2.key2.real(), 2)+pow(tData2.key2.imag(), 2)));

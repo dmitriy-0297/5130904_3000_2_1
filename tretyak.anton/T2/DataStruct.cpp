@@ -21,7 +21,7 @@ tretyak::ResourceGard::~ResourceGard()
 std::istream& tretyak::operator>>(std::istream& in, tretyak::DelimIO &&elem)
 {
   std::istream::sentry sentry(in);
-  if(!sentry)
+  if (!sentry)
   {
     return in;
   }
@@ -33,15 +33,15 @@ std::istream& tretyak::operator>>(std::istream& in, tretyak::DelimIO &&elem)
   {
     return in;
   }
-  for(const auto &str : elem.delim)
+  for (const auto &str : elem.delim)
   {
-    if(str == del)
+    if (str == del)
     {
       found = true;
       break;
     }
   }
-  if(!found)
+  if (!found)
   {
     in.setstate(std::ios_base::failbit);
   }
@@ -52,15 +52,15 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::HexIO &&elem)
 {
   std::istream::sentry sentry(in);
   ResourceGard rGard(in);
-  if(!sentry)
+  if (!sentry)
   {
     return in;
   }
-  if(!(in >> DelimIO{{"0x","0X"}}))
+  if (!(in >> DelimIO{{"0x","0X"}}))
   {
     return in;
   }
-  if(!(in >> std::hex >> elem.ref))
+  if (!(in >> std::hex >> elem.ref))
   {
     return in;
   }
@@ -70,21 +70,21 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::HexIO &&elem)
 std::istream& tretyak::operator>>(std::istream &in, tretyak::ComplexIO &&elem)
 {
   std::istream::sentry sentry(in);
-  if(!sentry)
+  if (!sentry)
   {
     return in;
   }
   std::string del;
   double real, imag;
-  if(!(in >> DelimIO{{"#c("}}))
+  if (!(in >> DelimIO{{"#c("}}))
   {
     return in;
   }
-  if(!(in >> real >> imag))
+  if (!(in >> real >> imag))
   {
     return in;
   }
-  if(!(in >> DelimIO{{")"}}))
+  if (!(in >> DelimIO{{")"}}))
   {
     return in;
   }
@@ -95,7 +95,7 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::ComplexIO &&elem)
 std::istream& tretyak::operator>>(std::istream &in, tretyak::StringIO &&elem)
 {
   std::istream::sentry sentry(in);
-  if(!sentry)
+  if (!sentry)
   {
     return in;
   }
@@ -105,48 +105,48 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::StringIO &&elem)
 std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
 {
   std::istream::sentry sentry(in);
-  if(!sentry)
+  if (!sentry)
   {
     return in;
   }
   Data iData;
   in >> DelimIO{{"(:"}};
-  if(!in)
+  if (!in)
   {
     in.clear();
     elem.status = false;
     return in;
   }
-  for(int i = 0; i < 3; i++)
+  for (int i = 0; i < 3; i++)
   {
     std::string key;
-    if(!(in >> key))
+    if (!(in >> key))
     {
       in.clear();
       elem.status = false;
       return in;
     }
-    if(key == "key1")
+    if (key == "key1")
     {
-      if(!(in >> HexIO{iData.key1}))
+      if (!(in >> HexIO{iData.key1}))
       {
         in.clear();
         elem.status = false;
         return in;
       }
     }
-    else if(key == "key2")
+    else if (key == "key2")
     {
-      if(!(in >> ComplexIO{iData.key2}))
+      if (!(in >> ComplexIO{iData.key2}))
       {
         in.clear();
         elem.status = false;
         return in;
       }
     }
-    else if(key == "key3")
+    else if (key == "key3")
     {
-      if(!(in >> StringIO{iData.key3}))
+      if (!(in >> StringIO{iData.key3}))
       {
         in.clear();
         elem.status = false;
@@ -160,7 +160,7 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
       return in;
     }
     in >> DelimIO{{":"}};
-    if(!in)
+    if (!in)
     {
       in.clear();
       elem.status = false;
@@ -168,7 +168,7 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
     }
   }
   in >> DelimIO{{")"}};
-  if(!in)
+  if (!in)
   {
     in.clear();
     elem.status = false;
@@ -182,7 +182,7 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
 std::ostream& tretyak::operator<<(std::ostream &op, const tretyak::Data &elem)
 {
   std::ostream::sentry sentry(op);
-  if(!sentry)
+  if (!sentry)
   {
     return op;
   }
