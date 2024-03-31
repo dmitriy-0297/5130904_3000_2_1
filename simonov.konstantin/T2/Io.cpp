@@ -12,7 +12,7 @@ std::istream& simonov::operator>>(std::istream& in, Border&& fence)
   }
 
   std::string input;
-  short i = 0;
+  int i = 0;
   while (i != fence.length_)
   {
     char symbol;
