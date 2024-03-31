@@ -1,23 +1,27 @@
-﻿#include <iostream>
-#include <vector>
-#include <algorithm>
+﻿#include <list>
+#include <iostream>
+#include <limits>
+#include <iterator>
 #include "DataStruct.h"
 #include "Delimiter.h"
 #include "ScopeGuard.h"
 
-int main() {
-  std::vector<DataStruct> data;
-  DataStruct temp;
+int main()
+{
+  using inputItT = std::istream_iterator< DataStruct >;
 
-  while (std::cin >> temp) {
-    data.push_back(temp);
+  std::list< DataStruct > data{};
+
+  while (!std::cin.eof())
+  {
+    std::copy(inputItT{ std::cin }, inputItT{}, std::back_inserter(data));
+    if (!std::cin)
+    {
+      std::cin.clear();
+      std::cin.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
+    }
   }
-
-  std::sort(data.begin(), data.end());
-
-  for (const auto& item : data) {
-    std::cout << item << '\n';
-  }
-
-  return 0;
+  data.sort();
+  using outputItT = std::ostream_iterator< DataStruct >;
+  std::copy(data.cbegin(), data.cend(), outputItT{ std::cout, "\n" });
 }
