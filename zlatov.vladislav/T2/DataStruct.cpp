@@ -19,50 +19,50 @@ bool DataStruct::operator<(const DataStruct& rhs) const
 
 std::istream& operator>>(std::istream& in, DataStruct& data)
 {
-  std::string line;
-  if (std::getline(in, line, ':'))
+  std::istream::sentry guard(in);
+  if (!guard)
   {
-    std::istringstream iss(line);
-    std::string field;
+    return in;
+  }
+  ScopeGuard scopeGuard(in);
+  using delCh = DelimiterChar;
+  using delSt = DelimiterString;
+  using ull = unsigned long long;
 
-    while (std::getline(iss, field, ':'))
+  double key1 = 0.0;
+  ull key2 = 0;
+  std::string key3 = "";
+  const size_t NUMBER_OF_KEYS = 3;
+  char keyNumber = 0;
+
+  in >> delCh{ '(' };
+  for (size_t i = 0; i < NUMBER_OF_KEYS; ++i)
+  {
+    in >> delSt{ ":key" } >> keyNumber;
+    if (keyNumber == '1')
     {
-      std::size_t pos = field.find(' ');
-      if (pos != std::string::npos)
-      {
-        std::string key = field.substr(0, pos);
-        std::string value = field.substr(pos + 1);
-
-        if (key == "key1")
-        {
-          double val;
-          if (value.back() == 'd' || value.back() == 'D')
-          {
-            value.pop_back();
-            std::istringstream(value) >> val;
-            data.key1 = val;
-          }
-        }
-        else if (key == "key2")
-        {
-          unsigned long long val = 0;
-          if (value.substr(0, 2) == "0x" || value.substr(0, 2) == "0X")
-          {
-            std::istringstream(value.substr(2)) >> std::hex >> val;
-            data.key2 = val;
-          }
-        }
-        else if (key == "key3")
-        {
-          if (value.front() == '\"' && value.back() == '\"')
-          {
-            data.key3 = value.substr(1, value.size() - 2);
-          }
-        }
-      }
+      in >> key1 >> delCh{ 'd' };
+    }
+    else if (keyNumber == '2')
+    {
+      ScopeGuard guard(in);
+      in >> delCh{ '0' } >> delCh{ 'x' } >> std::hex >> key2;
+    }
+    else if (keyNumber == '3')
+    {
+      in >> delCh{ '"' };
+      std::getline(in, key3, '"');
+    }
+    else
+    {
+      in.setstate(std::ios::failbit);
     }
   }
-
+  if (in)
+  {
+    data = DataStruct{ key1, key2, key3 };
+  }
+  in >> delSt{ ":)" };
   return in;
 }
 
