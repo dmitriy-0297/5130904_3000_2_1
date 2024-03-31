@@ -29,7 +29,7 @@ std::istream& tretyak::operator>>(std::istream& in, tretyak::DelimIO &&elem)
   bool found = false;
   int tSize = elem.delim[0].size();
   in >> std::setw(tSize) >> del;
-  if(!in)
+  if (!in)
   {
     return in;
   }
