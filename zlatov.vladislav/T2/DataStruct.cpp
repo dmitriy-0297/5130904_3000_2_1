@@ -4,9 +4,12 @@
 #include <sstream>
 #include <iomanip>
 
-bool DataStruct::operator<(const DataStruct& rhs) const {
-  if (key1 == rhs.key1) {
-    if (key2 == rhs.key2) {
+bool DataStruct::operator<(const DataStruct& rhs) const
+{
+  if (key1 == rhs.key1)
+  {
+    if (key2 == rhs.key2)
+    {
       return key3.size() < rhs.key3.size();
     }
     return key2 < rhs.key2;
@@ -14,92 +17,60 @@ bool DataStruct::operator<(const DataStruct& rhs) const {
   return key1 < rhs.key1;
 }
 
-std::istream& operator>>(std::istream& in, DataStruct& data) {
-  ScopeGuard guard(in);
-
+std::istream& operator>>(std::istream& in, DataStruct& data)
+{
   std::string line;
-  if (std::getline(in, line)) {
+  if (std::getline(in, line, ':'))
+  {
     std::istringstream iss(line);
+    std::string field;
 
-    char delimiter = 0;
-    if (!(iss >> DelimiterString{ "(:" } >> delimiter)) {
-      in.setstate(std::ios::failbit);
-      return in;
-    }
+    while (std::getline(iss, field, ':'))
+    {
+      std::size_t pos = field.find(' ');
+      if (pos != std::string::npos)
+      {
+        std::string key = field.substr(0, pos);
+        std::string value = field.substr(pos + 1);
 
-    std::string key;
-    if (!(iss >> key)) {
-      in.setstate(std::ios::failbit);
-      return in;
-    }
-
-    if (key == "key1") {
-      if (!(iss >> data.key1)) {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-    }
-    else if (key == "key2") {
-      unsigned long long temp = 0;
-      if (!(iss >> std::hex >> temp)) {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-      data.key2 = temp;
-    }
-    else if (key == "key3") {
-      if (!(iss >> std::quoted(data.key3))) {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-    }
-    else {
-      in.setstate(std::ios::failbit);
-      return in;
-    }
-
-    while (iss >> key) {
-      if (key == "key1") {
-        if (!(iss >> data.key1)) {
-          in.setstate(std::ios::failbit);
-          return in;
+        if (key == "key1")
+        {
+          double val;
+          if (value.back() == 'd' || value.back() == 'D')
+          {
+            value.pop_back();
+            std::istringstream(value) >> val;
+            data.key1 = val;
+          }
+        }
+        else if (key == "key2")
+        {
+          unsigned long long val = 0;
+          if (value.substr(0, 2) == "0x" || value.substr(0, 2) == "0X")
+          {
+            std::istringstream(value.substr(2)) >> std::hex >> val;
+            data.key2 = val;
+          }
+        }
+        else if (key == "key3")
+        {
+          if (value.front() == '\"' && value.back() == '\"')
+          {
+            data.key3 = value.substr(1, value.size() - 2);
+          }
         }
       }
-      else if (key == "key2") {
-        unsigned long long temp = 0;
-        if (!(iss >> std::hex >> temp)) {
-          in.setstate(std::ios::failbit);
-          return in;
-        }
-        data.key2 = temp;
-      }
-      else if (key == "key3") {
-        if (!(iss >> std::quoted(data.key3))) {
-          in.setstate(std::ios::failbit);
-          return in;
-        }
-      }
-      else {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
     }
-
-    if (!(iss >> DelimiterString{ ":)" })) {
-      in.setstate(std::ios::failbit);
-      return in;
-    }
-  }
-  else {
-    in.setstate(std::ios::failbit);
   }
 
   return in;
 }
 
+
+
 std::ostream& operator<<(std::ostream& out, const DataStruct& data) {
-  out << "(:key1 " << std::fixed << std::setprecision(1) << data.key1 << 'd'
-    << ":key2 " << std::hex << std::uppercase << data.key2
+  out << "(:key1 " << std::fixed << std::setprecision(1) << data.key1 
+    << "d:key2 " << std::hex << std::uppercase << data.key2 
     << ":key3 \"" << data.key3 << "\":)";
   return out;
 }
