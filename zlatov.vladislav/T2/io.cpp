@@ -7,7 +7,7 @@
 
 namespace zlatov {
 
-  DataStruct parseDataStruct(const std::string& input) {
+  bool parseDataStruct(const std::string& input, DataStruct& data) {
     // Переменные для хранения данных
     Key1Type key1;
     Key2Type key2;
@@ -19,7 +19,7 @@ namespace zlatov {
 
     // Проверка наличия скобок
     if (start == std::string::npos || end == std::string::npos) {
-      return {};
+      return false;
     }
 
     // Обрезаем строку до содержимого внутри скобок
@@ -57,7 +57,7 @@ namespace zlatov {
       if (*it == '\'' || *it == '"') { // если строка
         auto closingQuote = std::find(it + 1, content.end(), *it);
         if (closingQuote == content.end()) {
-          return {}; // Если не найдена закрывающая кавычка, игнорируем строку
+          return false; // Если не найдена закрывающая кавычка, игнорируем строку
         }
         fieldValue = std::string(it + 1, closingQuote);
         it = closingQuote + 1;
@@ -79,7 +79,7 @@ namespace zlatov {
         char suffix;
         iss >> key1 >> suffix;
         if (suffix != 'd' && suffix != 'D') {
-          return {}; // Если суффикс не соответствует формату [DBL LIT], игнорируем строку
+          return false; // Если суффикс не соответствует формату [DBL LIT], игнорируем строку
         }
       }
       else if (fieldName == "key2") {
@@ -87,23 +87,27 @@ namespace zlatov {
           size_t pos;
           key2 = std::stoull(fieldValue, &pos, 16);
           if (pos != fieldValue.size()) {
-            return {}; // Если после числа есть лишние символы, игнорируем строку
+            return false; // Если после числа есть лишние символы, игнорируем строку
           }
         }
         catch (...) {
-          return {}; // Если не удалось преобразовать значение, игнорируем строку
+          return false; // Если не удалось преобразовать значение, игнорируем строку
         }
       }
       else if (fieldName == "key3") {
         key3 = fieldValue;
       }
       else {
-        return {}; // Если неизвестное поле, игнорируем строку
+        return false; // Если неизвестное поле, игнорируем строку
       }
     }
 
-    // Создаем и возвращаем структуру DataStruct
-    return { key1, key2, key3 };
+    // Записываем данные в структуру DataStruct
+    data.key1 = key1;
+    data.key2 = key2;
+    data.key3 = key3;
+
+    return true; // Успешно обработана строка
   }
 
   void printDataStruct(const DataStruct& data) {
@@ -130,10 +134,16 @@ namespace zlatov {
     // Считываем данные и заполняем вектор
     std::string input;
     while (std::getline(std::cin, input)) {
-      DataStruct data = parseDataStruct(input);
-      if (!data.key3.empty()) {
+      DataStruct data;
+      if (parseDataStruct(input, data)) {
         dataVector.push_back(data);
       }
+    }
+
+    // Если не найдено ни одной поддерживаемой записи, выводим сообщение и завершаем выполнение
+    if (dataVector.empty()) {
+      std::cerr << "Looks like there is no supported record. Cannot determine input. Test skipped" << std::endl;
+      return;
     }
 
     // Сортируем данные
@@ -144,17 +154,3 @@ namespace zlatov {
   }
 
 } // namespace zlatov
-
-// Перегрузка оператора вывода для структуры DataStruct
-std::ostream& operator<<(std::ostream& os, const zlatov::DataStruct& data) {
-  os << "(:key1 " << std::fixed << std::setprecision(1) << data.key1 << "d"
-    << ":key2 " << std::hex << data.key2 << ":key3 " << data.key3 << ":)";
-  return os;
-}
-
-// Перегрузка оператора ввода для структуры DataStruct
-std::istream& operator>>(std::istream& is, zlatov::DataStruct& data) {
-  // Пример реализации оператора ввода
-  is >> data.key1 >> data.key2 >> data.key3;
-  return is;
-}
