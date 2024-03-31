@@ -1,8 +1,7 @@
 #include "DataStruct.h"
+#include <iomanip>
 #include "Delimiter.h"
 #include "ScopeGuard.h"
-#include <sstream>
-#include <iomanip>
 
 bool DataStruct::operator<(const DataStruct& rhs) const
 {
@@ -66,9 +65,17 @@ std::istream& operator>>(std::istream& in, DataStruct& data)
   return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const DataStruct& data) {
-  out << "(:key1 " << std::fixed << std::setprecision(1) << data.key1 
-    << "d:key2 " << std::hex << std::uppercase << data.key2 
-    << ":key3 \"" << data.key3 << "\":)";
+std::ostream& operator<<(std::ostream& out, const DataStruct& data)
+{
+  std::ostream::sentry guard(out);
+  if (!guard)
+  {
+    return out;
+  }
+  ScopeGuard scopeGuard(out);
+
+  out << std::fixed << std::setprecision(1) << "(:key1 " << data.key1 << "d";
+  out << std::hex << std::uppercase << ":key2 " << "0x" << data.key2;
+  out << ":key3 \"" << data.key3 << "\":)";
   return out;
-}
+};
