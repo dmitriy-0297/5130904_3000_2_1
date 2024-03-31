@@ -18,7 +18,8 @@ namespace zlatov {
   };
 
   // Функция для разбора строки и заполнения структуры DataStruct
-  DataStruct parseDataStruct(const std::string& input);
+  // Возвращает true, если строка была успешно обработана, иначе false
+  bool parseDataStruct(const std::string& input, DataStruct& data);
 
   // Функция для вывода структуры DataStruct
   void printDataStruct(const DataStruct& data);
@@ -30,11 +31,5 @@ namespace zlatov {
   void processData();
 
 } // namespace zlatov
-
-// Перегрузка оператора вывода для структуры DataStruct
-std::ostream& operator<<(std::ostream& os, const zlatov::DataStruct& data);
-
-// Перегрузка оператора ввода для структуры DataStruct
-std::istream& operator>>(std::istream& is, zlatov::DataStruct& data);
 
 #endif // IO_H
