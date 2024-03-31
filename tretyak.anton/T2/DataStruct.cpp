@@ -109,15 +109,12 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
   {
     return in;
   }
-  std::streampos save = in.tellg();
   Data iData;
   in >> DelimIO{{"(:"}};
   if(!in)
   {
     in.clear();
     elem.status = false;
-    in.seekg(save);
-    in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return in;
   }
   for(int i = 0; i < 3; i++)
@@ -127,8 +124,6 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
     {
       in.clear();
       elem.status = false;
-      in.seekg(save);
-      in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       return in;
     }
     if(key == "key1")
@@ -137,8 +132,6 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
       {
         in.clear();
         elem.status = false;
-        in.seekg(save);
-        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return in;
       }
     }
@@ -148,8 +141,6 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
       {
         in.clear();
         elem.status = false;
-        in.seekg(save);
-        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return in;
       }
     }
@@ -159,8 +150,6 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
       {
         in.clear();
         elem.status = false;
-        in.seekg(save);
-        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return in;
       }
     }
@@ -168,8 +157,6 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
     {
       in.clear();
       elem.status = false;
-      in.seekg(save);
-      in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       return in;
     }
     in >> DelimIO{{":"}};
@@ -177,8 +164,6 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
     {
       in.clear();
       elem.status = false;
-      in.seekg(save);
-      in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       return in;
     }
   }
@@ -187,8 +172,6 @@ std::istream& tretyak::operator>>(std::istream &in, tretyak::Data &elem)
   {
     in.clear();
     elem.status = false;
-    in.seekg(save);
-    in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return in;
   }
   elem = iData;
@@ -206,7 +189,7 @@ std::ostream& tretyak::operator<<(std::ostream &op, const tretyak::Data &elem)
   ResourceGard rGard(op);
 
   op << "(:key1 " << std::uppercase << std::hex << "0x" << elem.key1 <<
-        ":key2 " << "#e(" << elem.key2.real() << " " << elem.key2.imag() << ")" <<
+        ":key2 " << "#c(" << elem.key2.real() << " " << elem.key2.imag() << ")" <<
         ":key3 \"" << elem.key3 << "\":)";
   return op;
 }
