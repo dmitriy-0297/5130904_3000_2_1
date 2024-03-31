@@ -34,7 +34,8 @@ int main()
     }
   );
 
-  std::sort(myVector.begin(), myVector.end(), [](const Data& data1, const Data& data2)
+  std::sort(myVector.begin(), myVector.end(),
+    [](const Data& data1, const Data& data2)
     {
       if (data1.key1 == data2.key1)
       {
