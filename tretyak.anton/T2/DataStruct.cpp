@@ -188,25 +188,9 @@ std::ostream& tretyak::operator<<(std::ostream &op, const tretyak::Data &elem)
   }
   ResourceGard rGard(op);
 
-  if(std::abs(elem.key2.real() - std::round(elem.key2.real())) < 1e-9)
-  {
-    if(std::abs(elem.key2.imag() - std::round(elem.key2.imag())) < 1e-9)
-    {
-      op << "(:key1 " << std::uppercase << std::hex << "0x" << elem.key1 <<
-            ":key2 " << "#c(" << std::round(elem.key2.real()) << " " << std::round(elem.key2.imag()) << ")" <<
-            ":key3 \"" << elem.key3 << "\":)";
-      return op;
-    }
-    op << "(:key1 " << std::uppercase << std::hex << "0x" << elem.key1 <<
-            ":key2 " << "#c(" << std::round(elem.key2.real()) << " " << elem.key2.imag() << ")" <<
-            ":key3 \"" << elem.key3 << "\":)";
-      return op;
-  }
-  else
-  {
-    op << "(:key1 " << std::uppercase << std::hex << "0x" << elem.key1 <<
-            ":key2 " << "#c(" << elem.key2.real() << " " << elem.key2.imag() << ")" <<
-            ":key3 \"" << elem.key3 << "\":)";
-      return op;
-  }
+  op << "(:key1 " << std::uppercase << std::hex << "0x" << elem.key1 <<
+        ":key2 " << "#c(" << std::fixed << std::setprecision(1) << elem.key2.real() << " " << 
+         std::fixed << std::setprecision(1) << elem.key2.imag() << ")" <<
+        ":key3 \"" << elem.key3 << "\":)";
+  return op;
 }
