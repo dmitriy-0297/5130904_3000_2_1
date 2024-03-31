@@ -23,97 +23,45 @@ std::istream& operator>>(std::istream& in, DataStruct& data)
   {
     return in;
   }
+  ScopeGuard scopeGuard(in);
+  using delCh = DelimiterChar;
+  using delSt = DelimiterString;
+  using ull = unsigned long long;
 
   double key1 = 0.0;
-  unsigned long long key2 = 0;
-  std::string key3;
+  ull key2 = 0;
+  std::string key3 = "";
+  const size_t NUMBER_OF_KEYS = 3;
+  char keyNumber = 0;
 
-  char c = 0;
-  std::string temp;
-
-  // Проверяем открывающуюся скобку
-  if (!(in >> c) || c != '(')
+  in >> delCh{ '(' };
+  for (size_t i = 0; i < NUMBER_OF_KEYS; ++i)
   {
-    in.setstate(std::ios::failbit);
-    return in;
-  }
-
-  int key_count = 0;
-  while (key_count < 3)
-  {
-    // Читаем имя ключа
-    if (!(in >> temp) || temp != ":key")
+    in >> delSt{ ":key" } >> keyNumber;
+    if (keyNumber == '1')
     {
-      in.setstate(std::ios::failbit);
-      return in;
+      in >> key1 >> delCh{ 'd' };
     }
-
-    // Читаем номер ключа
-    if (!(in >> c) || (c < '1' || c > '3'))
+    else if (keyNumber == '2')
     {
-      in.setstate(std::ios::failbit);
-      return in;
+      ScopeGuard guard(in);
+      in >> delCh{ '0' } >> delCh{ 'x' } >> std::hex >> key2;
     }
-
-    switch (c)
+    else if (keyNumber == '3')
     {
-    case '1':
-      if (!(in >> key1))
-      {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-
-      // Проверяем суффикс d или D
-      if (!(in >> temp) || (temp != "d" && temp != "D"))
-      {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-      break;
-
-    case '2':
-      if (!(in >> std::hex >> temp) || (temp.size() < 2 || temp.substr(0, 2) != "0x"))
-      {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-
-      // Преобразуем шестнадцатеричное значение в беззнаковое long long
-      try
-      {
-        key2 = std::stoull(temp.substr(2), nullptr, 16);
-      }
-      catch (const std::exception&)
-      {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-      break;
-
-    case '3':
-      if (!(in >> c) || c != '"')
-      {
-        in.setstate(std::ios::failbit);
-        return in;
-      }
-
-      // Читаем строку в кавычках
+      in >> delCh{ '"' };
       std::getline(in, key3, '"');
-      break;
     }
-
-    ++key_count;
+    else
+    {
+      in.setstate(std::ios::failbit);
+    }
   }
-
-  // Проверяем закрывающуюся скобку
-  if (!(in >> c) || c != ')')
+  if (in)
   {
-    in.setstate(std::ios::failbit);
-    return in;
+    data = DataStruct{ key1, key2, key3 };
   }
-
-  data = DataStruct{ key1, key2, key3 };
+  in >> delSt{ ":)" };
   return in;
 }
 
