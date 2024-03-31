@@ -1,4 +1,7 @@
 #include "Io.h"
+#include <string>
+#include <limits>
+#include <iterator>
 
 std::istream& simonov::operator>>(std::istream& in, Border&& fence)
 {
