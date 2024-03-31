@@ -25,4 +25,3 @@ std::istream& operator>>(std::istream& in, DelimiterString&& exp)
   }
   return in;
 }
-
