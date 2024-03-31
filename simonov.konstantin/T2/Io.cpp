@@ -23,7 +23,7 @@ std::istream& simonov::operator>>(std::istream& in, Border&& fence)
   }
 
   bool allGood = false;
-  for (int j = 0; j < fence.borders.size(); j++)
+  for (size_t j = 0; j < fence.borders.size(); j++)
   {
     if (input == fence.borders[j])
     {
