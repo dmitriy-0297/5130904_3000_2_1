@@ -22,6 +22,11 @@ std::istream& simonov::operator>>(std::istream& in, Border&& fence)
     i++;
   }
 
+  if (!in)
+{
+  return in;
+}
+
   bool allGood = false;
   for (size_t j = 0; j < fence.borders.size(); j++)
   {
@@ -64,6 +69,7 @@ std::istream& simonov::operator>>(std::istream& in, ULLLit&& lit)
 std::istream& simonov::operator>>(std::istream& in, ULLOct&& oct)
 {
   std::istream::sentry sentry(in);
+  StreamGuard guard(in);
   if (!sentry)
   {
     return in;
