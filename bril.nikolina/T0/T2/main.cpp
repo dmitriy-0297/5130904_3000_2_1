@@ -113,8 +113,7 @@ namespace nspace
         }
         return in >> DelimiterIO{ '(' } >> DelimiterIO{ ':' } >> DelimiterIO{ 'N' }
             >> dest.ref.first >> DelimiterIO{ ':' }
-            >> DelimiterIO{ 'D' } >> dest.ref.second 
+            >> DelimiterIO{ 'D' } >> dest.ref.second
             >> DelimiterIO{ ':' } >> DelimiterIO{ ')' };
     }
 } 
-
