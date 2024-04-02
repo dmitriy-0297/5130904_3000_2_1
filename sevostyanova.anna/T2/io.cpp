@@ -7,20 +7,22 @@ std::istringstream & sevostyanova::operator >>(std::istringstream &input, sevost
   ds.key1_ = stoull(str);
   std::getline(input, str, ' ');
   ds.key2_ = stoull(str);
+  ds.lenkey2_ = str.length();
   std::getline(input, ds.key3_);
   return input;
 };
 
 std::ostream & sevostyanova::operator <<(std::ostream &out, const sevostyanova::Data &ds)
 {
-  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << std::bitset<1>{ds.key2_} << ":key3 " << ds.key3_ << ":)" << std::endl;
+  std::string key = std::bitset<8>(ds.key2_).to_string().substr(8 - ds.lenkey2_);
+  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << key<<" "<< ds.key3_ << ":)" << std::endl;
   return out;
 };
 
 std::pair<std::string, std::string> sevostyanova::getPair(std::string &str)
 {
-  size_t length = str.length() - str.substr(0, str.find(" ")).length() - 1;//find the length of second substring
-  return std::make_pair(str.substr(0, str.find(" ")), str.substr(str.find(" ") + 1, length));
+  size_t length = str.length() - str.substr(0, str.find_first_of(" ")).length() - 1;//find the length of second substring
+  return std::make_pair(str.substr(0, str.find_first_of(" ")), str.substr(str.find_first_of(" ") + 1, length));
 }
 
 bool sevostyanova::isULLLIFT(const std::string &str)
@@ -52,8 +54,15 @@ bool sevostyanova::isCorrectTypes(std::string &input)
   while (input.find(':') != std::string::npos)
   {
     input.erase(0, input.find_first_of(':') + 1);//remove first ':' in each substring
-    std::string str = input.substr(0, input.find(':'));
-    input.erase(0, str.length());
+    std::string str = "";
+    std::regex regular("key3 \"[a-zA-z ]*:[a-zA-z ]*\"");
+    if (!std::regex_match(input, regular))
+    {
+      str = input.substr(0, input.find(':'));
+      input.erase(0, str.length());
+    }
+    else
+      str = input;
 
     if (getPair(str).first == "key1" && !isULLLIFT(getPair(str).second))
       return false;
@@ -69,7 +78,7 @@ bool sevostyanova::isCorrectTypes(std::string &input)
     {
       std::string str1 = getPair(str).second;
       str1.erase(0, str1.find('b') + 1);
-      result[1] = std::to_string(stoull(str1, nullptr, 2));
+      result[1] = (str1);
     }
     if (getPair(str).first == "key3")
       result[2] = getPair(str).second;

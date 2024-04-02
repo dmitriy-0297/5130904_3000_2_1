@@ -15,6 +15,7 @@ namespace sevostyanova
     unsigned long long key1_;
     unsigned long long key2_;
     std::string key3_;
+    size_t lenkey2_;
   };
   std::pair<std::string, std::string> getPair(std::string &str);
   bool isULLLIFT(const std::string &str);
