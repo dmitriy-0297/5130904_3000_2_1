@@ -6,7 +6,6 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
-
 namespace nspace {
     struct DataStruct {
         char key1;
@@ -73,7 +72,6 @@ int main() {
     );
     return 0;
 }
-
 namespace nspace
 {
     std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
