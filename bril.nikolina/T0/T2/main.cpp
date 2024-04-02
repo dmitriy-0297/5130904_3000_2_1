@@ -14,9 +14,7 @@ namespace nspace
         std::pair<long long, unsigned long long> key2;
         std::string key3;
     };
-
-    // формат ввода:
-    // { "key1": 1.0d, "key2": "Let madness release you" }
+    
     struct DelimiterIO
     {
         char exp;
@@ -24,7 +22,7 @@ namespace nspace
 
     struct Raitional
     {
-        std::pair<long long, unsigned long long>& ref;
+        std::pair<long long, unsigned long long>& ref; 
     };
 
 
@@ -33,7 +31,6 @@ namespace nspace
         std::string& ref;
     };
 
-    // scope guard для возврата состояния потока в первоначальное состояние
     class iofmtguard
     {
     public:
@@ -114,7 +111,10 @@ namespace nspace
         {
             return in;
         }
-        return in >> DelimiterIO{ '(' } >> DelimiterIO{ ':' } >> DelimiterIO{ 'N' } >> dest.ref.first >> DelimiterIO{ ':' } >> DelimiterIO{ 'D' } >> dest.ref.second
+        return in >> DelimiterIO{ '(' } >> DelimiterIO{ ':' } >> DelimiterIO{ 'N' }
+            >> dest.ref.first >> DelimiterIO{ ':' }
+            >> DelimiterIO{ 'D' } >> dest.ref.second 
             >> DelimiterIO{ ':' } >> DelimiterIO{ ')' };
     }
 } 
+
