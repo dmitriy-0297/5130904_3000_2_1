@@ -19,7 +19,7 @@ int main(void)
     }
   }
   std::sort(vc.begin(), vc.end(),
-  [](const sevostyanova::Data& el1, const sevostyanova::Data& el2)
+  [](const sevostyanova::Data &el1, const sevostyanova::Data &el2)
   {
     if (el1.key1_ == el2.key1_)
     {
