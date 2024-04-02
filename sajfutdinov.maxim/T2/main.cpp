@@ -142,7 +142,6 @@ std::istream &operator>>(std::istream &in, StringIO &&dest)
 std::istream &operator>>(std::istream &in, DataStruct &dest)
 {
   using delimiter = DelimiterIO;
-  using key = StringIO;
   in >> delimiter{ '(' };
 
   while (true)
