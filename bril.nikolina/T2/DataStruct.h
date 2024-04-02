@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -7,7 +6,6 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
-
 namespace nspace {
     struct DataStruct {
         char key1;

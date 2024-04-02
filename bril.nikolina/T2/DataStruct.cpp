@@ -1,6 +1,5 @@
 #include "DataStruct.h"
 
-
 namespace nspace
 {
     std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
