@@ -1,6 +1,5 @@
-﻿#include"io.h"
-#include<vector>
-
+﻿#include "io.h"
+#include <vector>
 
 int main(void)
 {

@@ -13,13 +13,13 @@ std::istringstream& sevostyanova::operator>>(std::istringstream& input, Data& ds
 
 std::ostream& sevostyanova::operator<<(std::ostream& out, const Data& ds)
 {
-  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << std::bitset<8>{ds.key2_} << ":key3 " << ds.key3_ << ":)" << std::endl;;
+  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << std::bitset<8>{ds.key2_} << ":key3 " << ds.key3_ << ":)" << std::endl;
   return out;
 };
 
 std::pair<std::string, std::string> sevostyanova::getPair(std::string& str)
 {
-  size_t length = str.length() - str.substr(0, str.find(" ")).length() - 1;//find the length of second substring 
+  size_t length = str.length() - str.substr(0, str.find(" ")).length() - 1;//find the length of second substring
   return std::make_pair(str.substr(0, str.find(" ")), str.substr(str.find(" ") + 1, length));
 }
 
@@ -62,7 +62,7 @@ bool sevostyanova::isCorrectTypes(std::string& input)
     if (getPair(str).first == "key3" && !isString(getPair(str).second))
       return false;
 
-    //put keys in order as in the struct data 
+    //put keys in order as in the struct data
     if (getPair(str).first == "key1")
       result[0] = getPair(str).second;
     if (getPair(str).first == "key2")
