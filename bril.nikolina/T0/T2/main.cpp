@@ -1,4 +1,5 @@
-﻿#include <iostream>
+﻿cpp
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <cassert>
@@ -6,6 +7,7 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+
 namespace nspace {
     struct DataStruct {
         char key1;
@@ -18,7 +20,7 @@ namespace nspace {
     };
     struct Raitional
     {
-        std::pair<long long, unsigned long long>& ref; 
+        std::pair<long long, unsigned long long>& ref;
     };
     struct StringIO
     {
@@ -72,6 +74,7 @@ int main() {
     );
     return 0;
 }
+
 namespace nspace
 {
     std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
@@ -102,4 +105,4 @@ namespace nspace
             >> DelimiterIO{ 'D' } >> dest.ref.second
             >> DelimiterIO{ ':' } >> DelimiterIO{ ')' };
     }
-} 
+}
