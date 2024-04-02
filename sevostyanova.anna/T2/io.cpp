@@ -15,7 +15,7 @@ std::istringstream & sevostyanova::operator >>(std::istringstream &input, sevost
 std::ostream & sevostyanova::operator <<(std::ostream &out, const sevostyanova::Data &ds)
 {
   std::string key = std::bitset<8>(ds.key2_).to_string().substr(8 - ds.lenkey2_);
-  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << key<<" "<< ds.key3_ << ":)" << std::endl;
+  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << key<<":key3 "<< ds.key3_ << ":)" << std::endl;
   return out;
 };
 
