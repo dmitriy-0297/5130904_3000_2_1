@@ -31,8 +31,7 @@ namespace nspace
         std::string& ref;
     };
 
-    class iofmtguard
-    {
+    class iofmtguard {
     public:
         iofmtguard(std::basic_ios< char >& s);
         ~iofmtguard();
@@ -49,10 +48,7 @@ namespace nspace
     std::istream& operator>>(std::istream& in, DataStruct& dest);
     std::ostream& operator<<(std::ostream& out, const DataStruct& dest);
 }
-
-int main()
-{
-
+int main() {
     using nspace::DataStruct;
     std::vector< DataStruct > data;
     while (std::cin.good())
@@ -103,7 +99,6 @@ namespace nspace
         }
         return in;
     }
-
     std::istream& operator>>(std::istream& in, Raitional&& dest)
     {
         std::istream::sentry sentry(in);
