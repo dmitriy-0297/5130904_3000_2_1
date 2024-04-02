@@ -13,7 +13,7 @@ std::istringstream & sevostyanova::operator >>(std::istringstream &input, sevost
 
 std::ostream & sevostyanova::operator <<(std::ostream &out, const sevostyanova::Data &ds)
 {
-  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << std::bitset<8>{ds.key2_} << ":key3 " << ds.key3_ << ":)" << std::endl;
+  out << "(:key1 " << ds.key1_ << "ull" << ":key2 " << "0b" << std::bitset<1>{ds.key2_} << ":key3 " << ds.key3_ << ":)" << std::endl;
   return out;
 };
 
