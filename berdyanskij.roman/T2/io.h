@@ -6,13 +6,13 @@
 #include <string>
 
 namespace berdyanskiy {
-	struct DataStruct {
-		double key1; // DBL SCI
-		long long key2; // SLL LIT
-		std::string key3;
-	};
+  struct DataStruct {
+    double key1; // DBL SCI
+    long long key2; // SLL LIT
+    std::string key3;
+  };
 
-	std::istream& operator>>(std::istream& is, DataStruct& ds);
-	std::ostream& operator<<(std::ostream& os, const DataStruct& ds);
+  std::istream& operator>>(std::istream& is, DataStruct& ds);
+  std::ostream& operator<<(std::ostream& os, const DataStruct& ds);
 }
 #endif // IO_H
