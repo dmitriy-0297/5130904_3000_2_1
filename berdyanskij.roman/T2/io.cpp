@@ -4,8 +4,8 @@
 
 #include "io.h"
 
-namespace berdyanskiy {
-  std::istream& berdyanskiy::operator>>(std::istream& is, berdyanskiy::DataStruct& ds) {
+namespace berdyanskij {
+  std::istream& berdyanskij::operator>>(std::istream& is, berdyanskij::DataStruct& ds) {
     std::string line;
     if (std::getline(is, line, '(') && std::getline(is, line, ')')) {
       std::istringstream iss(line);
@@ -33,7 +33,7 @@ namespace berdyanskiy {
   return is;
   }
 
-  std::ostream& berdyanskiy::operator<<(std::ostream& os, const berdyanskiy::DataStruct& ds) {
+  std::ostream& berdyanskij::operator<<(std::ostream& os, const berdyanskij::DataStruct& ds) {
     os << "(:key1 " << std::scientific << std::nouppercase << ds.key1
       << ":key2 " << ds.key2 << ":key3 \"" << ds.key3 << "\":)";
     return os;

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 
-namespace berdyanskiy {
+namespace berdyanskij {
   struct DataStruct {
     double key1; // DBL SCI
     long long key2; // SLL LIT

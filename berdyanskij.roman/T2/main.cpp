@@ -4,7 +4,7 @@
 
 #include "io.h"
 
-using namespace berdyanskiy;
+using namespace berdyanskij;
 
 int main() {
   std::vector<DataStruct> data;
