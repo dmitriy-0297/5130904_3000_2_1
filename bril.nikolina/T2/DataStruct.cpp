@@ -13,7 +13,6 @@ namespace nspace
         in >> c;
         if (in && (c != dest.exp))
         {
-            std::cerr << char(dest.exp);
             in.setstate(std::ios::failbit);
         }
         return in;
