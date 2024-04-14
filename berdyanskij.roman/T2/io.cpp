@@ -86,7 +86,7 @@ std::ostream& berdyanskij::operator<<(std::ostream& out, const berdyanskij::Data
         return out;
     }
     iofmtguard fmtguard(out);
-    out << "(:key1 " << get_scientific(ds.key1) << ":key2 " << ds.key2 << ":key3 \"" << ds.key3 << "\":)";
+    out << "(:key1 " << get_scientific(ds.key1) << ":key2 " << ds.key2 << "ll" << ":key3 \"" << ds.key3 << "\":)";
     return out;
 }
 
