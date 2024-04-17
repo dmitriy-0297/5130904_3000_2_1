@@ -17,6 +17,5 @@ namespace panchenko {
     std::istream& operator>>(std::istream& is, DataStruct& data);
     bool compareDataStruct(const DataStruct& a, const DataStruct& b);
     std::ostream& operator<<(std::ostream& os, const DataStruct& data);
-    int decToBin(int num);
 }
 #endif // DATASTRUCT_H
