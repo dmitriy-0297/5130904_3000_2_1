@@ -5,7 +5,7 @@
 namespace panchenko {
     struct DataStruct
 	{
-		unsigned long long key1;
+	    unsigned long long key1;
 		unsigned long long key2;
 		std::string key3;
 		DataStruct() : key1(0), key2(0), key3("") {}
