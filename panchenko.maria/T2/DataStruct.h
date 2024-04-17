@@ -10,8 +10,9 @@ namespace panchenko {
         unsigned long long key1;
         unsigned long long key2;
         std::string key3;
+        std::string key2Bin;
 
-        DataStruct() : key1(0), key2(0), key3("") {}
+        DataStruct() : key1(0), key2(0), key3(""), key2Bin("") {}
     };
 
     std::istream& operator>>(std::istream& is, DataStruct& data);
