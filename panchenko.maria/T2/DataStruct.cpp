@@ -117,4 +117,3 @@ std::ostream& panchenko::operator<<(std::ostream& out, const DataStruct& data)
     out << ":key3 " << '"' << data.key3 << '"' << ":)";
     return out;
 }
-
