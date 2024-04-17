@@ -46,6 +46,7 @@ std::istream& panchenko::operator>>(std::istream& in, DataStruct& data)
             else if (std::regex_search(line, match, key2Pattern))
             {
                 std::string binStr = match[1];
+                data.key2Bin = binStr;
                 unsigned long long num = std::stoull(binStr, nullptr, 2);
                 data.key2 = num;
                 keyFound[1] = true;
@@ -79,20 +80,6 @@ std::istream& panchenko::operator>>(std::istream& in, DataStruct& data)
     }
 
     return in;
-}
-
-int panchenko::decToBin(int num)
-{
-    int bin = 0, k = 1;
-
-    while (num)
-    {
-        bin += (num % 2) * k;
-        k *= 10;
-        num /= 2;
-    }
-
-    return bin;
 }
 
 bool panchenko::compareDataStruct(const DataStruct& a, const DataStruct& b) {
