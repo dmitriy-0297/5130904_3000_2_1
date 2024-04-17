@@ -31,8 +31,8 @@ std::istream& panchenko::operator>>(std::istream& in, DataStruct& data)
 
         std::vector<bool> keyFound(3, false);
 
-        while (std::regex_search(line, match, key1Pattern) || 
-               std::regex_search(line, match, key2Pattern) || 
+        while (std::regex_search(line, match, key1Pattern) ||
+               std::regex_search(line, match, key2Pattern) ||
                std::regex_search(line, match, key3Pattern))
         {
             if (std::regex_search(line, match, key1Pattern))
