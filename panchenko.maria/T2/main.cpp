@@ -9,8 +9,8 @@ int main() {
     panchenko::DataStruct data;
     while ((std::cin >> data) || (!std::cin.eof() && std::cin.fail())) {
         if (std::cin.fail()) {
-            std::cin.clear(); 
-            continue; 
+            std::cin.clear();
+            continue;
         }
         dataVector.push_back(data);
     }
