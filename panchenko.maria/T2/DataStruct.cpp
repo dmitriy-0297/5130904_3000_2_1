@@ -102,7 +102,7 @@ std::ostream& panchenko::operator<<(std::ostream& out, const DataStruct& data)
         return out;
     }
     out << "(:key1 " << data.key1 << "ull";
-    out << ":key2 " << "0b" << decToBin(data.key2);
+    out << ":key2 " << "0b" << data.key2Bin;
     out << ":key3 " << '"' << data.key3 << '"' << ":)";
     return out;
 }
