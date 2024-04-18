@@ -216,6 +216,19 @@ int main( int argC, char *argV[] )
 
     std::cin >> trg;
 
+    // Final check (kind of kostyl, but sorry)
+    int ch = std::cin.get();
+
+    while (ch != int('\n') && ch != EOF)
+    {
+      if (!isspace(ch))
+      {
+        std::cin.setstate(std::istream::failbit);
+        break;
+      }
+      ch = std::cin.get();
+    }
+
     if (data.size() == 0)
       throw "<INVALID COMMAND>";
 
@@ -224,7 +237,6 @@ int main( int argC, char *argV[] )
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       throw "<INVALID COMMAND>";
     }
 
@@ -247,10 +259,22 @@ int main( int argC, char *argV[] )
     Polygon trg;
 
     std::cin >> trg;
+
+    int ch = std::cin.get();
+
+    while (ch != int('\n') && ch != EOF)
+    {
+      if (!isspace(ch))
+      {
+        std::cin.setstate(std::istream::failbit);
+        break;
+      }
+      ch = std::cin.get();
+    }
+
     if (!std::cin)
     {
       std::cin.clear();
-      std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       throw "<INVALID COMMAND>";
     }
 
