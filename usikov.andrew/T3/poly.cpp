@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <numeric>
 #include <cmath>
+#include <set>
 
 #include "poly.h"
 
@@ -27,9 +28,9 @@ bool usikov::Polygon::operator <( const Polygon &other ) const
   return area() < other.area();
 }
 
-bool usikov::Segment::isIntersect( const Segment &other ) const
+bool usikov::Segment::isIntersect( const Segment &other, std::pair<double, double> *intr = nullptr ) const
 {
-  int
+  double
     a11 = end.x - start.x,
     a12 = other.start.x - other.end.x,
     a21 = end.y - start.y,
@@ -40,11 +41,15 @@ bool usikov::Segment::isIntersect( const Segment &other ) const
   if (a11 == 0 || a11 * a22 - a21 * a12 == 0)
     return false;
 
-  double t2 = double(dy * a11 - dx * a21) / (a11 * a22 - a21 * a12);
-  double t1 = double(dx - a12 * t2) / a11;
+  double t2 = (dy * a11 - dx * a21) / (a11 * a22 - a21 * a12);
+  double t1 = (dx - a12 * t2) / a11;
 
   if (t1 < 0 || t2 < 0 || t1 > 1 || t2 > 1)
     return false;
+
+  if (intr != nullptr)
+    *intr = std::make_pair(double(start.x) + (end.x - start.x) * t1,
+                           double(start.y) + (end.y - start.y) * t1);
 
   return true;
 }
@@ -90,25 +95,40 @@ bool usikov::Polygon::contains( const Point &pnt ) const
 
   std::transform(points.begin(), points.end(),
                  xArr.begin(), []( const Point &pnt ){ return pnt.x; });
-  std::transform(points.begin(), points.end(),
-                 yArr.begin(), []( const Point &pnt ){ return pnt.y; });
 
   int maxX = *std::max_element(xArr.begin(), xArr.end());
-  int maxY = *std::max_element(yArr.begin(), yArr.end());
 
-  Point outOfBounds = {maxX + 3, maxY + 3};
+  Point outOfBounds = {maxX + 3, pnt.y};
   Segment ray = {pnt, outOfBounds};
   auto sgmtPool = createSegmentPool();
 
-  auto countIntr = [&ray]
-  ( int ac, const Segment &sgmt )
+  std::vector<std::pair<double, double>> intrPoints(points.size());
+
+  auto addPoint = [&ray]
+  ( const Segment &sgmt )
   {
-    return ac + sgmt.isIntersect(ray);
+    std::pair<double, double> res;
+
+    if (sgmt.isIntersect(ray, &res))
+      return res;
+    return std::make_pair((double)NAN, (double)NAN);
   };
 
-  int res = std::accumulate(sgmtPool.begin(), sgmtPool.end(), 0, countIntr);
+  auto removeCond = []
+  ( const std::pair<double, double> &p )
+  {
+    return std::isnan(p.first) || std::isnan(p.second);
+  };
 
-  return res & 1;
+  std::transform(sgmtPool.begin(), sgmtPool.end(), intrPoints.begin(), addPoint);
+  auto ri = std::remove_if(intrPoints.begin(), intrPoints.end(), removeCond);
+
+  intrPoints.erase(ri, intrPoints.end());
+  std::sort(intrPoints.begin(), intrPoints.end());
+  auto last = std::unique(intrPoints.begin(), intrPoints.end());
+  intrPoints.erase(last, intrPoints.end());
+
+  return intrPoints.size() & 1;
 }
 
 bool usikov::Polygon::isIntersect( const Polygon &other ) const

@@ -24,7 +24,7 @@ namespace usikov
   {
     Point start, end;
 
-    bool isIntersect( const Segment &other ) const;
+    bool isIntersect( const Segment &other, std::pair<double, double> *intr ) const;
   };
 
   struct Polygon
