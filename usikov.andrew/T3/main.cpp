@@ -270,6 +270,7 @@ int main( int argC, char *argV[] )
       catch ( const char *err )
       {
         std::cout << err << std::endl;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
     }
 
