@@ -121,13 +121,15 @@ int main( int argC, char *argV[] )
 
     std::cin >> arg;
 
+    if (data.size() == 0)
+      throw "<INVALID COMMAND>";
+
     std::vector<size_t> sizeVec(data.size());
 
     std::transform(data.begin(), data.end(), sizeVec.begin(),
                    []( const Polygon &poly ) { return poly.points.size(); });
     auto poly = std::min_element(data.begin(), data.end());
     auto minSize = std::min_element(sizeVec.begin(), sizeVec.end());
-
 
     if (arg == "AREA")
       std::cout << poly->area() << std::endl;
@@ -143,6 +145,9 @@ int main( int argC, char *argV[] )
     std::string arg;
 
     std::cin >> arg;
+
+    if (data.size() == 0)
+      throw "<INVALID COMMAND>";
 
     std::vector<size_t> sizeVec(data.size());
 
