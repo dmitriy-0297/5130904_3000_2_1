@@ -14,17 +14,14 @@ using namespace std::placeholders;
 
 int main( int argC, char *argV[] )
 {
-  if (argC != 1 && argC != 2) // temp, need argc 2 only
+  if (argC != 2)
   {
     std::cerr << "Incorrect usage!" << std::endl;
     std::cout << "Usage: T02POLY <filename>" << std::endl;
     return EXIT_FAILURE;
   }
 
-  std::string fileName = "a.txt";
-
-  if (argC == 2) // also temp, don't need to if
-    fileName = argV[1];
+  std::string fileName = argV[1];
 
   std::ifstream file(fileName);
 
