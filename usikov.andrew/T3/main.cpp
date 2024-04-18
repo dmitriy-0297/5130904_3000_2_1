@@ -102,7 +102,7 @@ int main( int argC, char *argV[] )
     }
     else if (num > 0)
     {
-      std::cout << std::accumulate(data.begin(), data.end(), 0.0, 
+      std::cout << std::accumulate(data.begin(), data.end(), 0.0,
                    std::bind(cntFunc, _1, _2, 0x7FFFFFFF, num)) << std::endl;
     }
     else
