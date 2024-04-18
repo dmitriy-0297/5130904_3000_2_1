@@ -1,5 +1,6 @@
 #include <functional>
 #include <algorithm>
+#include <iterator>
 #include <iomanip>
 #include <numeric>
 #include <fstream>
@@ -46,7 +47,6 @@ int main( int argC, char *argV[] )
     }
   }
 
-#pragma region Lambdas
   auto ifInputNumber = []
   ( const std::string &str )
   {
@@ -73,7 +73,7 @@ int main( int argC, char *argV[] )
     {
       double res = ac;
 
-      if (el.points.size() % div == rest || rest == -1)
+      if (el.points.size() % div == (size_t)rest || rest == -1)
         res += el.area();
       return res;
     };
@@ -155,7 +155,7 @@ int main( int argC, char *argV[] )
     auto cntFunc = [num]
     ( int ac, const Polygon &el, int div, int rest )
     {
-      if (el.points.size() % div == rest || rest == -1)
+      if (el.points.size() % div == (size_t)rest || rest == -1)
         ac++;
       return ac;
     };
@@ -241,7 +241,6 @@ int main( int argC, char *argV[] )
 
     std::cout << std::accumulate(data.begin(), data.end(), 0, cntFunc) << std::endl;
   };
-#pragma endregion
 
   try
   {

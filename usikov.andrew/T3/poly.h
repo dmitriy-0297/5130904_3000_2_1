@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __POLY_H_
+#define __POLY_H_
 
 #include <iostream>
 #include <vector>
@@ -55,3 +56,4 @@ namespace usikov
   std::ostream & operator <<( std::ostream &stream, const Point &pnt );
   std::ostream & operator <<( std::ostream &stream, const Polygon &poly );
 }
+#endif // __POLY_H_

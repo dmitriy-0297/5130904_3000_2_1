@@ -61,7 +61,7 @@ std::ostream & usikov::operator <<( std::ostream &stream, const Point &pnt )
   if (!sentry)
     return stream;
 
-  std::cout << '(' << pnt.x << '; ' << pnt.y << ")";
+  std::cout << '(' << pnt.x << "; " << pnt.y << ")";
   return stream;
 }
 
