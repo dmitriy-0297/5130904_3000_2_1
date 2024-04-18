@@ -14,14 +14,17 @@ using namespace std::placeholders;
 
 int main( int argC, char *argV[] )
 {
-  if (argC != 2)
+  if (argC != 1 && argC != 2) // temp, need argc 2 only
   {
     std::cerr << "Incorrect usage!" << std::endl;
     std::cout << "Usage: T02POLY <filename>" << std::endl;
     return EXIT_FAILURE;
   }
 
-  std::string fileName = argV[1];
+  std::string fileName = "a.txt";
+
+  if (argC == 2) // also temp, don't need to if
+    fileName = argV[1];
 
   std::ifstream file(fileName);
 
@@ -73,7 +76,7 @@ int main( int argC, char *argV[] )
     {
       double res = ac;
 
-      if (el.points.size() % div == static_cast<size_t>(rest) || rest == -1)
+      if (el.points.size() % div == (size_t)rest || rest == -1)
         res += el.area();
       return res;
     };
@@ -100,7 +103,7 @@ int main( int argC, char *argV[] )
         throw "<INVALID COMMAND>";
       }
     }
-    else if (num > 0)
+    else if (num > 2)
     {
       std::cout << std::accumulate(data.begin(), data.end(), 0.0,
                    std::bind(cntFunc, _1, _2, 0x7FFFFFFF, num)) << std::endl;
@@ -118,10 +121,18 @@ int main( int argC, char *argV[] )
 
     std::cin >> arg;
 
+    std::vector<size_t> sizeVec(data.size());
+
+    std::transform(data.begin(), data.end(), sizeVec.begin(), 
+                   []( const Polygon &poly ) { return poly.points.size(); });
+    auto poly = std::min_element(data.begin(), data.end());
+    auto minSize = std::min_element(sizeVec.begin(), sizeVec.end());
+
+
     if (arg == "AREA")
-      std::cout << data.begin()->area() << std::endl;
+      std::cout << poly->area() << std::endl;
     else if (arg == "VERTEXES")
-      std::cout << data.begin()->points.size() << std::endl;
+      std::cout << *minSize << std::endl;
     else
       throw "<INVALID COMMAND>";
   };
@@ -133,12 +144,17 @@ int main( int argC, char *argV[] )
 
     std::cin >> arg;
 
+    std::vector<size_t> sizeVec(data.size());
+
+    std::transform(data.begin(), data.end(), sizeVec.begin(), 
+                   []( const Polygon &poly ) { return poly.points.size(); });
     auto poly = std::max_element(data.begin(), data.end());
+    auto maxSize = std::max_element(sizeVec.begin(), sizeVec.end());
 
     if (arg == "AREA")
       std::cout << poly->area() << std::endl;
     else if (arg == "VERTEXES")
-      std::cout << poly->points.size() << std::endl;
+      std::cout << *maxSize << std::endl;
     else
       throw "<INVALID COMMAND>";
   };
@@ -155,7 +171,7 @@ int main( int argC, char *argV[] )
     auto cntFunc = [num]
     ( int ac, const Polygon &el, int div, int rest )
     {
-      if (el.points.size() % div == static_cast<size_t>(rest) || rest == -1)
+      if (el.points.size() % div == (size_t)rest || rest == -1)
         ac++;
       return ac;
     };
@@ -177,7 +193,7 @@ int main( int argC, char *argV[] )
         throw "<INVALID COMMAND>";
       }
     }
-    else if (num > 0)
+    else if (num > 2)
     {
       std::cout << std::accumulate(data.begin(), data.end(), 0,
                    std::bind(cntFunc, _1, _2, 0x7FFFFFFF, num)) << std::endl;

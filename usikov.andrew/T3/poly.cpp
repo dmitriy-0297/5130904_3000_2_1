@@ -24,10 +24,6 @@ bool usikov::Polygon::operator !=( const Polygon &other ) const
 
 bool usikov::Polygon::operator <( const Polygon &other ) const
 {
-  if (points.size() < other.points.size())
-    return true;
-  if (points.size() > other.points.size())
-    return false;
   return area() < other.area();
 }
 
