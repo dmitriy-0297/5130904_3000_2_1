@@ -73,7 +73,7 @@ int main( int argC, char *argV[] )
     {
       double res = ac;
 
-      if (el.points.size() % div == (size_t)rest || rest == -1)
+      if (el.points.size() % div == static_cast<size_t>(rest) || rest == -1)
         res += el.area();
       return res;
     };
@@ -155,7 +155,7 @@ int main( int argC, char *argV[] )
     auto cntFunc = [num]
     ( int ac, const Polygon &el, int div, int rest )
     {
-      if (el.points.size() % div == (size_t)rest || rest == -1)
+      if (el.points.size() % div == static_cast<size_t>(rest) || rest == -1)
         ac++;
       return ac;
     };
