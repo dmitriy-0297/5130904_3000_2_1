@@ -123,7 +123,7 @@ int main( int argC, char *argV[] )
 
     std::vector<size_t> sizeVec(data.size());
 
-    std::transform(data.begin(), data.end(), sizeVec.begin(), 
+    std::transform(data.begin(), data.end(), sizeVec.begin(),
                    []( const Polygon &poly ) { return poly.points.size(); });
     auto poly = std::min_element(data.begin(), data.end());
     auto minSize = std::min_element(sizeVec.begin(), sizeVec.end());
@@ -146,7 +146,7 @@ int main( int argC, char *argV[] )
 
     std::vector<size_t> sizeVec(data.size());
 
-    std::transform(data.begin(), data.end(), sizeVec.begin(), 
+    std::transform(data.begin(), data.end(), sizeVec.begin(),
                    []( const Polygon &poly ) { return poly.points.size(); });
     auto poly = std::max_element(data.begin(), data.end());
     auto maxSize = std::max_element(sizeVec.begin(), sizeVec.end());
