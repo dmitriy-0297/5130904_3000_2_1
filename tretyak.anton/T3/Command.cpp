@@ -39,7 +39,6 @@ void cmd::area(std::vector<tretyak::Polygon> &value, const std::string str)
     }
     else if (str == "ODD")
     {
-      
       std::cout << std::fixed << std::setprecision(1) << std::accumulate(value.begin(), value.end(), 0.0,
                    std::bind(calcArea, 2, 1, std::placeholders::_1, std::placeholders::_2)) << "\n";
     }
