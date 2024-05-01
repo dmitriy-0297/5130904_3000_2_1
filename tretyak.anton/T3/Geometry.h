@@ -26,7 +26,7 @@ namespace tretyak
 
     bool operator==(const Polygon &otherEl) const;
   };
-  
+
   struct DelimIO
   {
     std::string delim_;
