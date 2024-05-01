@@ -105,7 +105,7 @@ bool tretyak::Point::operator!=(const Point &otherEl) const
 
 bool tretyak::Polygon::operator==(const Polygon &otherEl) const
 {
-  if(this->points.size() != otherEl.points.size())
+  if (this->points.size() != otherEl.points.size())
   {
     return false;
   }
