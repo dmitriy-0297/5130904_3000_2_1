@@ -43,11 +43,11 @@ int main(int argc, char* argv[])
   }
 
   try
-  {
+  {  
     for(;;)
     {
       std::string str;
-      if(std::getline(std::cin, str) && str.empty())
+      if(!(std::getline(std::cin, str, '\n') && !str.empty() && !(std::cin.eof())))
       {
         break;
       }
