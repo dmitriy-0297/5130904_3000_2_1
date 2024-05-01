@@ -76,7 +76,7 @@ void cmd::max(std::vector<tretyak::Polygon> &value, const std::string str)
     {
       return p1.area() < p2.area();
     });
-    std::cout << maxArea.area() << "\n";
+    std::cout << std::fixed << std::setprecision(1) << maxArea.area() << "\n";
   }
   else if (str == "VERTEXES")
   {
@@ -106,7 +106,7 @@ void cmd::min(std::vector<tretyak::Polygon> &value, const std::string str)
     {
       return p1.area() < p2.area();
     });
-    std::cout << minArea.area() << "\n";
+    std::cout << std::fixed << std::setprecision(1) << minArea.area() << "\n";
   }
   else if (str == "VERTEXES")
   {
