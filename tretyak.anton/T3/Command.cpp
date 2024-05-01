@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
+#include <iomanip>
 #include "Command.h"
 
 const std::string I_C = "<INVALID COMMAND>";
@@ -33,17 +34,18 @@ void cmd::area(std::vector<tretyak::Polygon> &value, const std::string str)
   {
     if (str == "EVEN")
     {
-      std::cout << std::accumulate(value.begin(), value.end(), 0.0,
+      std::cout << std::fixed << std::setprecision(1) << std::accumulate(value.begin(), value.end(), 0.0,
                    std::bind(calcArea, 2, 0, std::placeholders::_1, std::placeholders::_2)) << "\n";
     }
     else if (str == "ODD")
     {
-      std::cout << std::accumulate(value.begin(), value.end(), 0.0,
+      
+      std::cout << std::fixed << std::setprecision(1) << std::accumulate(value.begin(), value.end(), 0.0,
                    std::bind(calcArea, 2, 1, std::placeholders::_1, std::placeholders::_2)) << "\n";
     }
     else if (str == "MEAN" && value.size() != 0)
     {
-      std::cout << std::accumulate(value.begin(), value.end(), 0.0,
+      std::cout << std::fixed << std::setprecision(1) << std::accumulate(value.begin(), value.end(), 0.0,
                    std::bind(calcArea, 2, -1, std::placeholders::_1, std::placeholders::_2)) / vSize << "\n";
     }
     else
@@ -53,7 +55,7 @@ void cmd::area(std::vector<tretyak::Polygon> &value, const std::string str)
   }
   else if (data > 2)
   {
-    std::cout << std::accumulate(value.begin(), value.end(), 0.0,
+    std::cout << std::fixed << std::setprecision(1) << std::accumulate(value.begin(), value.end(), 0.0,
                  std::bind(calcArea, maxDivisor, data, std::placeholders::_1, std::placeholders::_2)) << "\n";
   }
   else

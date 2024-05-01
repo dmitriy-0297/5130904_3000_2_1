@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
   if (argc != 2)
   {
     std::cerr << "Misapplication" << "\n";
-    std::cout << "Application: main <filename>" << "\n";
+    std::cout << "Usage: program_name <filename>" << "\n";
     return EXIT_FAILURE;
   }
   std::string fileName = argv[1];
@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     return EXIT_FAILURE;
   }
   std::vector<tretyak::Polygon> value;
-  while (file.peek() != EOF)
+  while (!file.eof())
   {
     std::transform(std::istream_iterator<tretyak::Polygon>(file),
                    std::istream_iterator<tretyak::Polygon>(),
@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
       {
         return poly;
       });
-    if (file.peek() != EOF && file.fail())
+    if (!file.eof() && file.fail())
     {
       file.clear();
       file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
       }
       catch (const std::string k)
       {
-        std::cerr << k << "\n";
+        std::cout << k << "\n";
       }
     }
     return EXIT_SUCCESS;
