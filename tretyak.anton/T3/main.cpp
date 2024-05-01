@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
   }
 
   try
-  {  
+  {
     for(;;)
     {
       std::string str;
