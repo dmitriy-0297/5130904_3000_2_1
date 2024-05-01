@@ -63,7 +63,7 @@ std::ostream& tretyak::operator<<(std::ostream &op, const Polygon &elem)
     return op;
   }
   op << elem.points.size() << " ";
-  for (int i = 0; i < elem.points.size(); i++)
+  for (size_t i = 0; i < elem.points.size(); i++)
   {
     op << elem.points[i] << " ";
   }
@@ -84,14 +84,14 @@ std::ostream& tretyak::operator<<(std::ostream &op, const Point &elem)
 double tretyak::Polygon::area() const
 {
   double accum = 0.0;
-  for (int i = 0; i < points.size(); i++)
+  for (size_t i = 0; i < points.size(); i++)
   {
     const auto &current = points[i];
     const auto &next = points[(i + 1) % points.size()];
     accum += (current.x_ * next.y_ - next.x_ * current.y_);
   }
 
-  return std::fabs(accum * 0.5);
+  return std::abs(accum * 0.5);
 }
 
 bool tretyak::Point::operator!=(const Point &otherEl) const
@@ -109,7 +109,7 @@ bool tretyak::Polygon::operator==(const Polygon &otherEl) const
   {
     return false;
   }
-  for (int i = 0; i < this->points.size(); i++)
+  for (size_t i = 0; i < this->points.size(); i++)
   {
     if (this->points[i] != otherEl.points[i])
     {

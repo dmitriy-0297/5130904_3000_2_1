@@ -5,6 +5,7 @@
 #include <exception>
 #include <string>
 #include <sstream>
+#include <iterator>
 #include "Command.h"
 #include "Geometry.h"
 
@@ -94,7 +95,7 @@ int main(int argc, char* argv[])
   }
   catch (...)
   {
-    std::cerr << "wrong" << "\n";
+    std::cerr << "Wrong: Something went wrong" << "\n";
     return EXIT_FAILURE;
   }
 }

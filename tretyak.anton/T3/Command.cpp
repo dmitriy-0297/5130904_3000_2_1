@@ -21,11 +21,12 @@ void cmd::area(std::vector<tretyak::Polygon> &value, const std::string str)
 {
   int data = 0;
   int maxDivisor = std::numeric_limits<int>::max();
-  int vSize = value.size();
+  size_t vSize = value.size();
   data = validStringToInt(str);
   auto calcArea = [](int divisor, int remains, double initial, const tretyak::Polygon &elem)
     {
-      return initial + (elem.points.size() % divisor == remains || remains == -1 ? elem.area() : 0);
+      double rez = initial;
+      return rez + (elem.points.size() % divisor == static_cast<size_t>(remains) || remains == -1 ? elem.area() : 0);
     };
 
   if (data == -1)
@@ -125,11 +126,10 @@ void cmd::count(std::vector<tretyak::Polygon> &value, const std::string str)
 {
   int data = 0;
   int maxDivisor = std::numeric_limits<int>::max();
-  int vSize = value.size();
   data = validStringToInt(str);
   auto calcConcur = [](int divisor, int remains, const tretyak::Polygon &elem)
     {
-      return (elem.points.size() % divisor == remains || remains == -1);
+      return (elem.points.size() % divisor == static_cast<size_t>(remains) || remains == -1);
     };
 
   if (data == -1)
