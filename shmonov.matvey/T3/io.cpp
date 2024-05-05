@@ -35,29 +35,35 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::Polygon &polygon) 
 
   std::size_t n;
   in >> n;
-  if (in.fail() || n < 3)
+  if (in.fail() || n < 3)  // polygon must have at least 3 vertices
   {
-    in.setstate(std::ios_base::failbit);
+    in.setstate(std::ios_base::failbit);  // if n < 3 but in.fail() is false
     return in;
   }
   polygon.points.clear();
   polygon.points.resize(n);
 
-  for (auto &p : polygon.points)
+  std::size_t i = 0;
+  while (in.peek() != '\n')
   {
-    if (in.peek() == '\n')
+    shmonov::Point p;
+    in >> p;
+    if (in.fail() || i == n)
     {
       in.setstate(std::ios_base::failbit);
       return in;
     }
-    in >> p;
+    if (i == 0)
+    {
+      polygon.points[i] = p;
+      ++i;
+    }
+    else if (p != polygon.points[i - 1])
+    {
+      polygon.points[i] = p;
+      ++i;
+    }
   }
-  if (in.get() != '\n')
-  {
-    shmonov::Point p;
-    in >> p;
-    if (p != polygon.points[polygon.points.size() - 1])
-      in.setstate(std::ios_base::failbit);
-  }
+  std::cout << i << ' ' << n << '\n';
   return in;
 }
