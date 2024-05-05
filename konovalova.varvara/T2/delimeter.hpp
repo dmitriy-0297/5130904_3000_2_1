@@ -6,17 +6,15 @@
 
 namespace konovalova
 {
-    struct delimeter_char
-    {
-        char expected;
-    };
-    struct delimeter_string
-    {
-        std::string text;
-    };
-
-    std::istream & operator>>(std::istream & in, delimeter_char && expected);
-    std::istream & operator>>(std::istream & in, delimeter_string && str);
+  struct delimeter_char
+  {
+    char expected;
+  };
+  struct delimeter_string
+  {
+    std::string text;
+  };
+  std::istream& operator>>(std::istream& in, delimeter_char&& expected);
+  std::istream& operator>>(std::istream& in, delimeter_string&& str);
 }
-
 #endif
