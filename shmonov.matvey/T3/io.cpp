@@ -64,6 +64,5 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::Polygon &polygon) 
       ++i;
     }
   }
-  std::cout << i << ' ' << n << '\n';
   return in;
 }
