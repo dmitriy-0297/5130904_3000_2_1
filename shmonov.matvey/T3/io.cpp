@@ -5,6 +5,20 @@ bool shmonov::isPoint(const std::string &str)
   std::regex pattern("\\(-?[0-9]+;-?[0-9]+\\)");
   return std::regex_match(str, pattern);
 }
+
+std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::Point &point)
+{
+  return (out << '(' << point.x << ';' << point.y << ')');
+}
+
+std::ostream & shmonov::operator<<(std::ostream &out, const shmonov::Polygon &polygon)
+{
+  out << polygon.points.size();
+  for (auto &p : polygon.points)
+    out << ' ' << p;
+  return (out << '\n');
+}
+
 std::istream & shmonov::operator>>(std::istream &in, shmonov::Point &point)  // (1;1)
 {
   std::istream::sentry sentry(in);
@@ -29,43 +43,29 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::Point &point)  // 
 std::istream & shmonov::operator>>(std::istream &in, shmonov::Polygon &polygon)  // 3 (1;2) (0;0) (0;3)
 {
   std::istream::sentry sentry(in);
-
   if (!sentry)
     return in;
 
   polygon.points.clear();
-
   std::size_t n;
   in >> n;
-  if (in.fail() || n < 3)  // polygon must have at least 3 vertices
+  if (in.fail() || n < 3)
   {
-    in.setstate(std::ios_base::failbit);  // if n < 3 but in.fail() is false
+    in.setstate(std::ios_base::failbit);
     return in;
   }
   polygon.points.resize(n);
 
-  std::size_t i = 0;
-  while (in.peek() != '\n')
+  for (auto &p : polygon.points)
   {
-    shmonov::Point p;
-    in >> p;
-    if (in.fail())
-      break;
-
-    if (i == 0 || p != polygon.points[i - 1])
+    if (in.peek() == '\n')
     {
-      if (i < n)
-      {
-        polygon.points[i++] = p;
-      }
-      else
-      {
-        in.setstate(std::ios_base::failbit);
-        return in;
-      }
+      in.setstate(std::ios_base::failbit);
+      return in;
     }
+    in >> p;
   }
-  if (i != n)
+  if (in.peek() != '\n')
     in.setstate(std::ios_base::failbit);
   return in;
 }
