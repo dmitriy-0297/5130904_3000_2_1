@@ -33,6 +33,8 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::Polygon &polygon) 
   if (!sentry)
     return in;
 
+  polygon.points.clear();
+
   std::size_t n;
   in >> n;
   if (in.fail() || n < 3)  // polygon must have at least 3 vertices
@@ -40,7 +42,6 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::Polygon &polygon) 
     in.setstate(std::ios_base::failbit);  // if n < 3 but in.fail() is false
     return in;
   }
-  polygon.points.clear();
   polygon.points.resize(n);
 
   std::size_t i = 0;
@@ -48,21 +49,23 @@ std::istream & shmonov::operator>>(std::istream &in, shmonov::Polygon &polygon) 
   {
     shmonov::Point p;
     in >> p;
-    if (in.fail() || i == n)
+    if (in.fail())
+      break;
+
+    if (i == 0 || p != polygon.points[i - 1])
     {
-      in.setstate(std::ios_base::failbit);
-      return in;
-    }
-    if (i == 0)
-    {
-      polygon.points[i] = p;
-      ++i;
-    }
-    else if (p != polygon.points[i - 1])
-    {
-      polygon.points[i] = p;
-      ++i;
+      if (i < n)
+      {
+        polygon.points[i++] = p;
+      }
+      else
+      {
+        in.setstate(std::ios_base::failbit);
+        return in;
+      }
     }
   }
+  if (i != n)
+    in.setstate(std::ios_base::failbit);
   return in;
 }
