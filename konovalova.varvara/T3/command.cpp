@@ -194,15 +194,8 @@ void command::same(std::vector<konovalova::Polygon>& data)
     konovalova::Polygon target;
     std::cin >> target;
 
-    if (std::cin.fail())
+    if (!std::cin)
     {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        throw "<INVALID COMMAND>";
-    }
-    else if (std::cin.get() != '\n')
-    {
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         throw "<INVALID COMMAND>";
     }
     else

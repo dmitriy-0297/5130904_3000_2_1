@@ -2,7 +2,7 @@
 
 std::istream& konovalova::operator>>(std::istream& in, Point& pnt)
 {
-    if (in.get() == '\n')
+    if (in.peek() == '\n')
     {
         throw "<INVALID COMMAND>";
     }

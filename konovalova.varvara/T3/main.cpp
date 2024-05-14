@@ -74,6 +74,8 @@ int main(int argc, char* argv[])
             catch (const char* err)
             {
                 std::cout << err << std::endl;
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
         }
         return 0;
