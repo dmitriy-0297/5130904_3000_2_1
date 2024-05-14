@@ -21,18 +21,13 @@ int main( void )  // (:key1 5.45e-2:key2 'c':key3 "Hello world!")
       vec.end(),
       [](const DataStruct &lhs, const DataStruct &rhs)
       {
-        if (lhs.key1 < rhs.key1)
+        if (lhs.key1 == rhs.key1)
         {
-          return true;
+          if (lhs.key2 == rhs.key2)
+            return lhs.key3.length() < rhs.key3.length();
+          return lhs.key2 < rhs.key2;
         }
-        if (lhs.key2 < rhs.key2)
-        {
-          return true;
-        }
-        else
-        {
-          return lhs.key3 < rhs.key3;
-        }
+        return lhs.key1 < rhs.key1;
       }
   );
   std::copy(vec.begin(), vec.end(), std::ostream_iterator<DataStruct>(std::cout, "\n"));
