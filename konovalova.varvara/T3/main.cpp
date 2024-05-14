@@ -25,7 +25,6 @@ int main(int argc, char* argv[])
     std::cout << std::setprecision(1) << std::fixed;
     std::vector<konovalova::Polygon> data;
     using input_it_t = std::istream_iterator<konovalova::Polygon>;
-    using output_it_t = std::ostream_iterator<konovalova::Polygon>;
     while (!file.eof())
     {
         std::copy(input_it_t{file}, input_it_t{}, std::back_inserter(data));
