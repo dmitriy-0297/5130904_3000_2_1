@@ -1,6 +1,7 @@
 #include <functional>
 #include <algorithm>
 #include <numeric>
+#include <limits>
 
 #include "command.hpp"
 
@@ -26,7 +27,14 @@ void command::area(const std::vector<konovalova::Polygon>& data)
     auto countFunc = [] (double ac, const konovalova::Polygon& plg, int div, int mod)
     {
         double result = ac;
-        if (static_cast<int>(plg.points.size()) % div == mod || mod == -1)
+        if (div == -1)
+        {
+            if (static_cast<int>(plg.points.size()) == mod)
+            {
+                result += plg.area();
+            }
+        }
+        else if (static_cast<int>(plg.points.size()) % div == mod || mod == -1)
         {
             result += plg.area();
         }
@@ -61,7 +69,7 @@ void command::area(const std::vector<konovalova::Polygon>& data)
     else if (num > 2)
     {
         std::cout << std::accumulate(data.begin(), data.end(), 0.0,
-        std::bind(countFunc, _1, _2, num, 0)) << std::endl;
+        std::bind(countFunc, _1, _2, -1, num)) << std::endl;
     }
     else
     {
@@ -185,10 +193,25 @@ void command::same(std::vector<konovalova::Polygon>& data)
 {
     konovalova::Polygon target;
     std::cin >> target;
-    std::sort(target.points.begin(), target.points.end());
-    auto countFunc = [&target] (const konovalova::Polygon& plg)
+
+    if (std::cin.fail())
     {
-        return plg.is_overlay_compatible(target);
-    };
-    std::cout << std::count_if(data.begin(), data.end(), countFunc) << std::endl;
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw "<INVALID COMMAND>";
+    }
+    else if (std::cin.get() != '\n')
+    {
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw "<INVALID COMMAND>";
+    }
+    else
+    {
+        std::sort(target.points.begin(), target.points.end());
+        auto countFunc = [&target] (const konovalova::Polygon& plg)
+        {
+            return plg.is_overlay_compatible(target);
+        };
+        std::cout << std::count_if(data.begin(), data.end(), countFunc) << std::endl;
+    }
 }

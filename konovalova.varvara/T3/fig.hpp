@@ -28,6 +28,10 @@ namespace konovalova
     struct Delimeter
     {
         char expected;
+
+        Delimeter(const char expected): expected(expected)
+        {
+        }
     };
     std::istream& operator>>(std::istream& in, Delimeter&& del);
 }

@@ -2,12 +2,17 @@
 
 std::istream& konovalova::operator>>(std::istream& in, Point& pnt)
 {
+    if (in.get() == '\n')
+    {
+        throw "<INVALID COMMAND>";
+    }
+
     std::istream::sentry guard(in);
     if (!guard)
     {
         return in;
     }
-    in >> Delimeter{'('} >> pnt.x >> Delimeter{';'} >> pnt.y >> Delimeter{')'};
+    in >> Delimeter('(') >> pnt.x >> Delimeter(';') >> pnt.y >> Delimeter(')');
     return in;
 }
 
@@ -38,9 +43,10 @@ std::istream& konovalova::operator>>(std::istream& in, Polygon& poly)
     }
     poly.points.clear();
     poly.points.resize(size);
-    for (auto& p : poly.points)
+
+    for (size_t i = 0; i < size; i++)
     {
-        in >> p;
+        in >> poly.points[i];
     }
 
     return in;
@@ -70,7 +76,8 @@ std::istream& konovalova::operator>>(std::istream& in, Delimeter&& del)
     }
     char c;
     in >> c;
-    if (c != del.expected)
+
+    if (!in || c != del.expected)
     {
         in.setstate(std::ios::failbit);
     }
