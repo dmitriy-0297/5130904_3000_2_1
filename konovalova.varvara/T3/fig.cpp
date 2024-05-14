@@ -52,3 +52,24 @@ double konovalova::Polygon::area(void) const
     res -= (*points.rbegin()).y * (*points.begin()).x;
     return 0.5 * abs(res);
 }
+
+bool konovalova::Polygon::is_overlay_compatible(const Polygon &other) const
+{
+    if (points.size() != other.points.size()) return false;
+    
+    std::vector<konovalova::Point> sorted_points(points);
+    std::sort(sorted_points.begin(), sorted_points.end());
+
+    double x_offset = other.points[0].x - sorted_points[0].x;
+    double y_offset = other.points[0].y - sorted_points[0].y;
+
+    auto sorted_pnt = sorted_points.begin();
+    auto testFunc = [&sorted_pnt, &x_offset, &y_offset] (const Point &pnt)
+    {
+        bool result = pnt.x - (*sorted_pnt).x == x_offset
+        && pnt.y - (*sorted_pnt).y == y_offset;
+        sorted_pnt++;
+        return result;
+    };
+    return std::all_of(other.points.begin(), other.points.end(), testFunc);
+}

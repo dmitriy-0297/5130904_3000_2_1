@@ -24,6 +24,7 @@ namespace konovalova
         bool operator==(const Polygon &other) const;
         bool operator<(const Polygon &other) const;
         double area(void) const;
+        bool is_overlay_compatible(const Polygon &other) const;
     };
     std::istream & operator >> (std::istream & in, Polygon &poly);
     std::ostream & operator << (std::ostream & out, const Polygon &poly);
