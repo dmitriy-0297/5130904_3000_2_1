@@ -43,17 +43,13 @@ bool konovalova::Polygon::operator<(const Polygon& other) const
 double konovalova::Polygon::area(void) const
 {
     double res = 0;
-    auto prev = *points.begin();
-    auto countFunc = [&res, &prev] (int ac, const Point& pnt)
+    for (int i = 1; i < static_cast<int>(points.size()); i++)
     {
-        res = ac;
-        res += prev.x * pnt.y;
-        res -= pnt.x * prev.y;
-        prev = pnt;
-        return res;
-    };
-    std::accumulate(points.begin() + 1, points.end(), 0,
-    std::bind(countFunc, _1, _2));
+        res += points[i - 1].x * points[i].y;
+        res -= points[i].x * points[i - 1].y;
+    }
+    res += (*points.rbegin()).x * (*points.begin()).y;
+    res -= (*points.rbegin()).y * (*points.begin()).x;
     return 0.5 * abs(res);
 }
 

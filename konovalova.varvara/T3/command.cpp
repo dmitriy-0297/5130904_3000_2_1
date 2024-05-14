@@ -26,7 +26,7 @@ void command::area(const std::vector<konovalova::Polygon>& data)
     auto countFunc = [] (double ac, const konovalova::Polygon& plg, int div, int mod)
     {
         double result = ac;
-        if (plg.points.size() % div == mod || mod == -1)
+        if (static_cast<int>(plg.points.size()) % div == mod || mod == -1)
         {
             result += plg.area();
         }
@@ -127,7 +127,7 @@ void command::count(const std::vector<konovalova::Polygon>& data)
     auto countFunc = [](int ac, const konovalova::Polygon& plg, int div, int mod)
     {
         int result = ac;
-        if (plg.points.size() % div == mod || mod == -1)
+        if (static_cast<int>(plg.points.size()) % div == mod || mod == -1)
         {
             result += 1;
         }
