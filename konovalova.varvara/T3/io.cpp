@@ -4,7 +4,8 @@ std::istream& konovalova::operator>>(std::istream& in, Point& pnt)
 {
     if (in.peek() == '\n')
     {
-        throw "<INVALID COMMAND>";
+        in.setstate(std::ios::failbit);
+        return in;
     }
 
     std::istream::sentry guard(in);
@@ -47,6 +48,12 @@ std::istream& konovalova::operator>>(std::istream& in, Polygon& poly)
     for (size_t i = 0; i < size; i++)
     {
         in >> poly.points[i];
+    }
+
+    if (in.peek() != int('\n') && !in.eof())
+    {
+        in.setstate(std::ios::failbit);
+        return in;
     }
 
     return in;

@@ -194,7 +194,7 @@ void command::same(std::vector<konovalova::Polygon>& data)
     konovalova::Polygon target;
     std::cin >> target;
 
-    if (!std::cin || std::cin.peek() != '\n')
+    if (!std::cin)
     {
         throw "<INVALID COMMAND>";
     }
