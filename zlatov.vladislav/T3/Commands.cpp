@@ -418,7 +418,7 @@ bool zlatov::isRightAngle(const Polygon& polygon)
     { return cos == 0; }) != cosOfVectors.end();
 }
 
-Point zlatov::CreateVector(const Point& firstPoint, const Point& secondPoint)
+zlatov::Point zlatov::CreateVector(const Point& firstPoint, const Point& secondPoint)
 {
   return zlatov::Point{ secondPoint.x - firstPoint.x, secondPoint.y - firstPoint.y };
 }
