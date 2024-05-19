@@ -8,7 +8,7 @@
 #include <string>
 #include <cmath>
 
-void Area(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
+void zlatov::Area(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
 {
   std::map<std::string, std::function<void(const std::vector<Polygon>& polygon, std::ostream& out)>> areas;
   areas["EVEN"] = AreaEvenPolygons;
@@ -34,7 +34,7 @@ void Area(const std::vector<Polygon>& polygons, std::ostream& out, std::istream&
   }
 }
 
-void AreaEvenPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::AreaEvenPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<Polygon> EvenPolygons_vec;
   std::copy_if(
@@ -49,7 +49,7 @@ void AreaEvenPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
   out << std::setprecision(1) << std::fixed << sum << '\n';
 }
 
-void AreaOddPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::AreaOddPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<Polygon> OddPolygons_vec;
   std::copy_if(
@@ -64,7 +64,7 @@ void AreaOddPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
   out << std::setprecision(1) << std::fixed << sum << '\n';
 }
 
-void AreaAverage(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::AreaAverage(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   if (polygons.empty())
   {
@@ -74,7 +74,7 @@ void AreaAverage(const std::vector<Polygon>& polygons, std::ostream& out)
   out << std::setprecision(1) << std::fixed << sum / polygons.size() << '\n';
 }
 
-void AreaByVertexCount(std::size_t vertexes, const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::AreaByVertexCount(std::size_t vertexes, const std::vector<Polygon>& polygons, std::ostream& out)
 {
   auto NVertexes = std::bind(std::equal_to<size_t>{}, vertexes, std::placeholders::_1);
   std::vector<Polygon> polygonsWithNVertexes;
@@ -91,7 +91,7 @@ void AreaByVertexCount(std::size_t vertexes, const std::vector<Polygon>& polygon
   out << std::setprecision(1) << std::fixed << sum << '\n';
 }
 
-double CalculateTotalArea(const std::vector<Polygon>& polygons)
+double zlatov::CalculateTotalArea(const std::vector<Polygon>& polygons)
 {
   std::vector<double> AreasOfPolygons_vec;
   std::transform(
@@ -111,7 +111,7 @@ double CalculateTotalArea(const std::vector<Polygon>& polygons)
   return sumOfAreas;
 }
 
-double ComputeArea(const Polygon& polygon)
+double zlatov::ComputeArea(const Polygon& polygon)
 {
   std::vector<double> sumOfCoords_vec;
   std::transform(
@@ -150,7 +150,7 @@ double ComputeArea(const Polygon& polygon)
   return 0.5 * std::abs(sum + polygon.points.back().x * polygon.points.front().y - diff - polygon.points.front().x * polygon.points.back().y);
 }
 
-void Max(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
+void zlatov::Max(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
 {
   std::map<std::string, std::function<void(const std::vector<Polygon>& polygons, std::ostream& out)>> maxes;
   maxes["AREA"] = MaxAreaPolygon;
@@ -168,7 +168,7 @@ void Max(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& 
   }
 }
 
-void MaxAreaPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::MaxAreaPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<double> areasOfPolygons_vec;
   std::transform(
@@ -187,7 +187,7 @@ void MaxAreaPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
   out << std::setprecision(1) << std::fixed << areasOfPolygons_vec.back() << '\n';
 }
 
-void MaxVertexCountPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::MaxVertexCountPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<std::size_t> vertexesOfPolygons_vec;
   std::transform(
@@ -206,7 +206,7 @@ void MaxVertexCountPolygon(const std::vector<Polygon>& polygons, std::ostream& o
   out << vertexesOfPolygons_vec.back() << '\n';
 }
 
-void Min(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
+void zlatov::Min(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
 {
   std::map<std::string, std::function<void(const std::vector<Polygon>& polygons, std::ostream& out)>> mines;
   mines["AREA"] = MinAreaPolygon;
@@ -224,7 +224,7 @@ void Min(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& 
   }
 }
 
-void MinAreaPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::MinAreaPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<double> areasOfPolygons_vec;
   std::transform(
@@ -243,7 +243,7 @@ void MinAreaPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
   out << std::setprecision(1) << std::fixed << areasOfPolygons_vec.front() << '\n';
 }
 
-void MinVertexCountPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::MinVertexCountPolygon(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<std::size_t> vertexesOfPolygons_vec;
   std::transform(
@@ -262,7 +262,7 @@ void MinVertexCountPolygon(const std::vector<Polygon>& polygons, std::ostream& o
   out << vertexesOfPolygons_vec.front() << '\n';
 }
 
-void Count(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
+void zlatov::Count(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
 {
   std::map<std::string, std::function<void(const std::vector<Polygon>& polygons, std::ostream& out)>> counts;
   counts["EVEN"] = CountEvenPolygons;
@@ -287,7 +287,7 @@ void Count(const std::vector<Polygon>& polygons, std::ostream& out, std::istream
   }
 }
 
-void CountEvenPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::CountEvenPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<std::size_t> EvenPolygons_vec;
   std::transform(
@@ -306,7 +306,7 @@ void CountEvenPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
   out << EvenNum << '\n';
 }
 
-void CountOddPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::CountOddPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<std::size_t> OddPolygons_vec;
   std::transform(
@@ -325,7 +325,7 @@ void CountOddPolygons(const std::vector<Polygon>& polygons, std::ostream& out)
   out << OddNum << '\n';
 }
 
-void CountPolygonsByVertex(std::size_t vertexes, const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::CountPolygonsByVertex(std::size_t vertexes, const std::vector<Polygon>& polygons, std::ostream& out)
 {
   std::vector<std::size_t> NVertexesPolygons_vec;
   std::transform(
@@ -344,7 +344,7 @@ void CountPolygonsByVertex(std::size_t vertexes, const std::vector<Polygon>& pol
   out << NVertexesNum << '\n';
 }
 
-void Perms(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
+void zlatov::Perms(const std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)
 {
   Polygon givenPolygon;
   in >> givenPolygon;
@@ -371,7 +371,7 @@ void Perms(const std::vector<Polygon>& polygons, std::ostream& out, std::istream
   }
 }
 
-bool ArePermutations(const Polygon& left, const Polygon& right)
+bool zlatov::ArePermutations(const Polygon& left, const Polygon& right)
 {
   if (left.points.size() != right.points.size())
   {
@@ -382,19 +382,19 @@ bool ArePermutations(const Polygon& left, const Polygon& right)
   return left.points.size() == countPointsIn;
 }
 
-bool VerifyPoints(const Polygon& polygon, const Point& point)
+bool zlatov::VerifyPoints(const Polygon& polygon, const Point& point)
 {
   return std::find_if(polygon.points.begin(), polygon.points.end(), [point](const Point& pointToCompare)
     { return (pointToCompare.x == point.x && pointToCompare.y == point.y); }) != polygon.points.end();
 }
 
-void Rightshapes(const std::vector<Polygon>& polygons, std::ostream& out)
+void zlatov::Rightshapes(const std::vector<Polygon>& polygons, std::ostream& out)
 {
-  std::size_t count = std::count_if(polygons.begin(), polygons.end(), HasRightAngle);
+  std::size_t count = std::count_if(polygons.begin(), polygons.end(), isRightAngle);
   out << count << '\n';
 }
 
-bool HasRightAngle(const Polygon& polygon)
+bool zlatov::isRightAngle(const Polygon& polygon)
 {
   std::vector<Point> points_vec;
   auto makeVector = std::bind(CreateVector, std::placeholders::_1, std::placeholders::_2);
@@ -418,12 +418,12 @@ bool HasRightAngle(const Polygon& polygon)
     { return cos == 0; }) != cosOfVectors.end();
 }
 
-Point CreateVector(const Point& firstPoint, const Point& secondPoint)
+Point zlatov::CreateVector(const Point& firstPoint, const Point& secondPoint)
 {
   return Point{ secondPoint.x - firstPoint.x, secondPoint.y - firstPoint.y };
 }
 
-double CalculateCosine(const Point& firstPoint, const Point& secondPoint)
+double zlatov::CalculateCosine(const Point& firstPoint, const Point& secondPoint)
 {
   double topExpr = (firstPoint.x * secondPoint.x + firstPoint.y * secondPoint.y);
   double botExprFirst = std::sqrt(std::pow(firstPoint.x, 2) + std::pow(firstPoint.y, 2));
@@ -431,7 +431,7 @@ double CalculateCosine(const Point& firstPoint, const Point& secondPoint)
   return topExpr / (botExprFirst * botExprSecond);
 }
 
-void OutputMessage(std::ostream& out, const std::string& message)
+void zlatov::OutputMessage(std::ostream& out, const std::string& message)
 {
   out << message;
 }

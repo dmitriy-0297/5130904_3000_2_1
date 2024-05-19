@@ -8,6 +8,8 @@
 #include <iterator>
 #include "Commands.h"
 
+using namespace zlatov;
+
 int main(int argc, char* argv[])
 {
   if (argc != 2)
