@@ -420,7 +420,7 @@ bool zlatov::isRightAngle(const Polygon& polygon)
 
 Point zlatov::CreateVector(const Point& firstPoint, const Point& secondPoint)
 {
-  return Point{ secondPoint.x - firstPoint.x, secondPoint.y - firstPoint.y };
+  return zlatov::Point{ secondPoint.x - firstPoint.x, secondPoint.y - firstPoint.y };
 }
 
 double zlatov::CalculateCosine(const Point& firstPoint, const Point& secondPoint)
