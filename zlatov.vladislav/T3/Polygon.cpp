@@ -23,7 +23,11 @@ std::istream& operator>>(std::istream& in, Point& dest) {
     return in;
   }
   Point point;
-  if (checkDelimiter(in, '(') && in >> point.x && checkDelimiter(in, ';') && in >> point.y && checkDelimiter(in, ')')) {
+  if (checkDelimiter(in, '(') &&
+    in >> point.x &&
+    checkDelimiter(in, ';') &&
+    in >> point.y &&
+    checkDelimiter(in, ')')) {
     dest = point;
   }
   else {
