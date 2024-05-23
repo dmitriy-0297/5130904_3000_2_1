@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 {
-  if (argc != 2)
+ if (argc != 2)
   {
     std::cerr << "Ircorrect filename"<<std::endl;
     return EXIT_FAILURE;
@@ -81,7 +81,6 @@ int main(int argc, char *argv[])
       catch (std::string& error)
       {
         std::cout << error << std::endl;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
     }
     return EXIT_SUCCESS;

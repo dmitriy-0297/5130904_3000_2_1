@@ -5,7 +5,7 @@
 #include<algorithm>
 #include"Structs.h"
 
-const std::string ERROR_OF_COMMAND = "<INVALID COMAND>";
+const std::string ERROR_OF_COMMAND = "<INVALID COMMAND>";
 
 
 int isIntOrDigit( std::string str);
