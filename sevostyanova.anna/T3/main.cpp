@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
   if (argc != 2)
   {
-    std::cerr << "Ircorrect filename\n";
+    std::cerr << "Ircorrect filename"<<std::endl;
     return EXIT_FAILURE;
   }
 
@@ -28,35 +28,43 @@ int main(int argc, char *argv[])
   while (!file.eof())
   {
     std::copy(std::istream_iterator<sevostyanova::Polygon>(file), std::istream_iterator<sevostyanova::Polygon>(), std::back_inserter(data));
-    
+
     if (!file.eof() && file.fail())
     {
       file.clear();
       file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
   }
-  try 
+  try
   {
     std::string comand;
     while (true)
     {
       if (!(std::getline(std::cin, comand, '\n') && !comand.empty() && !(std::cin.eof())))
         break;
-      
+
       std::string cmd, parametr;
       std::istringstream in(comand);
       in >> cmd >> parametr;
-      
+
       try
       {
         if (cmd == "AREA")
+        {
           area(data, parametr);
+        }
         else if (cmd == "MAX")
+        {
           max(data, parametr);
+        }
         else if (cmd == "MIN")
+        {
           min(data, parametr);
+        }
         else if (cmd == "COUNT")
+        {
           count(data, parametr);
+        }
         else if (cmd == "MAXSEQ")
         {
           std::istringstream str(parametr);
