@@ -87,7 +87,7 @@ bool sevostyanova::Polygon::operator==(Polygon& otherData)
   if (points.size() != otherData.points.size())
     return false;
   else
-    for (int i = 0; i < points.size(); ++i)
+    for (size_t i = 0; i < points.size(); ++i)
       if (points.at(i) != otherData.points.at(i))
         return false;
   return true;
