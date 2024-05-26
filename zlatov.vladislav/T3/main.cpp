@@ -36,15 +36,15 @@ int main(int argc, char* argv[])
   std::map<std::string, std::function<void(std::vector<Polygon>& polygons, std::ostream& out, std::istream& in)>> commands;
   {
     using namespace std::placeholders;
-    commands["AREA"] = std::bind(Area, _1, _2, _3);
-    commands["MAX"] = std::bind(Max, _1, _2, _3);
-    commands["MIN"] = std::bind(Min, _1, _2, _3);
-    commands["COUNT"] = std::bind(Count, _1, _2, _3);
-    commands["PERMS"] = std::bind(Perms, _1, _2, _3);
-    commands["RIGHTSHAPES"] = std::bind(Rightshapes, _1, _2);
+    commands["AREA"] = std::bind(area, _1, _2, _3);
+    commands["MAX"] = std::bind(max, _1, _2, _3);
+    commands["MIN"] = std::bind(min, _1, _2, _3);
+    commands["COUNT"] = std::bind(count, _1, _2, _3);
+    commands["PERMS"] = std::bind(perms, _1, _2, _3);
+    commands["RIGHTSHAPES"] = std::bind(rightshapes, _1, _2);
   }
 
-  auto outInvalid = std::bind(OutputMessage, std::placeholders::_1, "<INVALID COMMAND>\n");
+  auto outInvalid = std::bind(outputMessage, std::placeholders::_1, "<INVALID COMMAND>\n");
   std::string parameter;
   while (std::cin >> parameter)
   {
