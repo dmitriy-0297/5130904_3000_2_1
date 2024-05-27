@@ -254,7 +254,7 @@ int main(int argc, char* argv[]) {
 
   while (std::getline(std::cin, line))
   {
-    if (line.substr() == 0) continue;
+    if (line.length() == 0) continue;
     if (line.length() > 4)
     {
       if (line.substr(0, 3) == "MAX")
