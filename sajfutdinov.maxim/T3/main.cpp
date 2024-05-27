@@ -259,7 +259,9 @@ namespace sajfutdinov {
       return;
     }
 
-    auto count = std::count_if(polygons.begin(), polygons.end(), [intrscPoly](const Polygon& poly) { return isPolygonIntersecting(intrscPoly, poly); });
+    auto count = std::count_if(polygons.begin(), polygons.end(), [intrscPoly](const Polygon& poly) {
+      return isPolygonIntersecting(intrscPoly, poly);
+      });
     std::cout << count << "\n";
   }
 
