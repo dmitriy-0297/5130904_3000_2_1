@@ -77,14 +77,19 @@ namespace sajfutdinov {
 
   void calculateMax(const std::vector<Polygon>& polygons, const std::string& type) {
     if (polygons.empty()) {
-      std::cout << "<INVALID COMMAND>\n";
+      std::cerr << "<INVALID COMMAND>\n";
+      return;
+    }
+    if ((type != "AREA") && (type != "VERTEXES"))
+    {
+      std::cerr << "<INVALID COMMMAND>\n";
       return;
     }
     auto maxIt = std::max_element(polygons.begin(), polygons.end(), [&type](const Polygon& a, const Polygon& b) {
       if (type == "AREA") {
         return AreaCalculator()(a) < AreaCalculator()(b);
       }
-      else if (type == "VERTEXES") {
+      else {
         return a.points.size() < b.points.size();
       }
     });
@@ -112,7 +117,7 @@ namespace sajfutdinov {
       {
         return AreaCalculator()(a) < AreaCalculator()(b);
       }
-      else if (type == "VERTEXES")
+      else
       {
         return a.points.size() < b.points.size();
       }
@@ -160,7 +165,7 @@ namespace sajfutdinov {
 
     Polygon lessAreaPolygon;
     unsigned long int numpoints = stringPolygon[0] - '0';
-    for (int i = 1; i < 6 * numpoints - 1; i = i + 6)
+    for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
     {
       if (stringPolygon.length() != (numpoints * 6 + 1)) break;
       if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 3] == ';' && stringPolygon[i + 5] == ')')
@@ -181,7 +186,7 @@ namespace sajfutdinov {
   {
     Polygon intersectionsPolygon;
     unsigned long int numpoints = stringPolygon[0] - '0';
-    for (int i = 1; i < 6 * numpoints - 1; i = i + 6)
+    for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
     {
       if (stringPolygon.length() != (numpoints * 6 + 1)) break;
       if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 3] == ';' && stringPolygon[i + 5] == ')')
@@ -246,7 +251,7 @@ int main() {
     }
     if (numpoints != 0)
     {
-      for (int i = 1; i < 6 * numpoints - 1; i = i + 6)
+      for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
       {
         if (line.length() != (numpoints * 6 + 1)) break;
         if (line[i] == ' ' && line[i + 1] == '(' && line[i + 3] == ';' && line[i + 5] == ')')
