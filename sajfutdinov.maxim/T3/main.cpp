@@ -69,7 +69,6 @@ namespace sajfutdinov {
       }
     }
     std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
-    }
   }
 
   void calculateMax(const std::vector<Polygon>& polygons, const std::string& type) {
