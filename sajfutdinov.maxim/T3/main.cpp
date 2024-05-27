@@ -185,7 +185,8 @@ namespace sajfutdinov {
     for (int i = 0; i < n; i++) {
       int j = (i + 1) % n;
       if ((polygon.points[i].y > p.y) != (polygon.points[j].y > p.y) &&
-        (p.x < (polygon.points[j].x - polygon.points[i].x) * (p.y - polygon.points[i].y) / (polygon.points[j].y - polygon.points[i].y) + polygon.points[i].x)) {
+        (p.x < (polygon.points[j].x - polygon.points[i].x) *\
+          (p.y - polygon.points[i].y) / (polygon.points[j].y - polygon.points[i].y) + polygon.points[i].x)) {
         count++;
       }
     }
