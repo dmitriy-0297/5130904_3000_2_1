@@ -223,14 +223,14 @@ namespace sajfutdinov {
 }
 
 int main(int argc, char* argv[]) {
-  if (argc != 1)
+  if (argc != 2)
   {
     std::cerr << "Bye";
     return 1;
   }
 
   std::vector<sajfutdinov::Polygon> polygons;
-  std::ifstream input(argv[0]);
+  std::ifstream input(argv[1]);
   if (!input.is_open())
   {
     std::cerr << "No file!";
@@ -268,6 +268,10 @@ int main(int argc, char* argv[]) {
       if (poly.points.size() == numpoints) polygons.push_back(poly);
     }
   }
+
+  std::for_each(polygons.begin(), polygons.end(), sajfutdinov::PrintPolygon());
+  std::cout << "AAAAAAAAAA\n";
+
   while (std::getline(std::cin, line))
   {
     if (line.length() > 4)
