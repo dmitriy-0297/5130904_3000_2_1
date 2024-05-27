@@ -229,7 +229,7 @@ int main() {
 
   std::string line = "";
   while (std::getline(input, line))
-  { 
+  {
     sajfutdinov::Polygon poly;
     char c = line[0];
     int numpoints = 0;
