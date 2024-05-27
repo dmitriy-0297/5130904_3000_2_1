@@ -53,7 +53,7 @@ namespace sajfutdinov {
       }
       if (std::all_of(type.begin(), type.end(), [](char c) { return std::isdigit(c); }))
       {
-        if (poly.points.size() == std::stoi(type))
+        if (poly.points.size() == std::stoul(type))
         {
           totalArea += AreaCalculator()(poly);
           count++;
@@ -87,7 +87,7 @@ namespace sajfutdinov {
       else if (type == "VERTEXES") {
         return a.points.size() < b.points.size();
       }
-      });
+    });
     if (type == "AREA") {
       std::cout << AreaCalculator()(*maxIt) << "\n";
     }
@@ -106,14 +106,17 @@ namespace sajfutdinov {
       std::cerr << "<INVALID COMMMAND>\n";
       return;
     }
-    auto minIt = std::min_element(polygons.begin(), polygons.end(), [&type](const Polygon& a, const Polygon& b) {
-      if (type == "AREA") {
+    auto minIt = std::min_element(polygons.begin(), polygons.end(), [&type](const Polygon& a, const Polygon& b)
+    {
+      if (type == "AREA")
+      {
         return AreaCalculator()(a) < AreaCalculator()(b);
       }
-      else if (type == "VERTEXES") {
+      else if (type == "VERTEXES")
+      {
         return a.points.size() < b.points.size();
       }
-      });
+    });
     if (type == "AREA") {
       std::cout << AreaCalculator()(*minIt) << "\n";
     }
@@ -135,7 +138,7 @@ namespace sajfutdinov {
         });
     }
     else if (std::all_of(type.begin(), type.end(), [](char c) { return std::isdigit(c); })) {
-      int numpoints = std::stoi(type);
+      size_t numpoints = std::stoul(type);
       count = std::count_if(polygons.begin(), polygons.end(), [numpoints](const Polygon& poly) {
         return poly.points.size() == numpoints;
         });
@@ -156,7 +159,7 @@ namespace sajfutdinov {
     }
 
     Polygon lessAreaPolygon;
-    int numpoints = stringPolygon[0] - '0';
+    unsigned long int numpoints = stringPolygon[0] - '0';
     for (int i = 1; i < 6 * numpoints - 1; i = i + 6)
     {
       if (stringPolygon.length() != (numpoints * 6 + 1)) break;
@@ -177,7 +180,7 @@ namespace sajfutdinov {
   void intersections(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
   {
     Polygon intersectionsPolygon;
-    int numpoints = stringPolygon[0] - '0';
+    unsigned long int numpoints = stringPolygon[0] - '0';
     for (int i = 1; i < 6 * numpoints - 1; i = i + 6)
     {
       if (stringPolygon.length() != (numpoints * 6 + 1)) break;
@@ -216,7 +219,6 @@ namespace sajfutdinov {
 
 int main() {
   std::vector<sajfutdinov::Polygon> polygons;
-  int numpoints;
 
   std::string file = "";
   std::getline(std::cin, file);
@@ -232,7 +234,7 @@ int main() {
   {
     sajfutdinov::Polygon poly;
     char c = line[0];
-    int numpoints = 0;
+    unsigned long int numpoints = 0;
     if (c == '0') break;
     for (char a : "123456789")
     {
