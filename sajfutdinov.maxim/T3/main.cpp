@@ -34,7 +34,7 @@ namespace sajfutdinov {
     double operator()(const Polygon& poly) const {
       double area = 0.0;
       size_t n = poly.points.size();
-      for (size_t i = 0; i < n; ++i) {
+      for (int i = 0; i < n; ++i) {
         int j = (i + 1) % n;
         area += (poly.points[i].x + poly.points[j].x) * (poly.points[i].y - poly.points[j].y);
       }
@@ -168,9 +168,10 @@ namespace sajfutdinov {
 
   void intersections(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
   {
+    std::for_each(polygons.begin(), polygons.end(), PrintPolygon());
     Polygon intersectionsPolygon;
     unsigned long int numpoints = stringPolygon[0] - '0';
-    for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
+    for (size_t i = 1; i < stringPolygon.length(); i = i + 6)
     {
       Point intersectionsPoint;
       //if (stringPolygon.length() != (numpoints * 6 + 1)) break;
@@ -188,14 +189,24 @@ namespace sajfutdinov {
           if (stringPolygon[i + 5] == '-' && stringPolygon[i + 7] == ')')
           {
             intersectionsPoint.y = (stringPolygon[i + 6] - '0') * (-1);
+            i = i + 2;
           }
           else if (stringPolygon[i + 6] == ')')
           {
             intersectionsPoint.y = stringPolygon[i + 5] - '0';
+            i = i + 1;
           }
         }
         intersectionsPolygon.points.push_back(intersectionsPoint);
       }
+      else if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 3] == ';' && stringPolygon[i + 4] == '-' && stringPolygon[i + 6])
+      {
+        intersectionsPoint.x = stringPolygon[i + 2] - '0';
+        intersectionsPoint.y = (stringPolygon[i + 5] - '0') * (-1);
+        intersectionsPolygon.points.push_back(intersectionsPoint);
+        i = i + 1;
+      }
+      sajfutdinov::PrintPolygon()(intersectionsPolygon);
     }
     if (intersectionsPolygon.points.size() != numpoints)
     {
@@ -337,3 +348,4 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
+use
