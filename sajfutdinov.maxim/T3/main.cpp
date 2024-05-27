@@ -5,6 +5,7 @@
 #include <functional>
 #include <string>
 #include <cctype>
+#include <iomanip>
 
 namespace sajfutdinov {
   struct Point {
@@ -68,7 +69,7 @@ namespace sajfutdinov {
       }
     }
     if (count > 0) {
-      std::cout << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
+      std::cout << std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
     }
     else {
       std::cout << "<INVALID COMMMAND>\n";
@@ -92,12 +93,12 @@ namespace sajfutdinov {
       else {
         return a.points.size() < b.points.size();
       }
-    });
+      });
     if (type == "AREA") {
-      std::cout << AreaCalculator()(*maxIt) << "\n";
+      std::cout << std::setprecision(1) << AreaCalculator()(*maxIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << maxIt->points.size() << "\n";
+      std::cout << std::setprecision(1) << maxIt->points.size() << "\n";
     }
   }
 
@@ -112,21 +113,21 @@ namespace sajfutdinov {
       return;
     }
     auto minIt = std::min_element(polygons.begin(), polygons.end(), [&type](const Polygon& a, const Polygon& b)
-    {
-      if (type == "AREA")
       {
-        return AreaCalculator()(a) < AreaCalculator()(b);
-      }
-      else
-      {
-        return a.points.size() < b.points.size();
-      }
-    });
+        if (type == "AREA")
+        {
+          return AreaCalculator()(a) < AreaCalculator()(b);
+        }
+        else
+        {
+          return a.points.size() < b.points.size();
+        }
+      });
     if (type == "AREA") {
-      std::cout << AreaCalculator()(*minIt) << "\n";
+      std::cout << std::setprecision(1) << AreaCalculator()(*minIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << minIt->points.size() << "\n";
+      std::cout << std::setprecision(1) << minIt->points.size() << "\n";
     }
   }
 
@@ -159,7 +160,7 @@ namespace sajfutdinov {
   void lessArea(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
   {
     if (polygons.empty()) {
-      std::cout << "<INVALID COMMAND>\n";
+      std::cerr << "<INVALID COMMAND>\n";
       return;
     }
 
@@ -179,7 +180,7 @@ namespace sajfutdinov {
     int lessAreaCount = std::count_if(polygons.begin(), polygons.end(), [lessAreaPolygon](const Polygon& poly) {
       return AreaCalculator()(poly) < AreaCalculator()(lessAreaPolygon);
       });
-    std::cout << lessAreaCount << "\n";
+    std::cout << std::setprecision(1) << lessAreaCount << "\n";
   }
 
   void intersections(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
@@ -327,4 +328,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-
