@@ -196,7 +196,6 @@ namespace sajfutdinov {
         }
         intersectionsPolygon.points.push_back(intersectionsPoint);
       }
-      sajfutdinov::PrintPolygon()(intersectionsPolygon);
     }
     if (intersectionsPolygon.points.size() != numpoints)
     {
