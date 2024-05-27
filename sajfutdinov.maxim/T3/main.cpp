@@ -169,7 +169,7 @@ namespace sajfutdinov {
   void intersections(const std::vector<Polygon>& polygons, const std::string& strPoly)
   {
     std::for_each(polygons.begin(), polygons.end(), PrintPolygon());
-    Polygon intersectionsPolygon;
+    Polygon intrscPoly;
     unsigned long int numpoints = strPoly[0] - '0';
     for (size_t i = 1; i < strPoly.length(); i = i + 6)
     {
@@ -179,7 +179,7 @@ namespace sajfutdinov {
       {
         intersectionsPoint.x = strPoly[i + 2] - '0';
         intersectionsPoint.y = strPoly[i + 4] - '0';
-        intersectionsPolygon.points.push_back(intersectionsPoint);
+        intrscPoly.points.push_back(intersectionsPoint);
       }
       else if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 2] == '-')
       {
@@ -197,37 +197,37 @@ namespace sajfutdinov {
             i = i + 1;
           }
         }
-        intersectionsPolygon.points.push_back(intersectionsPoint);
+        intrscPoly.points.push_back(intersectionsPoint);
       }
       else if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 3] == ';' && strPoly[i + 4] == '-' && strPoly[i + 6] == ')')
       {
         intersectionsPoint.x = strPoly[i + 2] - '0';
         intersectionsPoint.y = (strPoly[i + 5] - '0') * (-1);
-        intersectionsPolygon.points.push_back(intersectionsPoint);
+        intrscPoly.points.push_back(intersectionsPoint);
         i = i + 1;
       }
-      sajfutdinov::PrintPolygon()(intersectionsPolygon);
+      sajfutdinov::PrintPolygon()(intrscPoly);
     }
-    if (intersectionsPolygon.points.size() != numpoints)
+    if (intrscPoly.points.size() != numpoints)
     {
       std::cerr << "<INVALID COMMAND>\n";
       return;
     }
 
-    auto count = std::count_if(polygons.begin(), polygons.end(), [intersectionsPolygon](const Polygon& poly) {
-      for (size_t i = 0; i < intersectionsPolygon.points.size(); ++i) {
-        size_t next = (i + 1) % intersectionsPolygon.points.size();
+    auto count = std::count_if(polygons.begin(), polygons.end(), [intrscPoly](const Polygon& poly) {
+      for (size_t i = 0; i < intrscPoly.points.size(); ++i) {
+        size_t next = (i + 1) % intrscPoly.points.size();
         for (size_t j = 0; j < poly.points.size(); ++j) {
           size_t nextB = (j + 1) % poly.points.size();
-          if (((intersectionsPolygon.points[next].x - intersectionsPolygon.points[i].x) * (poly.points[j].y - intersectionsPolygon.points[i].y) -
-            (intersectionsPolygon.points[next].y - intersectionsPolygon.points[i].y) * (poly.points[j].x - intersectionsPolygon.points[i].x)) *
-            ((intersectionsPolygon.points[next].x - intersectionsPolygon.points[i].x) * (poly.points[nextB].y - intersectionsPolygon.points[i].y) -
-              (intersectionsPolygon.points[next].y - intersectionsPolygon.points[i].y) * \
-                (poly.points[nextB].x - intersectionsPolygon.points[i].x)) < 0 &&
-            ((poly.points[nextB].x - poly.points[j].x) * (intersectionsPolygon.points[i].y - poly.points[j].y) -
-              (poly.points[nextB].y - poly.points[j].y) * (intersectionsPolygon.points[i].x - poly.points[j].x)) *
-            ((poly.points[nextB].x - poly.points[j].x) * (intersectionsPolygon.points[next].y - poly.points[j].y) -
-              (poly.points[nextB].y - poly.points[j].y) * (intersectionsPolygon.points[next].x - poly.points[j].x)) < 0) {
+          if (((intrscPoly.points[next].x - intrscPoly.points[i].x) * (poly.points[j].y - intrscPoly.points[i].y) -
+            (intrscPoly.points[next].y - intrscPoly.points[i].y) * (poly.points[j].x - intrscPoly.points[i].x)) *
+            ((intrscPoly.points[next].x - intrscPoly.points[i].x) * (poly.points[nextB].y - intrscPoly.points[i].y) -
+              (intrscPoly.points[next].y - intrscPoly.points[i].y) * \
+                (poly.points[nextB].x - intrscPoly.points[i].x)) < 0 &&
+            ((poly.points[nextB].x - poly.points[j].x) * (intrscPoly.points[i].y - poly.points[j].y) -
+              (poly.points[nextB].y - poly.points[j].y) * (intrscPoly.points[i].x - poly.points[j].x)) *
+            ((poly.points[nextB].x - poly.points[j].x) * (intrscPoly.points[next].y - poly.points[j].y) -
+              (poly.points[nextB].y - poly.points[j].y) * (intrscPoly.points[next].x - poly.points[j].x)) < 0) {
             return true;
           }
         }
