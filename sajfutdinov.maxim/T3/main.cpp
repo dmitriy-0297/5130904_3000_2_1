@@ -199,7 +199,8 @@ namespace sajfutdinov {
         }
         intersectionsPolygon.points.push_back(intersectionsPoint);
       }
-      else if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 3] == ';' && stringPolygon[i + 4] == '-' && stringPolygon[i + 6])
+      else if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && \
+        stringPolygon[i + 3] == ';' && stringPolygon[i + 4] == '-' && stringPolygon[i + 6] == ')')
       {
         intersectionsPoint.x = stringPolygon[i + 2] - '0';
         intersectionsPoint.y = (stringPolygon[i + 5] - '0') * (-1);
@@ -348,4 +349,3 @@ int main(int argc, char* argv[]) {
 
   return 0;
 }
-use
