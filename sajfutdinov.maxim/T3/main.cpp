@@ -77,10 +77,6 @@ namespace sajfutdinov {
   }
 
   void calculateMax(const std::vector<Polygon>& polygons, const std::string& type) {
-    if (polygons.empty()) {
-      std::cerr << "<INVALID COMMAND>\n";
-      return;
-    }
     if ((type != "AREA") && (type != "VERTEXES"))
     {
       std::cerr << "<INVALID COMMMAND>\n";
@@ -103,10 +99,6 @@ namespace sajfutdinov {
   }
 
   void calculateMin(const std::vector<Polygon>& polygons, const std::string& type) {
-    if (polygons.empty()) {
-      std::cerr << "<INVALID COMMAND>\n";
-      return;
-    }
     if ((type != "AREA") && (type != "VERTEXES"))
     {
       std::cerr << "<INVALID COMMMAND>\n";
