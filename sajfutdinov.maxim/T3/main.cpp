@@ -288,6 +288,11 @@ int main(int argc, char* argv[]) {
       if (line.substr(0, 5) == "COUNT")
       {
         std::string type = line.substr(6, line.length() - 1);
+        if (type == "0" || type == "1" || type == "2")
+	{
+	  std::cerr << "<INVALID COMMAND>";
+	  continue;
+	}
         sajfutdinov::countPolygons(polygons, type);
         continue;
       }
