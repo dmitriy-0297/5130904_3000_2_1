@@ -33,7 +33,7 @@ namespace sajfutdinov {
   struct AreaCalculator {
     double operator()(const Polygon& poly) const {
       double area = 0.0;
-      int n = poly.points.size();
+      size_t n = poly.points.size();
       for (int i = 0; i < n; ++i) {
         int j = (i + 1) % n;
         area += (poly.points[i].x + poly.points[j].x) * (poly.points[i].y - poly.points[j].y);
@@ -68,7 +68,7 @@ namespace sajfutdinov {
         continue;
       }
     }
-    std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
+    std::cout << std::fixed << std::fixed << std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
   }
 
   void calculateMax(const std::vector<Polygon>& polygons, const std::string& type) {
@@ -86,10 +86,10 @@ namespace sajfutdinov {
       }
       });
     if (type == "AREA") {
-      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << AreaCalculator()(*maxIt) << "\n";
+      std::cout << std::fixed << std::fixed << std::setprecision(1) << AreaCalculator()(*maxIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << maxIt->points.size() << "\n";
+      std::cout << std::fixed << std::fixed << std::setprecision(1) << maxIt->points.size() << "\n";
     }
   }
 
@@ -111,37 +111,38 @@ namespace sajfutdinov {
         }
       });
     if (type == "AREA") {
-      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << AreaCalculator()(*minIt) << "\n";
+      std::cout << std::fixed << std::fixed << std::setprecision(1) << AreaCalculator()(*minIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << minIt->points.size() << "\n";
+      std::cout << std::fixed << std::fixed << std::setprecision(1) << minIt->points.size() << "\n";
     }
   }
 
   void countPolygons(const std::vector<Polygon>& polygons, const std::string& type) {
-    int count = 0;
     if (type == "EVEN") {
-      count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& poly) {
+      auto count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& poly) {
         return poly.points.size() % 2 == 0;
         });
+      std::cout << count << "\n";
     }
     else if (type == "ODD") {
-      count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& poly) {
+      auto count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& poly) {
         return poly.points.size() % 2 != 0;
         });
+      std::cout << count << "\n";
     }
     else if (std::all_of(type.begin(), type.end(), [](char c) { return std::isdigit(c); })) {
       size_t numpoints = std::stoul(type);
-      count = std::count_if(polygons.begin(), polygons.end(), [numpoints](const Polygon& poly) {
+      auto count = std::count_if(polygons.begin(), polygons.end(), [numpoints](const Polygon& poly) {
         return poly.points.size() == numpoints;
         });
+      std::cout << count << "\n";
     }
     else
     {
       std::cerr << "<INVALID COMMAND>\n";
       return;
     }
-    std::cout << count << "\n";
   }
 
   void lessArea(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
@@ -159,10 +160,10 @@ namespace sajfutdinov {
         lessAreaPolygon.points.push_back(lessAreaPoint);
       }
     }
-    int lessAreaCount = std::count_if(polygons.begin(), polygons.end(), [lessAreaPolygon](const Polygon& poly) {
+    auto lessAreaCount = std::count_if(polygons.begin(), polygons.end(), [lessAreaPolygon](const Polygon& poly) {
       return AreaCalculator()(poly) < AreaCalculator()(lessAreaPolygon);
       });
-    std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << lessAreaCount << "\n";
+    std::cout << std::fixed << std::fixed << std::setprecision(1) << lessAreaCount << "\n";
   }
 
   void intersections(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
@@ -171,17 +172,39 @@ namespace sajfutdinov {
     unsigned long int numpoints = stringPolygon[0] - '0';
     for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
     {
-      if (stringPolygon.length() != (numpoints * 6 + 1)) break;
+      Point intersectionsPoint;
+      //if (stringPolygon.length() != (numpoints * 6 + 1)) break;
       if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 3] == ';' && stringPolygon[i + 5] == ')')
       {
-        Point intersectionsPoint;
         intersectionsPoint.x = stringPolygon[i + 2] - '0';
         intersectionsPoint.y = stringPolygon[i + 4] - '0';
         intersectionsPolygon.points.push_back(intersectionsPoint);
       }
+      else if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 2] == '-')
+      {
+        intersectionsPoint.x = (stringPolygon[i + 3] - '0') * (-1);
+        if (stringPolygon[i + 4] == ';')
+        {
+          if (stringPolygon[i + 5] == '-' && stringPolygon[i + 7] == ')')
+          {
+            intersectionsPoint.y = (stringPolygon[i + 6] - '0') * (-1);
+          }
+          else if (stringPolygon[i + 6] == ')')
+          {
+            intersectionsPoint.y = stringPolygon[i + 5] - '0';
+          }
+        }
+        intersectionsPolygon.points.push_back(intersectionsPoint);
+      }
+      sajfutdinov::PrintPolygon()(intersectionsPolygon);
+    }
+    if (intersectionsPolygon.points.size() != numpoints)
+    {
+      std::cerr << "<INVALID COMMAND>\n";
+      return;
     }
 
-    int count = std::count_if(polygons.begin(), polygons.end(), [intersectionsPolygon](const Polygon& poly) {
+    auto count = std::count_if(polygons.begin(), polygons.end(), [intersectionsPolygon](const Polygon& poly) {
       for (size_t i = 0; i < intersectionsPolygon.points.size(); ++i) {
         size_t next = (i + 1) % intersectionsPolygon.points.size();
         for (size_t j = 0; j < poly.points.size(); ++j) {
@@ -234,7 +257,7 @@ int main(int argc, char* argv[]) {
         break;
       }
     }
-    if (numpoints != 0 && numpoints != 1 && numpoints != 2)
+    if (numpoints != 0)
     {
       for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
       {
