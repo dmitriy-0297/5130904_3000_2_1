@@ -150,6 +150,11 @@ namespace sajfutdinov {
     {
         Polygon lessAreaPolygon;
         unsigned long int numpoints = strPoly[0] - '0';
+        if (numpoints == '0' || numpoints == '1' || numpoints == '2')
+        {
+          std::cerr << "<INVALID COMMAND>\n";
+          return;
+        }
         for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
         {
             if (strPoly.length() != (numpoints * 6 + 1)) break;
@@ -229,6 +234,11 @@ namespace sajfutdinov {
         //std::for_each(polygons.begin(), polygons.end(), PrintPolygon());
         Polygon intrscPoly;
         unsigned long int numpoints = strPoly[0] - '0';
+        if (numpoints == '0' || numpoints == '1' || numpoints == '2')
+        {
+          std::cerr << "<INVALID COMMAND>\n";
+          return;
+        }
         for (size_t i = 1; i < strPoly.length(); i = i + 6)
         {
             Point intersectionsPoint;
