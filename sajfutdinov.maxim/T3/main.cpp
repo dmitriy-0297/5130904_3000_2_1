@@ -234,7 +234,7 @@ int main(int argc, char* argv[]) {
         break;
       }
     }
-    if (numpoints != 0)
+    if (numpoints != 0 && numpoints != 1 && numpoints != 2)
     {
       for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
       {
@@ -299,7 +299,7 @@ int main(int argc, char* argv[]) {
         std::string stringPolygon = line.substr(9, line.length() - 1);
         sajfutdinov::lessArea(polygons, stringPolygon);
         continue;
-00      }
+      }
     }
     if (line.length() > 14)
     {
