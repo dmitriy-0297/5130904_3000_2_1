@@ -222,12 +222,15 @@ namespace sajfutdinov {
 
 }
 
-int main() {
-  std::vector<sajfutdinov::Polygon> polygons;
+int main(int argc, char* argv[]) {
+  if (argc != 1)
+  {
+    std::cerr << "Bye";
+    return 1;
+  }
 
-  std::string file = "";
-  std::getline(std::cin, file);
-  std::ifstream input(file);
+  std::vector<sajfutdinov::Polygon> polygons;
+  std::ifstream input(argv[0]);
   if (!input.is_open())
   {
     std::cerr << "No file!";
