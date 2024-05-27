@@ -34,7 +34,7 @@ namespace sajfutdinov {
     double operator()(const Polygon& poly) const {
       double area = 0.0;
       size_t n = poly.points.size();
-      for (int i = 0; i < n; ++i) {
+      for (size_t i = 0; i < n; ++i) {
         int j = (i + 1) % n;
         area += (poly.points[i].x + poly.points[j].x) * (poly.points[i].y - poly.points[j].y);
       }
