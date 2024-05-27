@@ -269,9 +269,6 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  std::for_each(polygons.begin(), polygons.end(), sajfutdinov::PrintPolygon());
-  std::cout << "AAAAAAAAAA\n";
-
   while (std::getline(std::cin, line))
   {
     if (line.length() > 4)
