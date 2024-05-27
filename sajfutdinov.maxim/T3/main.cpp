@@ -68,11 +68,7 @@ namespace sajfutdinov {
         continue;
       }
     }
-    if (count > 0) {
-      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
-    }
-    else {
-      std::cout << "<INVALID COMMMAND>\n";
+    std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
     }
   }
 
