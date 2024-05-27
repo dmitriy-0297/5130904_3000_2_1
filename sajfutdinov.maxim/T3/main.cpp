@@ -145,18 +145,18 @@ namespace sajfutdinov {
     }
   }
 
-  void lessArea(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
+  void lessArea(const std::vector<Polygon>& polygons, const std::string& strPoly)
   {
     Polygon lessAreaPolygon;
-    unsigned long int numpoints = stringPolygon[0] - '0';
+    unsigned long int numpoints = strPoly[0] - '0';
     for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
     {
-      if (stringPolygon.length() != (numpoints * 6 + 1)) break;
-      if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 3] == ';' && stringPolygon[i + 5] == ')')
+      if (strPoly.length() != (numpoints * 6 + 1)) break;
+      if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 3] == ';' && strPoly[i + 5] == ')')
       {
         Point lessAreaPoint;
-        lessAreaPoint.x = stringPolygon[i + 2] - '0';
-        lessAreaPoint.y = stringPolygon[i + 4] - '0';
+        lessAreaPoint.x = strPoly[i + 2] - '0';
+        lessAreaPoint.y = strPoly[i + 4] - '0';
         lessAreaPolygon.points.push_back(lessAreaPoint);
       }
     }
@@ -166,44 +166,43 @@ namespace sajfutdinov {
     std::cout << std::fixed << std::fixed << std::setprecision(1) << lessAreaCount << "\n";
   }
 
-  void intersections(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
+  void intersections(const std::vector<Polygon>& polygons, const std::string& strPoly)
   {
     std::for_each(polygons.begin(), polygons.end(), PrintPolygon());
     Polygon intersectionsPolygon;
-    unsigned long int numpoints = stringPolygon[0] - '0';
-    for (size_t i = 1; i < stringPolygon.length(); i = i + 6)
+    unsigned long int numpoints = strPoly[0] - '0';
+    for (size_t i = 1; i < strPoly.length(); i = i + 6)
     {
       Point intersectionsPoint;
-      //if (stringPolygon.length() != (numpoints * 6 + 1)) break;
-      if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 3] == ';' && stringPolygon[i + 5] == ')')
+      //if (strPoly.length() != (numpoints * 6 + 1)) break;
+      if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 3] == ';' && strPoly[i + 5] == ')')
       {
-        intersectionsPoint.x = stringPolygon[i + 2] - '0';
-        intersectionsPoint.y = stringPolygon[i + 4] - '0';
+        intersectionsPoint.x = strPoly[i + 2] - '0';
+        intersectionsPoint.y = strPoly[i + 4] - '0';
         intersectionsPolygon.points.push_back(intersectionsPoint);
       }
-      else if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && stringPolygon[i + 2] == '-')
+      else if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 2] == '-')
       {
-        intersectionsPoint.x = (stringPolygon[i + 3] - '0') * (-1);
-        if (stringPolygon[i + 4] == ';')
+        intersectionsPoint.x = (strPoly[i + 3] - '0') * (-1);
+        if (strPoly[i + 4] == ';')
         {
-          if (stringPolygon[i + 5] == '-' && stringPolygon[i + 7] == ')')
+          if (strPoly[i + 5] == '-' && strPoly[i + 7] == ')')
           {
-            intersectionsPoint.y = (stringPolygon[i + 6] - '0') * (-1);
+            intersectionsPoint.y = (strPoly[i + 6] - '0') * (-1);
             i = i + 2;
           }
-          else if (stringPolygon[i + 6] == ')')
+          else if (strPoly[i + 6] == ')')
           {
-            intersectionsPoint.y = stringPolygon[i + 5] - '0';
+            intersectionsPoint.y = strPoly[i + 5] - '0';
             i = i + 1;
           }
         }
         intersectionsPolygon.points.push_back(intersectionsPoint);
       }
-      else if (stringPolygon[i] == ' ' && stringPolygon[i + 1] == '(' && \
-        stringPolygon[i + 3] == ';' && stringPolygon[i + 4] == '-' && stringPolygon[i + 6] == ')')
+      else if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 3] == ';' && strPoly[i + 4] == '-' && strPoly[i + 6] == ')')
       {
-        intersectionsPoint.x = stringPolygon[i + 2] - '0';
-        intersectionsPoint.y = (stringPolygon[i + 5] - '0') * (-1);
+        intersectionsPoint.x = strPoly[i + 2] - '0';
+        intersectionsPoint.y = (strPoly[i + 5] - '0') * (-1);
         intersectionsPolygon.points.push_back(intersectionsPoint);
         i = i + 1;
       }
@@ -331,8 +330,8 @@ int main(int argc, char* argv[]) {
     {
       if (line.substr(0, 8) == "LESSAREA")
       {
-        std::string stringPolygon = line.substr(9, line.length() - 1);
-        sajfutdinov::lessArea(polygons, stringPolygon);
+        std::string strPoly = line.substr(9, line.length() - 1);
+        sajfutdinov::lessArea(polygons, strPoly);
         continue;
       }
     }
@@ -340,8 +339,8 @@ int main(int argc, char* argv[]) {
     {
       if (line.substr(0, 13) == "INTERSECTIONS")
       {
-        std::string stringPolygon = line.substr(14, line.length() - 1);
-        sajfutdinov::intersections(polygons, stringPolygon);
+        std::string strPoly = line.substr(14, line.length() - 1);
+        sajfutdinov::intersections(polygons, strPoly);
         continue;
       }
     }
