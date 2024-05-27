@@ -234,7 +234,7 @@ namespace sajfutdinov {
         //std::for_each(polygons.begin(), polygons.end(), PrintPolygon());
         Polygon intrscPoly;
         unsigned long int numpoints = strPoly[0] - '0';
-        if (numpoints == '0' || numpoints == '1' || numpoints == '2')
+        if (numpoints == 0 || numpoints == 1 || numpoints == 2)
         {
           std::cerr << "<INVALID COMMAND>\n";
           return;
@@ -318,7 +318,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
         }
-        if (numpoints != 0)
+        if (numpoints != 0 && numpoints != 1 && numpoints != 2)
         {
             for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
             {
