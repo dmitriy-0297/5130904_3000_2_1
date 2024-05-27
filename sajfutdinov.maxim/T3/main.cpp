@@ -146,11 +146,6 @@ namespace sajfutdinov {
 
   void lessArea(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
   {
-    if (polygons.empty()) {
-      std::cerr << "<INVALID COMMAND>\n";
-      return;
-    }
-
     Polygon lessAreaPolygon;
     unsigned long int numpoints = stringPolygon[0] - '0';
     for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
@@ -289,10 +284,10 @@ int main(int argc, char* argv[]) {
       {
         std::string type = line.substr(6, line.length() - 1);
         if (type == "0" || type == "1" || type == "2")
-	{
-	  std::cerr << "<INVALID COMMAND>";
-	  continue;
-	}
+        {
+          std::cerr << "<INVALID COMMAND>";
+          continue;
+        }
         sajfutdinov::countPolygons(polygons, type);
         continue;
       }
