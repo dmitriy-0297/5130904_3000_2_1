@@ -69,7 +69,7 @@ namespace sajfutdinov {
       }
     }
     if (count > 0) {
-      std::cout << std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
+      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
     }
     else {
       std::cout << "<INVALID COMMMAND>\n";
@@ -95,10 +95,10 @@ namespace sajfutdinov {
       }
       });
     if (type == "AREA") {
-      std::cout << std::setprecision(1) << AreaCalculator()(*maxIt) << "\n";
+      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << AreaCalculator()(*maxIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << std::setprecision(1) << maxIt->points.size() << "\n";
+      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << maxIt->points.size() << "\n";
     }
   }
 
@@ -124,10 +124,10 @@ namespace sajfutdinov {
         }
       });
     if (type == "AREA") {
-      std::cout << std::setprecision(1) << AreaCalculator()(*minIt) << "\n";
+      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << AreaCalculator()(*minIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << std::setprecision(1) << minIt->points.size() << "\n";
+      std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << minIt->points.size() << "\n";
     }
   }
 
@@ -180,7 +180,7 @@ namespace sajfutdinov {
     int lessAreaCount = std::count_if(polygons.begin(), polygons.end(), [lessAreaPolygon](const Polygon& poly) {
       return AreaCalculator()(poly) < AreaCalculator()(lessAreaPolygon);
       });
-    std::cout << std::setprecision(1) << lessAreaCount << "\n";
+    std::cout << std::fixed <<  std::fixed <<  std::setprecision(1) << lessAreaCount << "\n";
   }
 
   void intersections(const std::vector<Polygon>& polygons, const std::string& stringPolygon)
