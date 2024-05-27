@@ -223,7 +223,8 @@ namespace sajfutdinov {
           if (((intersectionsPolygon.points[next].x - intersectionsPolygon.points[i].x) * (poly.points[j].y - intersectionsPolygon.points[i].y) -
             (intersectionsPolygon.points[next].y - intersectionsPolygon.points[i].y) * (poly.points[j].x - intersectionsPolygon.points[i].x)) *
             ((intersectionsPolygon.points[next].x - intersectionsPolygon.points[i].x) * (poly.points[nextB].y - intersectionsPolygon.points[i].y) -
-              (intersectionsPolygon.points[next].y - intersectionsPolygon.points[i].y) * (poly.points[nextB].x - intersectionsPolygon.points[i].x)) < 0 &&
+              (intersectionsPolygon.points[next].y - intersectionsPolygon.points[i].y) * \
+                (poly.points[nextB].x - intersectionsPolygon.points[i].x)) < 0 &&
             ((poly.points[nextB].x - poly.points[j].x) * (intersectionsPolygon.points[i].y - poly.points[j].y) -
               (poly.points[nextB].y - poly.points[j].y) * (intersectionsPolygon.points[i].x - poly.points[j].x)) *
             ((poly.points[nextB].x - poly.points[j].x) * (intersectionsPolygon.points[next].y - poly.points[j].y) -
