@@ -1,6 +1,6 @@
 #include "DataStruct.h"
 
-using namespace bril
+using namespace bril;
 
 std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
 {
