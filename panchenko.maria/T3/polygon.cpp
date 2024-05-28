@@ -1,14 +1,13 @@
 #include "polygon.h"
 
 std::istream& panchenko::operator>>(std::istream& input, Point& point) {
-    std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
-    std::string pointStr;
-    std::smatch matches;
+    char openParen, semicolon, closeParen;
+    int x, y;
 
-    if (std::getline(input, pointStr)) {
-        if (std::regex_match(pointStr, matches, pointRegex)) {
-            point.x = std::stoi(matches[1]);
-            point.y = std::stoi(matches[2]);
+    if (input >> openParen >> x >> semicolon >> y >> closeParen) {
+        if (openParen == '(' && semicolon == ';' && closeParen == ')') {
+            point.x = x;
+            point.y = y;
         } else {
             input.setstate(std::ios_base::failbit);
         }
@@ -20,33 +19,32 @@ std::istream& panchenko::operator>>(std::istream& input, Point& point) {
 }
 
 std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
-    std::regex numVerticesRegex("(\\d+)");
-    std::string line;
-    std::smatch matches;
+    size_t numVertices;
+    std::vector<Point> points;
 
-    if (std::getline(input, line)) {
-        if (std::regex_search(line, matches, numVerticesRegex)) {
-            size_t numVertices = std::stoi(matches[1]);
-            polygon.points.resize(numVertices);
-
-            std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
-
-            for (size_t i = 0; i < numVertices; ++i) {
-                if (!(input >> polygon.points[i])) {
-                    input.setstate(std::ios_base::failbit);
-                    break;
-                }
-            }
-        } else {
-            input.setstate(std::ios_base::failbit);
-        }
-    } else {
+    if (!(input >> numVertices)) {
         input.setstate(std::ios_base::failbit);
+        return input;
     }
+
+    points.resize(numVertices);
+
+    for (size_t i = 0; i < numVertices; ++i) {
+        if (!(input >> points[i])) {
+            input.setstate(std::ios_base::failbit);
+            return input;
+        }
+    }
+
+    if (points.size() != numVertices) {
+        input.setstate(std::ios_base::failbit);
+        return input;
+    }
+
+    polygon.points = points;
 
     return input;
 }
-
 
 std::ostream& panchenko::operator<<(std::ostream& output, const Point& point) {
     output << "(" << point.x << ";" << point.y << ")";
