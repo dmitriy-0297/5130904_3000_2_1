@@ -42,26 +42,50 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
     }
 }
 
-void panchenko::min(const std::vector<panchenko::Polygon>& polygons) {
+void panchenko::min(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
     if (polygons.empty()) {
         throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
         return;
     }
-    auto minAreaPolygon = std::min_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
-        return getArea(a) < getArea(b);
-        });
-    std::cout << std::fixed << std::setprecision(1) << getArea(*minAreaPolygon) << std::endl;
+    if (param == "AREA") {
+        auto minAreaPolygon = std::min_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
+            return getArea(a) < getArea(b);
+            });
+        std::cout << std::fixed << std::setprecision(1) << getArea(*minAreaPolygon) << std::endl;
+    }
+    else if (param == "VERTEXES") {
+        auto minVertexPolygon = std::min_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
+            return a.points.size() < b.points.size();
+            });
+        std::cout << minVertexPolygon->points.size() << std::endl;
+    }
+    else {
+        std::cout << "<INVALID COMMAND>" << std::endl;
+        return;
+    }
 }
 
-void panchenko::max(const std::vector<panchenko::Polygon>& polygons) {
+void panchenko::max(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
     if (polygons.empty()) {
         throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
         return;
     }
-    auto maxAreaPolygon = std::max_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
-        return getArea(a) < getArea(b);
-        });
-    std::cout << std::fixed << std::setprecision(1) << getArea(*maxAreaPolygon) << std::endl;
+    if (param == "AREA") {
+        auto maxAreaPolygon = std::max_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
+            return getArea(a) < getArea(b);
+            });
+        std::cout << std::fixed << std::setprecision(1) << getArea(*maxAreaPolygon) << std::endl;
+    }
+    else if (param == "VERTEXES") {
+        auto maxVertexPolygon = std::max_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
+            return a.points.size() < b.points.size();
+            });
+        std::cout << maxVertexPolygon->points.size() << std::endl;
+    }
+    else {
+        std::cout << "<INVALID COMMAND>" << std::endl;
+        return;
+    }
 }
 
 void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
