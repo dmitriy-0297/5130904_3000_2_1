@@ -1,5 +1,7 @@
 ﻿#include "DataStruct.h"
-int main() {
+
+int main()
+{
     using namespace bril;
     std::vector< DataStruct > data;
     while (std::cin.good())
