@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
                 panchenko::same(std::cin, std::cout, polygons);
             }
             else {
-                throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
+                std::cout << "<INVALID COMMAND>" << std::endl;
             }
         }
     }
