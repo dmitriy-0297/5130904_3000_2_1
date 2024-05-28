@@ -50,10 +50,14 @@ int main(int argc, char* argv[]) {
                 panchenko::area(polygons, param);
             }
             else if (command == "MIN") {
-                panchenko::min(polygons);
+                std::string param;
+                std::cin >> param;
+                panchenko::min(polygons, param);
             }
             else if (command == "MAX") {
-                panchenko::max(polygons);
+                std::string param;
+                std::cin >> param;
+                panchenko::max(polygons, param);
             }
             else if (command == "COUNT") {
                 std::string param;
