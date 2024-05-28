@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
                 panchenko::same(std::cin, std::cout, polygons);
             }
             else {
-                std::cout << "    <INVALID COMMAND>" << std::endl;
+                std::cout << "<INVALID COMMAND>" << std::endl;
             }
         }
     }
