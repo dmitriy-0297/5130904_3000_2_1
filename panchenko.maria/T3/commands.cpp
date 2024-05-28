@@ -107,6 +107,10 @@ void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std
     }
     else {
         unsigned long int numVertices = std::stoi(param);
+        if (numVertices < 3) {
+            std::cout << "<INVALID COMMAND>" << std::endl;
+            return;
+        }
         int count = std::count_if(polygons.begin(), polygons.end(), [numVertices](const Polygon& polygon) {
             return polygon.points.size() == numVertices;
             });
