@@ -91,14 +91,14 @@ std::ostream& bril::operator<<(std::ostream& out, const DataStruct& src)
     return out;
 }
 
-iofmtguard::iofmtguard(std::basic_ios< char >& link) :
+bril::iofmtguard::iofmtguard(std::basic_ios< char >& link) :
     link_(link),
     fill_(link.fill()),
     precision_(link.precision()),
     fmt_(link.flags())
 {}
 
-iofmtguard::~iofmtguard()
+bril::iofmtguard::~iofmtguard()
 {
     link_.fill(fill_);
     link_.precision(precision_);
