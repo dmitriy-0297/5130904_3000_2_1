@@ -11,6 +11,7 @@ namespace sajfutdinov {
   struct Point {
     int x, y;
     Point() : x(0), y(0) {};
+    Point(const Point& point) : x(point.x), y(point.y) {};
     bool operator==(const Point& point) const { return x == point.x && y == point.y; }
   };
 
@@ -184,9 +185,9 @@ namespace sajfutdinov {
     int count = 0;
     for (int i = 0; i < n; i++) {
       int j = (i + 1) % n;
-      if ((polygon.points[i].y > p.y) != (polygon.points[j].y > p.y) &&
-        (p.x < (polygon.points[j].x - polygon.points[i].x) *\
-          (p.y - polygon.points[i].y) / (polygon.points[j].y - polygon.points[i].y) + polygon.points[i].x)) {
+      sajfutdinov::Point iP = polygon.points[i];
+      sajfutdinov::Point jP = polygon.points[j];
+      if ((iP.y > p.y) != (jP.y > p.y) && (p.x < (jP.x - iP.x) * (p.y - iP.y) / (jP.y - iP.y) + iP.x)) {
         count++;
       }
     }
