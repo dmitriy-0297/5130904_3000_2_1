@@ -21,7 +21,7 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
     }
     else if (param == "MEAN") {
         if (polygons.empty()) {
-            std::cout << "0.0" << std::endl;
+            std::cout << "<INVALID COMMAND>" << std::endl;
             return;
         }
         double sum = 0.0;
@@ -32,6 +32,10 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
     }
     else {
         unsigned long int numVertices = std::stoi(param);
+        if (numVertices < 3) {
+            std::cout << "<INVALID COMMAND>" << std::endl;
+            return;
+        }
         double sum = 0.0;
         for (const auto& polygon : polygons) {
             if (polygon.points.size() == numVertices) {
