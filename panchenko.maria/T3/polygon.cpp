@@ -54,6 +54,12 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
             if (pointsRead != numVertices) {
                 input.setstate(std::ios_base::failbit);
             }
+            if (std::getline(input, line)) {
+                std::regex emptyLineRegex("\\s*");
+                if (!std::regex_search(line, emptyLineRegex)) {
+                        input.setstate(std::ios_base::failbit);
+                }
+            }
         }
         else {
             input.setstate(std::ios_base::failbit);
