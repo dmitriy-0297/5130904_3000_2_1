@@ -9,11 +9,11 @@ std::istream& panchenko::operator>>(std::istream& input, Point& point) {
         if (std::regex_match(pointStr, matches, pointRegex)) {
             point.x = std::stoi(matches[1]);
             point.y = std::stoi(matches[2]);
-        }
-        else {
+        } else {
             input.setstate(std::ios_base::failbit);
-            input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
+    } else {
+        input.setstate(std::ios_base::failbit);
     }
 
     return input;
@@ -32,30 +32,21 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
             std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
 
             for (size_t i = 0; i < numVertices; ++i) {
-                if (std::getline(input, line)) {
-                    if (std::regex_match(line, matches, pointRegex)) {
-                        polygon.points[i].x = std::stoi(matches[1]);
-                        polygon.points[i].y = std::stoi(matches[2]);
-                    }
-                    else {
-                        input.setstate(std::ios_base::failbit);
-                        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        break;
-                    }
-                }
-                else {
+                if (!(input >> polygon.points[i])) {
                     input.setstate(std::ios_base::failbit);
                     break;
                 }
             }
-        }
-        else {
+        } else {
             input.setstate(std::ios_base::failbit);
         }
+    } else {
+        input.setstate(std::ios_base::failbit);
     }
 
     return input;
 }
+
 
 std::ostream& panchenko::operator<<(std::ostream& output, const Point& point) {
     output << "(" << point.x << ";" << point.y << ")";
