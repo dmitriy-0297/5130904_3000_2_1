@@ -8,7 +8,6 @@
 #include <string>
 #include <vector>
 
-
 int main(int argc, char* argv[]) {
     if (argc != 2) {
         std::cerr << "Usage: ./program filename" << std::endl;
@@ -43,37 +42,42 @@ int main(int argc, char* argv[]) {
         }
     }
     file.close();
-
-    std::string command;
-    while (std::cin >> command) {
-        if (command == "AREA") {
-            std::string param;
-            std::cin >> param;
-            panchenko::area(param);
+    try
+    {
+        std::string command;
+        while (std::cin >> command) {
+            if (command == "AREA") {
+                std::string param;
+                std::cin >> param;
+                panchenko::area(param);
+            }
+            else if (command == "MIN") {
+                panchenko::min();
+            }
+            else if (command == "MAX") {
+                panchenko::max();
+            }
+            else if (command == "COUNT") {
+                std::string param;
+                std::cin >> param;
+                panchenko::count(param);
+            }
+            else if (command == "LESS") {
+                panchenko::Polygon polygon;
+                std::cin >> polygon;
+                panchenko::lessArea(polygon);
+            }
+            else if (command == "SAME") {
+                panchenko::same(std::cin, std::cout, polygons);
+            }
+            else {
+                throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
+            }
         }
-        else if (command == "MIN") {
-            panchenko::min();
-        }
-        else if (command == "MAX") {
-            panchenko::max();
-        }
-        else if (command == "COUNT") {
-            std::string param;
-            std::cin >> param;
-            panchenko::count(param);
-        }
-        else if (command == "LESS") {
-            panchenko::Polygon polygon;
-            std::cin >> polygon;
-            panchenko::lessArea(polygon);
-        }
-        else if (command == "SAME") {
-            panchenko::same(std::cin, std::cout, polygons);
-        }
-        else {
-            std::cout << "<INVALID COMMAND>" << std::endl;
-        }
+    }
+    catch (std::invalid_argument& ex) {
+        std::cerr << ex.what();
+        return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
-}
