@@ -37,25 +37,38 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
 
                 std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
 
-                for (size_t i = 0; i < numVertices; ++i) {
-                    if (!std::getline(input, line)) {
+                size_t pointsRead = 0;
+                while (pointsRead < numVertices) {
+                    if (std::getline(input, line)) {
+                        if (std::regex_match(line, matches, pointRegex)) {
+                            polygon.points[pointsRead].x = std::stoi(matches[1]);
+                            polygon.points[pointsRead].y = std::stoi(matches[2]);
+                            pointsRead++;
+                        }
+                        else {
+                            input.setstate(std::ios_base::failbit);
+                            input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                            polygon.points.clear();
+                            break;
+                        }
+                    }
+                    else {
                         input.setstate(std::ios_base::failbit);
                         polygon.points.clear();
                         break;
                     }
-                    if (!std::regex_match(line, matches, pointRegex)) {
-                        input.setstate(std::ios_base::failbit);
-                        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                        polygon.points.clear();
-                        break;
-                    }
-                    polygon.points[i].x = std::stoi(matches[1]);
-                    polygon.points[i].y = std::stoi(matches[2]);
                 }
 
-                if (polygon.points.size() != numVertices) {
+                if (pointsRead != numVertices) {
                     input.setstate(std::ios_base::failbit);
                     polygon.points.clear();
+                }
+                if (std::getline(input, line)) {
+                    std::regex emptyLineRegex("\\s*");
+                    if (!std::regex_search(line, emptyLineRegex)) {
+                        input.setstate(std::ios_base::failbit);
+                        polygon.points.clear();
+                    }
                 }
             }
         }
