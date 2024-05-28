@@ -238,7 +238,7 @@ namespace sajfutdinov {
 
     bool isPointInsidePolygon(const Point& p, const Polygon& poly) {
         int n = poly.points.size();
-        int inf = 1e10;
+        int inf = 1e5;
         Point extreme(inf, p.y);
         int count = 0, i = 0;
 
@@ -257,10 +257,10 @@ namespace sajfutdinov {
     }
 
     bool doPolygonsIntersect(const Polygon& poly1, const Polygon& poly2) {
-        for (int i = 0; i < poly1.points.size(); ++i) {
-            for (int j = 0; j < poly2.points.size(); ++j) {
-                int next_i = (i + 1) % poly1.points.size();
-                int next_j = (j + 1) % poly2.points.size();
+        for (size_t i = 0; i < poly1.points.size(); ++i) {
+            for (size_t j = 0; j < poly2.points.size(); ++j) {
+                size_t next_i = (i + 1) % poly1.points.size();
+                size_t next_j = (j + 1) % poly2.points.size();
                 if (doSegmentsIntersect(poly1.points[i], poly1.points[next_i], poly2.points[j], poly2.points[next_j])) {
                     return true;
                 }
