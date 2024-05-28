@@ -30,7 +30,7 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
             size_t numVertices = std::stoi(matches[1]);
             if (numVertices < 2) {
                 input.setstate(std::ios_base::failbit);
-                polygon.points.clear();
+                
             }
             else {
                 polygon.points.resize(numVertices);
@@ -48,33 +48,33 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
                         else {
                             input.setstate(std::ios_base::failbit);
                             input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                            polygon.points.clear();
+                            
                             break;
                         }
                     }
                     else {
                         input.setstate(std::ios_base::failbit);
-                        polygon.points.clear();
+                        
                         break;
                     }
                 }
 
                 if (pointsRead != numVertices) {
                     input.setstate(std::ios_base::failbit);
-                    polygon.points.clear();
+                    
                 }
                 if (std::getline(input, line)) {
                     std::regex emptyLineRegex("\\s*");
                     if (!std::regex_search(line, emptyLineRegex)) {
                         input.setstate(std::ios_base::failbit);
-                        polygon.points.clear();
+                        
                     }
                 }
             }
         }
         else {
             input.setstate(std::ios_base::failbit);
-            polygon.points.clear();
+            
         }
     }
 
