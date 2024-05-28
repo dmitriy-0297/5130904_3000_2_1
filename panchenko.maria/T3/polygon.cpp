@@ -21,6 +21,7 @@ std::istream& panchenko::operator>>(std::istream& input, Point& point) {
         }
         else {
             input.setstate(std::ios_base::failbit);
+            input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
 
@@ -47,8 +48,13 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
                     }
                     else {
                         input.setstate(std::ios_base::failbit);
+                        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         break;
                     }
+                }
+                else {
+                    input.setstate(std::ios_base::failbit);
+                    break;
                 }
             }
         }
