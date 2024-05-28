@@ -23,7 +23,12 @@ int main(int argc, char* argv[]) {
     std::vector<panchenko::Polygon> polygons;
     panchenko::Polygon polygon;
     while (file >> polygon) {
-        polygons.push_back(polygon);
+        if (!file.fail()) {
+            polygons.push_back(polygon);
+        } else {
+            std::cerr << "Error reading polygon from file" << std::endl;
+            return EXIT_FAILURE;
+        }
     }
 
     try {
@@ -33,39 +38,31 @@ int main(int argc, char* argv[]) {
                 std::string param;
                 std::cin >> param;
                 panchenko::area(polygons, param);
-            }
-            else if (command == "MIN") {
+            } else if (command == "MIN") {
                 std::string param;
                 std::cin >> param;
                 panchenko::min(polygons, param);
-            }
-            else if (command == "MAX") {
+            } else if (command == "MAX") {
                 std::string param;
                 std::cin >> param;
                 panchenko::max(polygons, param);
-            }
-            else if (command == "COUNT") {
+            } else if (command == "COUNT") {
                 std::string param;
                 std::cin >> param;
                 panchenko::count(polygons, param);
-            }
-            else if (command == "LESSAREA") {
+            } else if (command == "LESSAREA") {
                 panchenko::Polygon inputPolygon;
                 std::cin >> inputPolygon;
                 panchenko::lessArea(polygons, inputPolygon);
-            }
-            else if (command == "SAME") {
+            } else if (command == "SAME") {
                 panchenko::same(std::cin, std::cout, polygons);
-            }
-            else {
+            } else {
                 std::cout << "<INVALID COMMAND>" << std::endl;
                 std::string dummy;
                 std::getline(std::cin, dummy);
             }
         }
-    }
-    catch (const std::exception&)
-    {
+    } catch (const std::exception&) {
         return EXIT_FAILURE;
     }
 
