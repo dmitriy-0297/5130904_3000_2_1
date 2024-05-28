@@ -8,6 +8,7 @@
 #include <cmath>
 #include <string>
 
+const std::string ERROR_OF_COMMAND_MSG = "<INVALID COMMAND>";
 namespace panchenko {
     void area(const std::string& param);
     void min();
