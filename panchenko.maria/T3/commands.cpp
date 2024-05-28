@@ -50,7 +50,7 @@ void panchenko::min(const std::vector<panchenko::Polygon>& polygons) {
     auto minAreaPolygon = std::min_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
         return getArea(a) < getArea(b);
         });
-    std::cout << std::fixed << getArea(*minAreaPolygon) << std::endl;
+    std::cout << std::fixed << std::setprecision(1) << getArea(*minAreaPolygon) << std::endl;
 }
 
 void panchenko::max(const std::vector<panchenko::Polygon>& polygons) {
@@ -61,7 +61,7 @@ void panchenko::max(const std::vector<panchenko::Polygon>& polygons) {
     auto maxAreaPolygon = std::max_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
         return getArea(a) < getArea(b);
         });
-    std::cout << std::fixed << getArea(*maxAreaPolygon) << std::endl;
+    std::cout << std::fixed << std::setprecision(1) << getArea(*maxAreaPolygon) << std::endl;
 }
 
 void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
