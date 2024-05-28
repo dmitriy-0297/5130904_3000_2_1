@@ -56,9 +56,17 @@ namespace sajfutdinov {
         for (const auto& poly : polygons) {
             if (type == "MEAN")
             {
+              if (polygons.size() > 0)
+              {
                 totalArea += AreaCalculator()(poly);
                 count++;
                 continue;
+              }
+              else
+              {
+                std::cout << "<INVALID COMMAND>\n";
+                return;
+              }
             }
             if (std::all_of(type.begin(), type.end(), [](char c) { return std::isdigit(c); }))
             {
@@ -390,13 +398,8 @@ int main(int argc, char* argv[]) {
 
     while (std::getline(std::cin, line))
     {
-        if (polygons.size() == 0)
-        {
-          std::cout << "<INVALID COMMAND>\n";
-          return 1;
-        }
         if (line.length() == 0) continue;
-        if (line.length() > 4)
+        if (line.length() > 4 && polygons.size() > 0)
         {
             if (line.substr(0, 3) == "MAX")
             {
