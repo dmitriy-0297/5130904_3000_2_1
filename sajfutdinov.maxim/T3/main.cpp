@@ -47,9 +47,9 @@ namespace sajfutdinov {
   void calculateArea(const std::vector<Polygon>& polygons, const std::string& type) {
     int count = 0;
     double totalArea = 0.0;
-    if (type == '0' || type == '1' || type == '2')
+    if (type == "0" || type == "1" || type == "2")
     {
-      std::cerr"<INVALID COMMAND>\n";
+      std::cerr << "<INVALID COMMAND>\n";
       return;
     }
     for (const auto& poly : polygons) {
@@ -75,7 +75,7 @@ namespace sajfutdinov {
         continue;
       }
     }
-    std::cout << std::fixed << std::fixed << std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
+    std::cout << std::fixed << std::setprecision(1) << (type == "MEAN" ? totalArea / count : totalArea) << "\n";
   }
 
   void calculateMax(const std::vector<Polygon>& polygons, const std::string& type) {
@@ -93,10 +93,10 @@ namespace sajfutdinov {
       }
       });
     if (type == "AREA") {
-      std::cout << std::fixed << std::fixed << std::setprecision(1) << AreaCalculator()(*maxIt) << "\n";
+      std::cout << std::fixed << std::setprecision(1) << AreaCalculator()(*maxIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << std::fixed << std::fixed << std::setprecision(1) << maxIt->points.size() << "\n";
+      std::cout << std::fixed << std::setprecision(1) << maxIt->points.size() << "\n";
     }
   }
 
@@ -118,10 +118,10 @@ namespace sajfutdinov {
         }
       });
     if (type == "AREA") {
-      std::cout << std::fixed << std::fixed << std::setprecision(1) << AreaCalculator()(*minIt) << "\n";
+      std::cout << std::fixed << std::setprecision(1) << AreaCalculator()(*minIt) << "\n";
     }
     else if (type == "VERTEXES") {
-      std::cout << std::fixed << std::fixed << std::setprecision(1) << minIt->points.size() << "\n";
+      std::cout << std::fixed << std::setprecision(1) << minIt->points.size() << "\n";
     }
   }
 
@@ -161,24 +161,50 @@ namespace sajfutdinov {
   {
     Polygon lessAreaPolygon;
     unsigned long int numpoints = strPoly[0] - '0';
-      if (numpoints == 1 || numpoints == 2 || numpoints == 0)
-      {
-        std::cerr << "<INVALID COMMAND>\n";
-        return;
-      }
-
+    if (numpoints == 1 || numpoints == 2 || numpoints == 0)
+    {
+      std::cerr << "<INVALID COMMAND>\n";
+      return;
+    }
+    for (size_t i = 1; i < strPoly.length(); i = i + 6)
+    {
+      Point lessAreaPoint;
       if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 3] == ';' && strPoly[i + 5] == ')')
       {
-        Point lessAreaPoint;
         lessAreaPoint.x = strPoly[i + 2] - '0';
         lessAreaPoint.y = strPoly[i + 4] - '0';
         lessAreaPolygon.points.push_back(lessAreaPoint);
+      }
+      else if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 2] == '-')
+      {
+        lessAreaPoint.x = (strPoly[i + 3] - '0') * (-1);
+        if (strPoly[i + 4] == ';')
+        {
+          if (strPoly[i + 5] == '-' && strPoly[i + 7] == ')')
+          {
+            lessAreaPoint.y = (strPoly[i + 6] - '0') * (-1);
+            i = i + 2;
+          }
+          else if (strPoly[i + 6] == ')')
+          {
+            lessAreaPoint.y = strPoly[i + 5] - '0';
+            i = i + 1;
+          }
+        }
+        lessAreaPolygon.points.push_back(lessAreaPoint);
+      }
+      else if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 3] == ';' && strPoly[i + 4] == '-' && strPoly[i + 6] == ')')
+      {
+        lessAreaPoint.x = strPoly[i + 2] - '0';
+        lessAreaPoint.y = (strPoly[i + 5] - '0') * (-1);
+        lessAreaPolygon.points.push_back(lessAreaPoint);
+        i = i + 1;
       }
     }
     auto lessAreaCount = std::count_if(polygons.begin(), polygons.end(), [lessAreaPolygon](const Polygon& poly) {
       return AreaCalculator()(poly) < AreaCalculator()(lessAreaPolygon);
       });
-    std::cout << std::fixed << std::fixed << std::setprecision(1) << lessAreaCount << "\n";
+    std::cout << std::fixed << std::setprecision(1) << lessAreaCount << "\n";
   }
 
   bool doIntersect(const Point& p1, const Point& q1, const Point& p2, const Point& q2) {
@@ -278,7 +304,6 @@ namespace sajfutdinov {
       });
     std::cout << count << "\n";
   }
-
 }
 
 int main(int argc, char* argv[]) {
