@@ -13,7 +13,6 @@ std::istream& panchenko::operator>>(std::istream& input, Point& point) {
         else {
             input.setstate(std::ios_base::failbit);
             input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            point = Point();
         }
     }
 
@@ -28,53 +27,30 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
     if (std::getline(input, line)) {
         if (std::regex_search(line, matches, numVerticesRegex)) {
             size_t numVertices = std::stoi(matches[1]);
-            if (numVertices < 2) {
-                input.setstate(std::ios_base::failbit);
+            polygon.points.resize(numVertices);
 
-            }
-            else {
-                polygon.points.resize(numVertices);
+            std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
 
-                std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
-
-                size_t pointsRead = 0;
-                while (pointsRead < numVertices) {
-                    if (std::getline(input, line)) {
-                        if (std::regex_match(line, matches, pointRegex)) {
-                            polygon.points[pointsRead].x = std::stoi(matches[1]);
-                            polygon.points[pointsRead].y = std::stoi(matches[2]);
-                            pointsRead++;
-                        }
-                        else {
-                            input.setstate(std::ios_base::failbit);
-                            input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-                            break;
-                        }
+            for (size_t i = 0; i < numVertices; ++i) {
+                if (std::getline(input, line)) {
+                    if (std::regex_match(line, matches, pointRegex)) {
+                        polygon.points[i].x = std::stoi(matches[1]);
+                        polygon.points[i].y = std::stoi(matches[2]);
                     }
                     else {
                         input.setstate(std::ios_base::failbit);
-
+                        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         break;
                     }
                 }
-
-                if (pointsRead != numVertices) {
+                else {
                     input.setstate(std::ios_base::failbit);
-
-                }
-                if (std::getline(input, line)) {
-                    std::regex emptyLineRegex("\\s*");
-                    if (!std::regex_search(line, emptyLineRegex)) {
-                        input.setstate(std::ios_base::failbit);
-
-                    }
+                    break;
                 }
             }
         }
         else {
             input.setstate(std::ios_base::failbit);
-
         }
     }
 
