@@ -9,12 +9,12 @@
 #include <string>
 
 namespace panchenko {
-	void area(const std::string& param);
-	void min();
-	void max();
-	void count(const std::string& param);
-	void lessArea(const panchenko::Polygon& polygon);
-	void same(std::istream& in, std::ostream& out, const std::vector< Polygon >& polygons);
+    void area(const std::string& param);
+    void min();
+    void max();
+    void count(const std::string& param);
+    void lessArea(const panchenko::Polygon& polygon);
+    void same(std::istream& in, std::ostream& out, const std::vector< Polygon >& polygons);
 }
 
 #endif
