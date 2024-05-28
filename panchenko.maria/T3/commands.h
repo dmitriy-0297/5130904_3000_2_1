@@ -7,6 +7,7 @@
 #include <vector>
 #include <cmath>
 #include <string>
+#include <iomanip>
 const std::string ERROR_OF_COMMAND_MSG = "<INVALID COMMAND>";
 
 namespace panchenko {
