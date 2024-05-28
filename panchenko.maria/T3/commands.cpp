@@ -44,7 +44,7 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
 
 void panchenko::min(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
     if (polygons.empty()) {
-        throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
+        std::cout << "<INVALID COMMAND>" << std::endl;
         return;
     }
     if (param == "AREA") {
@@ -67,7 +67,7 @@ void panchenko::min(const std::vector<panchenko::Polygon>& polygons, const std::
 
 void panchenko::max(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
     if (polygons.empty()) {
-        throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
+        std::cout << "<INVALID COMMAND>" << std::endl;
         return;
     }
     if (param == "AREA") {
@@ -89,11 +89,6 @@ void panchenko::max(const std::vector<panchenko::Polygon>& polygons, const std::
 }
 
 void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
-    if (polygons.empty()) {
-        std::cout << "<INVALID COMMAND>" << std::endl;
-        return;
-    }
-
     if (param == "EVEN") {
         int count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
             return polygon.points.size() % 2 == 0;
@@ -107,6 +102,10 @@ void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std
         std::cout << count << std::endl;
     }
     else {
+        if (polygons.empty()) {
+        std::cout << "<INVALID COMMAND>" << std::endl;
+        return;
+    }
         unsigned long int numVertices = std::stoi(param);
         int count = std::count_if(polygons.begin(), polygons.end(), [numVertices](const Polygon& polygon) {
             return polygon.points.size() == numVertices;
