@@ -41,31 +41,29 @@ int main(int argc, char* argv[]) {
             polygons.push_back(polygon);
         }
     }
-    file.close();
-    try
-    {
+    try {
         std::string command;
         while (std::cin >> command) {
             if (command == "AREA") {
                 std::string param;
                 std::cin >> param;
-                panchenko::area(param);
+                panchenko::area(polygons, param);
             }
             else if (command == "MIN") {
-                panchenko::min();
+                panchenko::min(polygons);
             }
             else if (command == "MAX") {
-                panchenko::max();
+                panchenko::max(polygons);
             }
             else if (command == "COUNT") {
                 std::string param;
                 std::cin >> param;
-                panchenko::count(param);
+                panchenko::count(polygons, param);
             }
             else if (command == "LESS") {
                 panchenko::Polygon polygon;
                 std::cin >> polygon;
-                panchenko::lessArea(polygon);
+                panchenko::lessArea(polygons, polygon);
             }
             else if (command == "SAME") {
                 panchenko::same(std::cin, std::cout, polygons);
@@ -75,8 +73,8 @@ int main(int argc, char* argv[]) {
             }
         }
     }
-    catch (std::invalid_argument& ex) {
-        std::cerr << ex.what();
+    catch (const std::exception&)
+    {
         return EXIT_FAILURE;
     }
 
