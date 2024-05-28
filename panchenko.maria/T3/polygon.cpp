@@ -10,28 +10,34 @@ bool panchenko::comparePoints(const Point& point1, const Point& point2)
     return (point1.x == point2.x) && (point1.y == point2.y);
 }
 std::istream& panchenko::operator>>(std::istream& input, Point& point) {
-    std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
+    if (!input.good()) return input;
+
     std::string pointStr;
     std::smatch matches;
+    std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
 
-    if (std::getline(input, pointStr)) {
+    if (std::getline(input, pointStr, '(')) {
         if (std::regex_match(pointStr, matches, pointRegex)) {
             point.x = std::stoi(matches[1]);
             point.y = std::stoi(matches[2]);
         }
         else {
             input.setstate(std::ios_base::failbit);
-            input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
+    }
+    else {
+        input.setstate(std::ios_base::failbit);
     }
 
     return input;
 }
 
 std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
-    std::regex numVerticesRegex("(\\d+)");
+    if (!input.good()) return input;
+
     std::string line;
     std::smatch matches;
+    std::regex numVerticesRegex("(\\d+)");
 
     if (std::getline(input, line)) {
         if (std::regex_search(line, matches, numVerticesRegex)) {
@@ -39,9 +45,9 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
             polygon.points.resize(numVertices);
 
             std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
-
             size_t pointsRead = 0;
-            while (pointsRead < numVertices*2) {
+
+            while (pointsRead < numVertices) {
                 if (std::getline(input, line)) {
                     if (std::regex_match(line, matches, pointRegex)) {
                         polygon.points[pointsRead].x = std::stoi(matches[1]);
@@ -50,7 +56,6 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
                     }
                     else {
                         input.setstate(std::ios_base::failbit);
-                        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         break;
                     }
                 }
