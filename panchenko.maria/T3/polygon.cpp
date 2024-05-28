@@ -13,7 +13,7 @@ std::istream& panchenko::operator>>(std::istream& input, Point& point) {
         else {
             input.setstate(std::ios_base::failbit);
             input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            point = Point(); // clear point
+            point = Point();
         }
     }
 
@@ -30,7 +30,7 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
             size_t numVertices = std::stoi(matches[1]);
             if (numVertices < 2) {
                 input.setstate(std::ios_base::failbit);
-                polygon.points.clear(); 
+                polygon.points.clear();
             }
             else {
                 polygon.points.resize(numVertices);
@@ -48,20 +48,20 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
                         else {
                             input.setstate(std::ios_base::failbit);
                             input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                            polygon.points.clear(); 
+                            polygon.points.clear();
                             break;
                         }
                     }
                     else {
                         input.setstate(std::ios_base::failbit);
-                        polygon.points.clear(); 
+                        polygon.points.clear();
                         break;
                     }
                 }
 
                 if (pointsRead != numVertices) {
                     input.setstate(std::ios_base::failbit);
-                    polygon.points.clear(); 
+                    polygon.points.clear();
                 }
                 if (std::getline(input, line)) {
                     std::regex emptyLineRegex("\\s*");
@@ -74,12 +74,13 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
         }
         else {
             input.setstate(std::ios_base::failbit);
-            polygon.points.clear(); 
+            polygon.points.clear();
         }
     }
 
     return input;
 }
+
 
 std::ostream& panchenko::operator<<(std::ostream& output, const Point& point) {
     output << "(" << point.x << ";" << point.y << ")";
