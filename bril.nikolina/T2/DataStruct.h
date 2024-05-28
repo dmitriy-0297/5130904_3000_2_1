@@ -6,7 +6,7 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
-namespace nspace {
+namespace bril {
     struct DataStruct {
         char key1;
         std::pair<long long, unsigned long long> key2;
@@ -26,14 +26,15 @@ namespace nspace {
     };
     class iofmtguard {
     public:
-        iofmtguard(std::basic_ios< char >& s);
+        iofmtguard(std::basic_ios< char >& link);
         ~iofmtguard();
     private:
-        std::basic_ios< char >& s_;
+        std::basic_ios< char >& link_;
         char fill_;
         std::streamsize precision_;
         std::basic_ios< char >::fmtflags fmt_;
     };
+
     std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
     std::istream& operator>>(std::istream& in, Raitional&& dest);
     std::istream& operator>>(std::istream& in, StringIO&& dest);
