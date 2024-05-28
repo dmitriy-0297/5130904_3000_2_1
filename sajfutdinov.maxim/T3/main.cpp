@@ -379,7 +379,7 @@ int main(int argc, char* argv[]) {
                 break;
             }
         }
-        if (numpoints != 0)
+        if (numpoints > 2)
         {
             for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
             {
