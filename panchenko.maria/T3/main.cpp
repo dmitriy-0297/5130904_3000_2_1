@@ -74,6 +74,8 @@ int main(int argc, char* argv[]) {
             }
             else {
                 std::cout << "<INVALID COMMAND>" << std::endl;
+                std::string dummy;
+                std::getline(std::cin, dummy);
             }
         }
     }
