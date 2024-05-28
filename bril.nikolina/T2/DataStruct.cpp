@@ -1,8 +1,6 @@
 #include "DataStruct.h"
 
-using namespace bril;
-
-std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
+std::istream& bril::operator>>(std::istream& in, DelimiterIO&& dest)
 {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -18,7 +16,7 @@ std::istream& operator>>(std::istream& in, DelimiterIO&& dest)
     return in;
 }
 
-std::istream& operator>>(std::istream& in, Raitional&& dest)
+std::istream& bril::operator>>(std::istream& in, Raitional&& dest)
 {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -31,7 +29,7 @@ std::istream& operator>>(std::istream& in, Raitional&& dest)
         >> DelimiterIO{ ':' } >> DelimiterIO{ ')' };
 }
 
-std::istream& operator>>(std::istream& in, StringIO&& dest)
+std::istream& bril::operator>>(std::istream& in, StringIO&& dest)
 {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -41,7 +39,7 @@ std::istream& operator>>(std::istream& in, StringIO&& dest)
     return std::getline(in >> DelimiterIO{ '"' }, dest.ref, '"');
 }
 
-std::istream& operator>>(std::istream& in, DataStruct& dest)
+std::istream& bril::operator>>(std::istream& in, DataStruct& dest)
 {
     std::istream::sentry sentry(in);
     if (!sentry)
@@ -81,7 +79,7 @@ std::istream& operator>>(std::istream& in, DataStruct& dest)
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const DataStruct& src)
+std::ostream& bril::operator<<(std::ostream& out, const DataStruct& src)
 {
     std::ostream::sentry sentry(out);
     if (!sentry)
