@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace panchenko {
-	struct Point
+    struct Point
 	{
 		int x, y;
 
