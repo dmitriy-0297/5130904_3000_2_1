@@ -71,20 +71,20 @@ void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std
     }
 
     if (param == "EVEN") {
-        __int64 count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
+        int count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
             return polygon.points.size() % 2 == 0;
             });
         std::cout << count << std::endl;
     }
     else if (param == "ODD") {
-        __int64 count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
+        int count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
             return polygon.points.size() % 2 == 1;
             });
         std::cout << count << std::endl;
     }
     else {
         unsigned long int numVertices = std::stoi(param);
-        __int64 count = std::count_if(polygons.begin(), polygons.end(), [numVertices](const Polygon& polygon) {
+        int count = std::count_if(polygons.begin(), polygons.end(), [numVertices](const Polygon& polygon) {
             return polygon.points.size() == numVertices;
             });
         std::cout << count << std::endl;
@@ -93,7 +93,7 @@ void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std
 
 void panchenko::lessArea(const std::vector<panchenko::Polygon>& polygons, const Polygon& polygon) {
     double area = getArea(polygon);
-    __int64 count = std::count_if(polygons.begin(), polygons.end(), [area](const Polygon& p) {
+    int count = std::count_if(polygons.begin(), polygons.end(), [area](const Polygon& p) {
         return getArea(p) < area;
         });
     std::cout << count << std::endl;
@@ -122,7 +122,7 @@ bool areSame(const panchenko::Polygon& polygon1, const panchenko::Polygon& polyg
     using namespace std::placeholders;
     std::function< bool(const panchenko::Point&) > accSamePoints = std::bind(hasSamePoints, delta, _1, polygon2);
 
-    __int64 numberOfPoints = std::distance(polygon1.points.cbegin(), polygon1.points.cend());
+    int numberOfPoints = std::distance(polygon1.points.cbegin(), polygon1.points.cend());
     return std::count_if(polygon1.points.cbegin(), polygon1.points.cend(), accSamePoints) == numberOfPoints;
 }
 
