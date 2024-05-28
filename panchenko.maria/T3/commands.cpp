@@ -1,8 +1,6 @@
 #include "commands.h"
 
-std::vector<panchenko::Polygon> polygons;
-
-void panchenko::area(const std::string& param) {
+void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
     if (param == "ODD") {
         double sum = 0.0;
         for (const auto& polygon : polygons) {
@@ -44,7 +42,7 @@ void panchenko::area(const std::string& param) {
     }
 }
 
-void panchenko::min() {
+void panchenko::min(const std::vector<panchenko::Polygon>& polygons) {
     if (polygons.empty()) {
         throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
         return;
@@ -55,7 +53,7 @@ void panchenko::min() {
     std::cout << std::fixed << getArea(*minAreaPolygon) << std::endl;
 }
 
-void panchenko::max() {
+void panchenko::max(const std::vector<panchenko::Polygon>& polygons) {
     if (polygons.empty()) {
         throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
         return;
@@ -66,31 +64,31 @@ void panchenko::max() {
     std::cout << std::fixed << getArea(*maxAreaPolygon) << std::endl;
 }
 
-void panchenko::count(const std::string& param) {
+void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
     if (param == "EVEN") {
-        int count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
+        __int64 count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
             return polygon.points.size() % 2 == 0;
             });
         std::cout << count << std::endl;
     }
     else if (param == "ODD") {
-        int count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
+        __int64 count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
             return polygon.points.size() % 2 == 1;
             });
         std::cout << count << std::endl;
     }
     else {
         unsigned long int numVertices = std::stoi(param);
-        int count = std::count_if(polygons.begin(), polygons.end(), [numVertices](const Polygon& polygon) {
+        __int64 count = std::count_if(polygons.begin(), polygons.end(), [numVertices](const Polygon& polygon) {
             return polygon.points.size() == numVertices;
             });
         std::cout << count << std::endl;
     }
 }
 
-void panchenko::lessArea(const Polygon& polygon) {
+void panchenko::lessArea(const std::vector<panchenko::Polygon>& polygons, const Polygon& polygon) {
     double area = getArea(polygon);
-    int count = std::count_if(polygons.begin(), polygons.end(), [area](const Polygon& p) {
+    __int64 count = std::count_if(polygons.begin(), polygons.end(), [area](const Polygon& p) {
         return getArea(p) < area;
         });
     std::cout << count << std::endl;
@@ -119,7 +117,7 @@ bool areSame(const panchenko::Polygon& polygon1, const panchenko::Polygon& polyg
     using namespace std::placeholders;
     std::function< bool(const panchenko::Point&) > accSamePoints = std::bind(hasSamePoints, delta, _1, polygon2);
 
-    int numberOfPoints = std::distance(polygon1.points.cbegin(), polygon1.points.cend());
+    __int64 numberOfPoints = std::distance(polygon1.points.cbegin(), polygon1.points.cend());
     return std::count_if(polygon1.points.cbegin(), polygon1.points.cend(), accSamePoints) == numberOfPoints;
 }
 
