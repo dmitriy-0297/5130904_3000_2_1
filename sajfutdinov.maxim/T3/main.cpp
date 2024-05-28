@@ -390,7 +390,7 @@ int main(int argc, char* argv[]) {
 
     while (std::getline(std::cin, line))
     {
-        if (polygons.point.size() == 0)
+        if (polygons.points.size() == 0)
         {
           std::cout << "<INVALID COMMAND>\n";
           return 1;
