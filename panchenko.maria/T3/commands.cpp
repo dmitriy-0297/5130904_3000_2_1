@@ -46,7 +46,7 @@ void panchenko::area(const std::string& param) {
 
 void panchenko::min() {
     if (polygons.empty()) {
-        std::cout << "<INVALID COMMAND>" << std::endl;
+        throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
         return;
     }
     auto minAreaPolygon = std::min_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
@@ -57,7 +57,7 @@ void panchenko::min() {
 
 void panchenko::max() {
     if (polygons.empty()) {
-        std::cout << "<INVALID COMMAND>" << std::endl;
+        throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
         return;
     }
     auto maxAreaPolygon = std::max_element(polygons.begin(), polygons.end(), [](const Polygon& a, const Polygon& b) {
@@ -130,7 +130,7 @@ void panchenko::same(std::istream& in, std::ostream& out, const std::vector< Pol
 
     if (!in || in.peek() != '\n')
     {
-        throw std::invalid_argument("<INVALID COMMAND>");
+        throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
     }
 
     using namespace std::placeholders;
