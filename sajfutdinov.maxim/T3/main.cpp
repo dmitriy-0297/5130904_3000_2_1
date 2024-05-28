@@ -202,6 +202,11 @@ namespace sajfutdinov {
                 i = i + 1;
             }
         }
+        if (lessAreaPolygon.points.size() != numpoints)
+        {
+          std::cout << "<INVALID COMMAND>\n";
+          return;
+        }
         auto lessAreaCount = std::count_if(polygons.begin(), polygons.end(), [lessAreaPolygon](const Polygon& poly) {
             return AreaCalculator()(poly) < AreaCalculator()(lessAreaPolygon);
             });
@@ -385,6 +390,11 @@ int main(int argc, char* argv[]) {
 
     while (std::getline(std::cin, line))
     {
+        if (polygons.point.size() == 0)
+        {
+          std::cout << "<INVALID COMMAND>\n";
+          return 1;
+        }
         if (line.length() == 0) continue;
         if (line.length() > 4)
         {
