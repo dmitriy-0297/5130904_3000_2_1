@@ -168,5 +168,5 @@ void panchenko::same(std::istream& in, std::ostream& out, const std::vector< Pol
     std::function< bool(const Polygon&) > accSame = std::bind(areSame, _1, polygonToCompare);
 
     out << std::count_if(polygons.cbegin(), polygons.cend(), accSame);
-    std::cout << "\n"
+    std::cout << "\n";
 }
