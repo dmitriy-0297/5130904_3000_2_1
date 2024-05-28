@@ -1,14 +1,5 @@
 #include "polygon.h"
 
-
-std::ostream& panchenko::operator<<(std::ostream& output, const Point& point) {
-    output << "(" << point.x << ";" << point.y << ")";
-    return output;
-}
-bool panchenko::comparePoints(const Point& point1, const Point& point2)
-{
-    return (point1.x == point2.x) && (point1.y == point2.y);
-}
 std::istream& panchenko::operator>>(std::istream& input, Point& point) {
     std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
     std::string pointStr;
@@ -68,6 +59,19 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
             input.setstate(std::ios_base::failbit);
         }
     }
+
+    return input;
+}
+
+std::ostream& panchenko::operator<<(std::ostream& output, const Point& point) {
+    output << "(" << point.x << ";" << point.y << ")";
+    return output;
+}
+bool panchenko::comparePoints(const Point& point1, const Point& point2)
+{
+    return (point1.x == point2.x) && (point1.y == point2.y);
+}
+
 std::ostream& panchenko::operator<<(std::ostream& output, const Polygon& polygon) {
     output << polygon.points.size();
     for (const auto& point : polygon.points) {
