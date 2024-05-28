@@ -1,14 +1,6 @@
 #include "polygon.h"
 
-std::istream& panchenko::operator>>(std::istream& input, Point& point) {
-    char c;
-    input >> c; // Считываем '('
-    input >> point.x;
-    input >> c; // Считываем ';'
-    input >> point.y;
-    input >> c; // Считываем ')'
-    return input;
-}
+
 std::ostream& panchenko::operator<<(std::ostream& output, const Point& point) {
     output << "(" << point.x << ";" << point.y << ")";
     return output;
@@ -17,14 +9,52 @@ bool panchenko::comparePoints(const Point& point1, const Point& point2)
 {
     return (point1.x == point2.x) && (point1.y == point2.y);
 }
+std::istream& panchenko::operator>>(std::istream& input, Point& point) {
+    std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
+    std::string pointStr;
+    std::smatch matches;
+
+    if (std::getline(input, pointStr)) {
+        if (std::regex_match(pointStr, matches, pointRegex)) {
+            point.x = std::stoi(matches[1]);
+            point.y = std::stoi(matches[2]);
+        }
+        else {
+            input.setstate(std::ios_base::failbit);
+        }
+    }
+
+    return input;
+}
 
 std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
-    size_t numVertices;
-    input >> numVertices;
+    std::regex numVerticesRegex("(\\d+)");
+    std::string line;
+    std::smatch matches;
 
-    polygon.points.resize(numVertices);
-    for (size_t i = 0; i < numVertices; ++i) {
-        input >> polygon.points[i];
+    if (std::getline(input, line)) {
+        if (std::regex_search(line, matches, numVerticesRegex)) {
+            size_t numVertices = std::stoi(matches[1]);
+            polygon.points.resize(numVertices);
+
+            std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
+
+            for (size_t i = 0; i < numVertices; ++i) {
+                if (std::getline(input, line)) {
+                    if (std::regex_match(line, matches, pointRegex)) {
+                        polygon.points[i].x = std::stoi(matches[1]);
+                        polygon.points[i].y = std::stoi(matches[2]);
+                    }
+                    else {
+                        input.setstate(std::ios_base::failbit);
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            input.setstate(std::ios_base::failbit);
+        }
     }
 
     return input;
