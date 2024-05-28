@@ -65,6 +65,11 @@ void panchenko::max(const std::vector<panchenko::Polygon>& polygons) {
 }
 
 void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
+    if (polygons.empty()) {
+        std::cout << "<INVALID COMMAND>" << std::endl;
+        return;
+    }
+
     if (param == "EVEN") {
         __int64 count = std::count_if(polygons.begin(), polygons.end(), [](const Polygon& polygon) {
             return polygon.points.size() % 2 == 0;
