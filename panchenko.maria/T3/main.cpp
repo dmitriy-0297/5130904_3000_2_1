@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
                 std::cin >> param;
                 panchenko::count(polygons, param);
             }
-            else if (command == "LESS") {
+            else if (command == "LESSAREA") {
                 panchenko::Polygon polygon;
                 std::cin >> polygon;
                 panchenko::lessArea(polygons, polygon);
