@@ -10,9 +10,11 @@ std::istream& panchenko::operator>>(std::istream& input, Point& point) {
             point.y = y;
         } else {
             input.setstate(std::ios_base::failbit);
+            input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     } else {
         input.setstate(std::ios_base::failbit);
+        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
     return input;
@@ -24,6 +26,7 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
 
     if (!(input >> numVertices)) {
         input.setstate(std::ios_base::failbit);
+        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return input;
     }
 
@@ -32,12 +35,14 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
     for (size_t i = 0; i < numVertices; ++i) {
         if (!(input >> points[i])) {
             input.setstate(std::ios_base::failbit);
+            input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return input;
         }
     }
 
     if (points.size() != numVertices) {
         input.setstate(std::ios_base::failbit);
+        input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return input;
     }
 
