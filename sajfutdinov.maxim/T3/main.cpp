@@ -47,6 +47,11 @@ namespace sajfutdinov {
   void calculateArea(const std::vector<Polygon>& polygons, const std::string& type) {
     int count = 0;
     double totalArea = 0.0;
+    if (type == '0' || type == '1' || type == '2')
+    {
+      std::cerr"<INVALID COMMAND>\n";
+      return;
+    }
     for (const auto& poly : polygons) {
       if (type == "MEAN")
       {
@@ -135,6 +140,11 @@ namespace sajfutdinov {
     }
     else if (std::all_of(type.begin(), type.end(), [](char c) { return std::isdigit(c); })) {
       size_t numpoints = std::stoul(type);
+      if (numpoints == 1 || numpoints == 2 || numpoints == 0)
+      {
+        std::cerr << "<INVALID COMMAND>\n";
+        return;
+      }
       auto count = std::count_if(polygons.begin(), polygons.end(), [numpoints](const Polygon& poly) {
         return poly.points.size() == numpoints;
         });
@@ -151,9 +161,12 @@ namespace sajfutdinov {
   {
     Polygon lessAreaPolygon;
     unsigned long int numpoints = strPoly[0] - '0';
-    for (size_t i = 1; i < 6 * numpoints - 1; i = i + 6)
-    {
-      if (strPoly.length() != (numpoints * 6 + 1)) break;
+      if (numpoints == 1 || numpoints == 2 || numpoints == 0)
+      {
+        std::cerr << "<INVALID COMMAND>\n";
+        return;
+      }
+
       if (strPoly[i] == ' ' && strPoly[i + 1] == '(' && strPoly[i + 3] == ';' && strPoly[i + 5] == ')')
       {
         Point lessAreaPoint;
