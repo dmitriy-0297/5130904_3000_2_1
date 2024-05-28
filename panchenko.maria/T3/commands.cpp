@@ -8,7 +8,7 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
                 sum += getArea(polygon);
             }
         }
-        std::cout << std::fixed << sum << std::endl;
+        std::cout << std::fixed << std::setprecision(1) << sum << std::endl;
     }
     else if (param == "EVEN") {
         double sum = 0.0;
@@ -17,7 +17,7 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
                 sum += getArea(polygon);
             }
         }
-        std::cout << std::fixed << sum << std::endl;
+        std::cout << std::fixed << std::setprecision(1) << sum << std::endl;
     }
     else if (param == "MEAN") {
         if (polygons.empty()) {
@@ -28,7 +28,7 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
         for (const auto& polygon : polygons) {
             sum += getArea(polygon);
         }
-        std::cout << std::fixed << sum / polygons.size() << std::endl;
+        std::cout << std::fixed << std::setprecision(1) << sum / polygons.size() << std::endl;
     }
     else {
         unsigned long int numVertices = std::stoi(param);
@@ -38,7 +38,7 @@ void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std:
                 sum += getArea(polygon);
             }
         }
-        std::cout << std::fixed << sum << std::endl;
+        std::cout << std::fixed << std::setprecision(1) << sum << std::endl;
     }
 }
 
