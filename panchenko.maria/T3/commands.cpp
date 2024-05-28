@@ -33,7 +33,7 @@ void panchenko::area(const std::string& param) {
         std::cout << std::fixed << sum / polygons.size() << std::endl;
     }
     else {
-        int numVertices = std::stoi(param);
+        unsigned long int numVertices = std::stoi(param);
         double sum = 0.0;
         for (const auto& polygon : polygons) {
             if (polygon.points.size() == numVertices) {
@@ -80,7 +80,7 @@ void panchenko::count(const std::string& param) {
         std::cout << count << std::endl;
     }
     else {
-        int numVertices = std::stoi(param);
+        unsigned long int numVertices = std::stoi(param);
         int count = std::count_if(polygons.begin(), polygons.end(), [numVertices](const Polygon& polygon) {
             return polygon.points.size() == numVertices;
             });
