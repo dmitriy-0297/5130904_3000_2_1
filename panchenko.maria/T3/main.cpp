@@ -74,7 +74,6 @@ int main(int argc, char* argv[]) {
             }
             else {
                 std::cout << "<INVALID COMMAND>" << std::endl;
-                return EXIT_FAILURE;
             }
         }
     }
