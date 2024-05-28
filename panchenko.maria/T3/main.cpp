@@ -21,26 +21,11 @@ int main(int argc, char* argv[]) {
     }
 
     std::vector<panchenko::Polygon> polygons;
-    std::string line;
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        int numVertices;
-        if (!(iss >> numVertices)) {
-            continue;
-        }
-        panchenko::Polygon polygon;
-        for (int i = 0; i < numVertices; ++i) {
-            int x, y;
-            char c;
-            if (!(iss >> c >> x >> c >> y >> c)) {
-                break;
-            }
-            polygon.points.push_back({ x, y });
-        }
-        if (polygon.points.size() == static_cast<size_t>(numVertices)) {
-            polygons.push_back(polygon);
-        }
+    panchenko::Polygon polygon;
+    while (file >> polygon) {
+        polygons.push_back(polygon);
     }
+
     try {
         std::string command;
         while (std::cin >> command) {
@@ -64,10 +49,10 @@ int main(int argc, char* argv[]) {
                 std::cin >> param;
                 panchenko::count(polygons, param);
             }
-            else if (command == "LESS") {
-                panchenko::Polygon polygon;
-                std::cin >> polygon;
-                panchenko::lessArea(polygons, polygon);
+            else if (command == "LESSAREA") {
+                panchenko::Polygon inputPolygon;
+                std::cin >> inputPolygon;
+                panchenko::lessArea(polygons, inputPolygon);
             }
             else if (command == "SAME") {
                 panchenko::same(std::cin, std::cout, polygons);
