@@ -40,11 +40,13 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
 
             std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
 
-            for (size_t i = 0; i < numVertices; ++i) {
+            size_t pointsRead = 0;
+            while (pointsRead < numVertices) {
                 if (std::getline(input, line)) {
                     if (std::regex_match(line, matches, pointRegex)) {
-                        polygon.points[i].x = std::stoi(matches[1]);
-                        polygon.points[i].y = std::stoi(matches[2]);
+                        polygon.points[pointsRead].x = std::stoi(matches[1]);
+                        polygon.points[pointsRead].y = std::stoi(matches[2]);
+                        pointsRead++;
                     }
                     else {
                         input.setstate(std::ios_base::failbit);
@@ -56,6 +58,10 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
                     input.setstate(std::ios_base::failbit);
                     break;
                 }
+            }
+
+            if (pointsRead != numVertices) {
+                input.setstate(std::ios_base::failbit);
             }
         }
         else {
