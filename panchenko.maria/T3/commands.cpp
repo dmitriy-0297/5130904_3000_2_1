@@ -160,7 +160,8 @@ void panchenko::same(std::istream& in, std::ostream& out, const std::vector< Pol
 
     if (!in || in.peek() != '\n')
     {
-        throw std::invalid_argument(ERROR_OF_COMMAND_MSG);
+        std::cout << "<INVALID COMMAND>" << std::endl;
+        return;
     }
 
     using namespace std::placeholders;
