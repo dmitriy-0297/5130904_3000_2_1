@@ -30,7 +30,6 @@ int main(int argc, char* argv[]) {
             polygons.push_back(polygon);
         } else {
             std::cout << "Read failed - skipping line" << std::endl;
-            file.clear();
             file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
