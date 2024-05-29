@@ -24,12 +24,15 @@ int main(int argc, char* argv[]) {
     panchenko::Polygon polygon;
     while (file >> polygon) {
         if (!file.fail()) {
+            std::cout << "Polygon read successfully" << std::endl;
             polygons.push_back(polygon);
         } else {
+            std::cout << "Read failed" << std::endl;
             file.clear();
             file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
+
 
     try {
         std::string command;
