@@ -64,7 +64,7 @@ bool simonov::Polygon::rightTriangle(const Point& p1, const Point& p2, const Poi
   double firstSide = p1.length(p2);
   double secondSide = p2.length(p3);
   double hypotenuse = p1.length(p3);
-  double epsilon = 0.0001; // Задаем небольшую погрешность
+  double epsilon = 0.0001;
 
   return abs(pow(firstSide, 2) + pow(secondSide, 2) - pow(hypotenuse, 2)) < epsilon;
 }

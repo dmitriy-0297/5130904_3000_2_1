@@ -76,7 +76,7 @@ std::ostream& simonov::operator<<(std::ostream& out, Polygon& poly)
   out << poly.points.size() << ' ';
 
   for (const Point& p : poly.points)
-    out << p << ' '; // ?????
+    out << p << ' ';
 
   return out;
 }
