@@ -130,7 +130,8 @@ void panchenko::lessArea(std::istream& in, std::ostream& out, const std::vector<
     int count = std::count_if(polygons.begin(), polygons.end(), [area](const Polygon& p) {
         return getArea(p) < area;
         });
-    std::cout << count << std::endl;
+    out << count;
+    std::cout << "\n";
 }
 
 bool hasSamePoints(const panchenko::Point& delta, const panchenko::Point& point, const panchenko::Polygon& polygon)
