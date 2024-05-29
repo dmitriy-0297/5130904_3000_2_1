@@ -118,7 +118,14 @@ void panchenko::count(const std::vector<panchenko::Polygon>& polygons, const std
     }
 }
 
-void panchenko::lessArea(const std::vector<panchenko::Polygon>& polygons, const Polygon& polygon) {
+void panchenko::lessArea(std::istream& in, std::ostream& out, const std::vector<panchenko::Polygon>& polygons) {
+    Polygon polygon;
+    in >> polygon;
+    if (!in || in.peek() != '\n')
+    {
+        std::cout << "<INVALID COMMAND>" << std::endl;
+        return;
+    }
     double area = getArea(polygon);
     int count = std::count_if(polygons.begin(), polygons.end(), [area](const Polygon& p) {
         return getArea(p) < area;
