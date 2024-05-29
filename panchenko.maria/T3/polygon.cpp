@@ -1,46 +1,52 @@
 #include "polygon.h"
 
 std::istream& panchenko::operator>>(std::istream& input, Point& point) {
-    char openParen, semicolon, closeParen;
-    int x, y;
+    std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
+    std::string pointStr;
+    std::smatch matches;
 
-    if (input >> openParen >> x >> semicolon >> y >> closeParen) {
-        if (openParen == '(' && semicolon == ';' && closeParen == ')') {
-            point.x = x;
-            point.y = y;
-        } else {
+    if (std::getline(input, pointStr)) {
+        if (std::regex_match(pointStr, matches, pointRegex)) {
+            point.x = std::stoi(matches[1]);
+            point.y = std::stoi(matches[2]);
+        }
+        else {
             input.setstate(std::ios_base::failbit);
         }
-    } else {
-        input.setstate(std::ios_base::failbit);
     }
 
     return input;
 }
 
 std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
-    size_t numVertices;
-    std::vector<Point> points;
+    std::regex numVerticesRegex("(\\d+)");
+    std::string line;
+    std::smatch matches;
 
-    if (!(input >> numVertices)) {
-        input.setstate(std::ios_base::failbit);
-    }
-    if (numVertices < 2) {
-        input.setstate(std::ios_base::failbit);
-    }
-    points.resize(numVertices);
+    if (std::getline(input, line)) {
+        if (std::regex_search(line, matches, numVerticesRegex)) {
+            size_t numVertices = std::stoi(matches[1]);
+            polygon.points.resize(numVertices);
 
-    for (size_t i = 0; i < numVertices; ++i) {
-        if (!(input >> points[i])) {
+            std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
+
+            for (size_t i = 0; i < numVertices; ++i) {
+                if (std::getline(input, line)) {
+                    if (std::regex_match(line, matches, pointRegex)) {
+                        polygon.points[i].x = std::stoi(matches[1]);
+                        polygon.points[i].y = std::stoi(matches[2]);
+                    }
+                    else {
+                        input.setstate(std::ios_base::failbit);
+                        break;
+                    }
+                }
+            }
+        }
+        else {
             input.setstate(std::ios_base::failbit);
         }
     }
-
-    if (points.size() != numVertices) {
-        input.setstate(std::ios_base::failbit);
-    }
-
-    polygon.points = points;
 
     return input;
 }
