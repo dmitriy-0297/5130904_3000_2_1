@@ -22,14 +22,11 @@ int main(int argc, char* argv[]) {
 
     std::vector<panchenko::Polygon> polygons;
     panchenko::Polygon polygon;
-    std::cout << "Starting to read file" << std::endl;
     while (!file.eof()) {
         file >> polygon;
         if (!file.fail()) {
-            std::cout << "Polygon read successfully" << std::endl;
             polygons.push_back(polygon);
         } else {
-            std::cout << "Read failed - skipping line" << std::endl;
             file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
