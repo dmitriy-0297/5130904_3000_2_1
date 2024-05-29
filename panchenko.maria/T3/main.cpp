@@ -23,12 +23,11 @@ int main(int argc, char* argv[]) {
     std::vector<panchenko::Polygon> polygons;
     panchenko::Polygon polygon;
     while (file >> polygon) {
-        if (!(file >> polygon)) {
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    }
         if (!file.fail()) {
             polygons.push_back(polygon);
+        } else {
+            file.clear();
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
 
@@ -54,10 +53,12 @@ int main(int argc, char* argv[]) {
             } else if (command == "LESSAREA") {
                 panchenko::Polygon inputPolygon;
                 std::cin >> inputPolygon;
-                if (!(std::cin >> inputPolygon)) {
-                    std::cout << "<INVALID COMMAND>" << std::endl;
-                } else {
+                if (!std::cin.fail()) {
                     panchenko::lessArea(polygons, inputPolygon);
+                } else {
+                    std::cout << "<INVALID COMMAND>" << std::endl;
+                    std::string dummy;
+                    std::getline(std::cin, dummy);
                 }
             } else if (command == "SAME") {
                 panchenko::same(std::cin, std::cout, polygons);
