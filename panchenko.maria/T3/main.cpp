@@ -22,13 +22,18 @@ int main(int argc, char* argv[]) {
 
     std::vector<panchenko::Polygon> polygons;
     panchenko::Polygon polygon;
-    while (!file.eof()) {
-        file >> polygon;
-        if (!file.fail()) {
-            polygons.push_back(polygon);
-        } else {
-            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    while (!file.eof())
+    {
+        if (!file)
+        {
+            file.clear();
+            file.ignore(std::numeric_limits< std::streamsize >::max(), '\n');
         }
+        std::copy(
+        std::istream_iterator< panchenko::Polygon >{file},
+        std::istream_iterator< panchenko::Polygon >{},
+        std::back_inserter(polygons)
+        );
     }
 
 
