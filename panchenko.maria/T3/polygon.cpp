@@ -25,7 +25,9 @@ std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
     if (!(input >> numVertices)) {
         input.setstate(std::ios_base::failbit);
     }
-
+    if (numVertices < 2) {
+        input.setstate(std::ios_base::failbit);
+    }
     points.resize(numVertices);
 
     for (size_t i = 0; i < numVertices; ++i) {
