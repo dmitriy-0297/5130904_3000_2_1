@@ -24,11 +24,11 @@ std::istream& panchenko::operator>>(std::istream& in, Polygon& polygon) {
         in.setstate(std::ios::failbit);
         return in;
     }
-    poly.points.clear();
+    polygon.points.clear();
     std::copy_n(
         std::istream_iterator< Point >(in),
         num,
-        std::back_inserter(poly.points)
+        std::back_inserter(polygon.points)
     );
     return in;
 }
