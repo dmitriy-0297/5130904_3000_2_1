@@ -1,51 +1,36 @@
 #include "polygon.h"
+#include "delimiter.h"
 
-std::istream& panchenko::operator>>(std::istream& input, Point& point) {
-    std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
-    std::string pointStr;
-    std::smatch matches;
-
-    if (std::getline(input, pointStr)) {
-        if (std::regex_match(pointStr, matches, pointRegex)) {
-            point.x = std::stoi(matches[1]);
-            point.y = std::stoi(matches[2]);
-        }
-        else {
-            input.setstate(std::ios_base::failbit);
-        }
+std::istream& panchenko::operator>>(std::istream& in, Point& point) {
+    std::istream::sentry guard(in);
+    if (!guard)
+    {
+        return in;
     }
-
-    return input;
+    in >> Delimiter{"("} >> point.x >> Delimiter{";"} >> point.y >> Delimiter{")"};
+    return in;
 }
 
-std::istream& panchenko::operator>>(std::istream& input, Polygon& polygon) {
-    std::regex numVerticesRegex("(\\d+)");
-    std::string line;
-    std::smatch matches;
-
-    if (std::getline(input, line)) {
-        if (std::regex_search(line, matches, numVerticesRegex)) {
-            size_t numVertices = std::stoi(matches[1]);
-            polygon.points.resize(numVertices);
-
-            std::regex pointRegex("\\((-?\\d+);(-?\\d+)\\)");
-
-            for (size_t i = 0; i < numVertices; ++i) {
-                Point point;
-                if (input >> point) {
-                    polygon.points[i] = point;
-                } else {
-                    input.setstate(std::ios_base::failbit);
-                    break;
-                }
-            }
-        }
-        else {
-            input.setstate(std::ios_base::failbit);
-        }
+std::istream& panchenko::operator>>(std::istream& in, Polygon& polygon) {
+    std::istream::sentry guard(in);
+    if (!guard)
+    {
+        return in;
     }
-
-    return input;
+    size_t num = 0;
+    in >> num;
+    if (num < 3)
+    {
+        in.setstate(std::ios::failbit);
+        return in;
+    }
+    poly.points.clear();
+    std::copy_n(
+        std::istream_iterator< Point >(in),
+        num,
+        std::back_inserter(poly.points)
+    );
+    return in;
 }
 
 std::ostream& panchenko::operator<<(std::ostream& output, const Point& point) {
