@@ -54,7 +54,11 @@ int main(int argc, char* argv[]) {
             } else if (command == "LESSAREA") {
                 panchenko::Polygon inputPolygon;
                 std::cin >> inputPolygon;
-                panchenko::lessArea(polygons, inputPolygon);
+                if (!(std::cin >> inputPolygon)) {
+                    std::cout << "<INVALID COMMAND>" << std::endl;
+                } else {
+                    panchenko::lessArea(polygons, inputPolygon);
+                }
             } else if (command == "SAME") {
                 panchenko::same(std::cin, std::cout, polygons);
             } else {
