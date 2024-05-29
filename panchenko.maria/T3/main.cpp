@@ -23,7 +23,12 @@ int main(int argc, char* argv[]) {
     std::vector<panchenko::Polygon> polygons;
     panchenko::Polygon polygon;
     while (file >> polygon) {
-        polygons.push_back(polygon);
+        if (!file.fail()) {
+            polygons.push_back(polygon);
+        } else {
+            file.clear();
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
 
     try {
