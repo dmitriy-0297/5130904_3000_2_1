@@ -5,11 +5,11 @@
 
 namespace panchenko
 {
-  struct Delimiter
-  {
-    const char * exp;
-  };
-  std::istream& operator>>(std::istream& in, Delimiter&& exp);
+    struct Delimiter
+    {
+        const char * exp;
+    };
+    std::istream& operator>>(std::istream& in, Delimiter&& exp);
 }
 
 #endif
