@@ -4,7 +4,7 @@
 std::istream& simonov::operator>>(std::istream& in, Vertexes&& ex)
 {
   std::istream::sentry sentry(in);
-  
+
   if (!sentry)
     return in;
 
@@ -13,7 +13,7 @@ std::istream& simonov::operator>>(std::istream& in, Vertexes&& ex)
 
   if (!in || ch != ex.vert)
     in.setstate(std::ios::failbit);
-  
+
   return in;
 }
 

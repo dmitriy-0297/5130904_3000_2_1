@@ -41,7 +41,7 @@ double simonov::Polygon::area(void) const
 
   firstSum += points[points.size() - 1].x * points[0].y;
   secondSum += points[0].x * points[points.size() - 1].y;
-  
+
   ans = std::abs(0.5f * (firstSum - secondSum));
   return ans;
 }
@@ -50,12 +50,12 @@ bool simonov::rightAngle(const Polygon& poly)
 {
   return std::any_of(poly.points.begin() + 2, poly.points.end(), [&poly](const Point& point)
     {
-    size_t index = &point - &poly.points[0];
-    if (index >= 2)
-    {
-      return poly.rightTriangle(poly.points[index - 2], poly.points[index - 1], poly.points[index]);
-    }
-    return false;
+      size_t index = &point - &poly.points[0];
+      if (index >= 2)
+      {
+        return poly.rightTriangle(poly.points[index - 2], poly.points[index - 1], poly.points[index]);
+      }
+      return false;
     });
 }
 
