@@ -1,6 +1,9 @@
 #include "commands.h"
 
 void panchenko::area(const std::vector<panchenko::Polygon>& polygons, const std::string& param) {
+    for (const auto& polygon : polygons) {
+        std::cout << polygon << std::endl;
+    }
     if (param == "ODD") {
         double sum = 0.0;
         for (const auto& polygon : polygons) {
@@ -166,6 +169,9 @@ bool areSame(const panchenko::Polygon& polygon1, const panchenko::Polygon& polyg
 
 void panchenko::same(std::istream& in, std::ostream& out, const std::vector< Polygon >& polygons)
 {
+    for (const auto& polygon : polygons) {
+        std::cout << polygon << std::endl;
+    }
     Polygon polygonToCompare;
     in >> polygonToCompare;
     if (!in || in.peek() != '\n')
