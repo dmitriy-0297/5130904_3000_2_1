@@ -25,6 +25,9 @@ int main(int argc, char* argv[]) {
     while (file >> polygon) {
         if (!file.fail()) {
             polygons.push_back(polygon);
+        } else {
+            file.clear();
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
 
