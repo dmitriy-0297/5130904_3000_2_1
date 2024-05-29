@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
     std::vector<panchenko::Polygon> polygons;
     panchenko::Polygon polygon;
     while (file >> polygon) {
-        if (!(std::cin >> num)) {
+        if (!(std::cin >> polygon)) {
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
