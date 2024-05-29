@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
 
     std::vector<panchenko::Polygon> polygons;
     panchenko::Polygon polygon;
+    std::cout << "Starting to read file" << std::endl;
     while (file >> polygon) {
         if (!file.fail()) {
             std::cout << "Polygon read successfully" << std::endl;
