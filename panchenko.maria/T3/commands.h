@@ -11,11 +11,11 @@
 const std::string ERROR_OF_COMMAND_MSG = "<INVALID COMMAND>";
 
 namespace panchenko {
-    void area(const std::vector<panchenko::Polygon>& polygons, const std::string& param);
-    void min(const std::vector<panchenko::Polygon>& polygons, const std::string& param);
-    void max(const std::vector<panchenko::Polygon>& polygons, const std::string& param);
-    void count(const std::vector<panchenko::Polygon>& polygons, const std::string& param);
-    void lessArea(const std::vector<panchenko::Polygon>& polygons, const panchenko::Polygon& polygon);
+    void area(const std::vector<Polygon>& polygons, const std::string& param);
+    void min(const std::vector<Polygon>& polygons, const std::string& param);
+    void max(const std::vector<Polygon>& polygons, const std::string& param);
+    void count(const std::vector<Polygon>& polygons, const std::string& param);
+    void lessArea(std::istream& in, std::ostream& out, const std::vector<Polygon>& polygons);
     void same(std::istream& in, std::ostream& out, const std::vector< Polygon >& polygons);
 }
 
