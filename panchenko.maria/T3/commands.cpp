@@ -157,10 +157,6 @@ void panchenko::same(std::istream& in, std::ostream& out, const std::vector< Pol
 {
     Polygon polygonToCompare;
     in >> polygonToCompare;
-    if ((in.fail() >> polygonToCompare)) {
-        std::cout << "<INVALID COMMAND>" << std::endl;
-        return;
-    }
     if (!in || in.peek() != '\n')
     {
         std::cout << "<INVALID COMMAND>" << std::endl;
