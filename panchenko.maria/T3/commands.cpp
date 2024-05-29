@@ -123,6 +123,8 @@ void panchenko::lessArea(std::istream& in, std::ostream& out, const std::vector<
     in >> polygon;
     if (!in || in.peek() != '\n')
     {
+        in.clear();
+        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "<INVALID COMMAND>" << std::endl;
         return;
     }
@@ -168,6 +170,8 @@ void panchenko::same(std::istream& in, std::ostream& out, const std::vector< Pol
     if (!in || in.peek() != '\n')
     {
         std::cout << "<INVALID COMMAND>" << std::endl;
+        in.clear();
+        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return;
     }
 
