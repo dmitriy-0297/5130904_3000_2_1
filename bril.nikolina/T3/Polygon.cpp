@@ -207,7 +207,7 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
 
         Polygon targetPolygon;
         size_t actualPoints = 0;
-        for (int i = 0; i < numPoints; ++i) {
+        for (size_t i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
             if (!(polyIss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')' || (numPoints <= 2)) {
