@@ -8,13 +8,11 @@ int main(int argc, char* argv[]) {
         std::cerr << "Usage: " << argv[0] << " filename\n";
         return 1;
     }
-
     std::string filename = argv[1];
     std::vector<Polygon> polygons = readPolygonsFromFile(filename);
     std::string command;
     while (std::getline(std::cin, command)) {
         executeCommand(command, polygons);
     }
-
     return 0;
 }

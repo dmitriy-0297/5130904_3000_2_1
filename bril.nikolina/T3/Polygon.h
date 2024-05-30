@@ -6,7 +6,7 @@
 #include <iostream>
 
 struct Point {
-    int x, y;
+    int x = 0, y = 0;
     bool operator==(const Point& other) const;
 };
 

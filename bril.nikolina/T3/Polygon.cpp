@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <numeric>
 #include <cstddef>
+#include <limits>
 
 bool Point::operator==(const Point& other) const {
     return x == other.x && y == other.y;
@@ -48,36 +49,36 @@ std::vector<Polygon> readPolygonsFromFile(const std::string& filename) {
     std::vector<Polygon> polygons;
     std::ifstream file(filename);
     std::string line;
+
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         size_t numPoints;
-        if (!(iss >> numPoints)) {
+        if (!(iss >> numPoints) || numPoints <= 2) {
             continue;
         }
         Polygon polygon;
-        size_t actualPoints = 0;
+        bool valid = true;
         for (size_t i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
-            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')' || (numPoints <= 2)) {
-                polygon.points.clear();
+            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')') {
+                valid = false;
                 break;
             }
-            else {
-                polygon.points.push_back(p);
-                actualPoints++;
-            }
+            polygon.points.push_back(p);
         }
-        if (iss.rdbuf()->in_avail() > 0) {
-            polygon.points.clear();
+
+        if (iss.rdbuf()->in_avail() > 0 || polygon.points.size() != numPoints) {
+            valid = false;
         }
-        if (!polygon.points.empty() && polygon.points.size() == numPoints) {
+
+        if (valid) {
             polygons.push_back(polygon);
         }
     }
+
     return polygons;
 }
-
 
 void printAreaResult(double result) {
     std::cout << std::fixed << std::setprecision(1) << result << "\n";
@@ -169,12 +170,12 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
         if (type == "EVEN") {
             auto isEven = [](const Polygon& p) { return p.points.size() % 2 == 0; };
             int count = std::count_if(polygons.begin(), polygons.end(), isEven);
-            std::cout << count;
+            std::cout << count << "\n";
         }
         else if (type == "ODD") {
             auto isOdd = [](const Polygon& p) { return p.points.size() % 2 == 1; };
             int count = std::count_if(polygons.begin(), polygons.end(), isOdd);
-            std::cout << count;
+            std::cout << count << "\n";
         }
         else {
             size_t numVertices;
@@ -192,9 +193,8 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
             int count = std::count_if(polygons.begin(), polygons.end(), [&](const Polygon& p) {
                 return p.points.size() == numVertices;
                 });
-            std::cout << count;
+            std::cout << count << "\n";
         }
-        std::cout << '\n';
     }
     else if (cmd == "ECHO") {
         std::string polyStr;
@@ -203,17 +203,26 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
 
         std::istringstream polyIss(polyStr);
         int numPoints;
-        polyIss >> numPoints;
+        if (!(polyIss >> numPoints) || numPoints <= 2) {
+            std::cout << "<INVALID COMMAND>\n";
+            return;
+        }
 
         Polygon targetPolygon;
+        bool valid = true;
         for (int i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
             if (!(polyIss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')') {
-                std::cout << "<INVALID COMMAND>\n";
-                return;
+                valid = false;
+                break;
             }
             targetPolygon.points.push_back(p);
+        }
+
+        if (!valid || targetPolygon.points.size() != numPoints) {
+            std::cout << "<INVALID COMMAND>\n";
+            return;
         }
 
         int count = 0;
