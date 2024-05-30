@@ -174,11 +174,11 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
                 numVertices = std::stoi(type);
             }
             catch (...) {
-                std::cout << "<INVALID COMMAND>";
+                std::cout << "<INVALID COMMAND>\n";
                 return;
             }
             if (numVertices <= 2) {
-                std::cout << "<INVALID COMMAND>";
+                std::cout << "<INVALID COMMAND>\n";
                 return;
             }
             int count = std::count_if(polygons.begin(), polygons.end(), [&](const Polygon& p) {
