@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <numeric>
+#include <cstddef>
 
 bool Point::operator==(const Point& other) const {
     return x == other.x && y == other.y;
@@ -50,13 +51,13 @@ std::vector<Polygon> readPolygonsFromFile(const std::string& filename) {
 
     while (std::getline(file, line)) {
         std::istringstream iss(line);
-        int numPoints;
+        size_t numPoints;
         if (!(iss >> numPoints)) {
             continue;
         }
 
         Polygon polygon;
-        for (int i = 0; i < numPoints; ++i) {
+        for (size_t i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
             if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')') {
@@ -112,7 +113,7 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
                 printAreaResult(meanArea);
         }
         else {
-            int numVertices;
+            size_t numVertices;
             try {
                 numVertices = std::stoi(type);
             }
@@ -170,7 +171,7 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
             std::cout << count << "\n";
         }
         else {
-            int numVertices;
+            size_t numVertices;
             try {
                 numVertices = std::stoi(type);
             }
