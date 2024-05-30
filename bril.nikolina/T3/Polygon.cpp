@@ -1,3 +1,4 @@
+@ - 1, 239 + 1, 239 @@
 #include "Polygon.h"
 #include <cmath>
 #include <fstream>
@@ -7,7 +8,7 @@
 #include <numeric>
 #include <cstddef>
 
-bool Point::operator==(const Point& other) const {
+bool Point::operator==(const Point & other) const {
     return x == other.x && y == other.y;
 }
 
@@ -83,7 +84,7 @@ void printAreaResult(double result) {
     std::cout << std::fixed << std::setprecision(1) << result << "\n";
 }
 
-void executeCommand(const std::string& command, std::vector<Polygon>& polygons) {
+void executeCommand(const std::string & command, std::vector<Polygon>&polygons) {
     std::istringstream iss(command);
     std::string cmd;
     iss >> cmd;
