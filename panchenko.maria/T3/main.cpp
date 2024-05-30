@@ -1,8 +1,10 @@
 #include "polygon.h"
 #include "commands.h"
 #include <fstream>
+#include <iterator>
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
