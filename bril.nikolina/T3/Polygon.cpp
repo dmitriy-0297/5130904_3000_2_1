@@ -60,16 +60,16 @@ std::vector<Polygon> readPolygonsFromFile(const std::string& filename) {
         for (size_t i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
-            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')') {
-                polygon.points.clear();
-                break;
-            }
-            std::string extra;
-            if (std::getline(iss, extra) and !extra.empty()) {
+            std::istream::pos_type startPos = iss.tellg();
+            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')')
+            {
                 iss.clear();
                 iss.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                iss.seekg(startPos);
+                break;
             }
-            else {
+            else
+            {
                 polygon.points.push_back(p);
             }
         }
