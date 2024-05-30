@@ -1,11 +1,7 @@
 #include "polygon.h"
 #include "commands.h"
-#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include <iterator>
-#include <sstream>
-#include <string>
 #include <vector>
 
 int main(int argc, char* argv[]) {
