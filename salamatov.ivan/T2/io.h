@@ -3,46 +3,41 @@
 
 #include <iostream>
 #include <sstream>
-#include <vector>
-#include <iterator>
-#include <iomanip>
-#include <algorithm>
 #include <string>
+#include <iterator>
+#include <vector>
+#include <iomanip>
+#include <cmath>
 
-namespace salamatov
-{
-  struct DataStruct
-  {
+namespace salamatov {
+
+  struct DataStruct {
     double key1;
     long long key2;
     std::string key3;
   };
 
-  struct DelimiterIO
-  {
+  struct DelimiterIO {
     char exp;
   };
 
-  struct DoubleLiteralIO
-  {
+  struct DoubleIO {
     double& ref;
   };
 
-  struct LongLongLiteralIO
-  {
+  struct SLLIO {
     long long& ref;
   };
 
-  struct StringIO
-  {
+  struct StringIO {
     std::string& ref;
   };
 
-  class iofmtguard
-  {
+  class iofmtguard {
   public:
     iofmtguard(std::basic_ios<char>& s);
     ~iofmtguard();
+
   private:
     std::basic_ios<char>& s_;
     char fill_;
@@ -51,13 +46,15 @@ namespace salamatov
   };
 
   std::istream& operator>>(std::istream& in, DelimiterIO&& dest);
-  std::istream& operator>>(std::istream& in, DoubleLiteralIO&& dest);
-  std::istream& operator>>(std::istream& in, LongLongLiteralIO&& dest);
+  std::istream& operator>>(std::istream& in, DoubleIO&& dest);
+  std::istream& operator>>(std::istream& in, SLLIO&& dest);
   std::istream& operator>>(std::istream& in, StringIO&& dest);
   std::istream& operator>>(std::istream& in, DataStruct& dest);
-  std::ostream& operator<<(std::ostream& out, const DataStruct& src);
+  std::ostream& operator<<(std::ostream& out, const DataStruct& dest);
 
-  bool compareDataStruct(const DataStruct& a, const DataStruct& b);
-}
+  bool compareDataStruct(const DataStruct& ds_first, const DataStruct& ds_second);
+  std::string doubleToScientific(double x);
 
-#endif
+} 
+
+#endif // IO_H
