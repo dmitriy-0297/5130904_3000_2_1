@@ -48,39 +48,36 @@ std::vector<Polygon> readPolygonsFromFile(const std::string& filename) {
     std::vector<Polygon> polygons;
     std::ifstream file(filename);
     std::string line;
-
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         size_t numPoints;
         if (!(iss >> numPoints)) {
             continue;
         }
-
         Polygon polygon;
+        size_t actualPoints = 0;
         for (size_t i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
-            std::istream::pos_type startPos = iss.tellg();
-            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')')
-            {
-                iss.clear();
-                iss.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                iss.seekg(startPos);
+            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')') {
+                polygon.points.clear();
                 break;
             }
-            else
-            {
+            else {
                 polygon.points.push_back(p);
+                actualPoints++;
             }
         }
-
+        if (iss.rdbuf()->in_avail() > 0) {
+            polygon.points.clear();
+        }
         if (!polygon.points.empty() && polygon.points.size() == numPoints) {
             polygons.push_back(polygon);
         }
     }
-
     return polygons;
 }
+
 
 void printAreaResult(double result) {
     std::cout << std::fixed << std::setprecision(1) << result << "\n";
