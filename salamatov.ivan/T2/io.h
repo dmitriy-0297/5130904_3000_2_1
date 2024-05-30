@@ -55,6 +55,6 @@ namespace salamatov {
   bool compareDataStruct(const DataStruct& ds_first, const DataStruct& ds_second);
   std::string doubleToScientific(double x);
 
-} 
+}
 
-#endif // IO_H
+#endif
