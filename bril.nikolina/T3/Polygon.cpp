@@ -64,7 +64,14 @@ std::vector<Polygon> readPolygonsFromFile(const std::string& filename) {
                 polygon.points.clear();
                 break;
             }
-            polygon.points.push_back(p);
+            std::string extra;
+            if (std::getline(iss, extra) and !extra.empty()) {
+                iss.clear();
+                iss.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+            else {
+                polygon.points.push_back(p);
+            }
         }
 
         if (!polygon.points.empty() && polygon.points.size() == numPoints) {
