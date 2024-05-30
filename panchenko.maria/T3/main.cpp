@@ -1,10 +1,12 @@
 #include "polygon.h"
 #include "commands.h"
+#include <algorithm>
 #include <fstream>
-#include <iterator>
 #include <iostream>
-#include <vector>
+#include <iterator>
 #include <sstream>
+#include <string>
+#include <vector>
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
