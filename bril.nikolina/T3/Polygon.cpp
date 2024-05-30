@@ -223,9 +223,6 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
                 std::cout << "<INVALID COMMAND>\n";
                 return;
             }
-            if (!targetPolygon.points.empty() && targetPolygon.points.size() == numPoints) {
-                targetPolygon.points.push_back(p);
-            }
         }
         int count = 0;
         auto it = polygons.begin();
