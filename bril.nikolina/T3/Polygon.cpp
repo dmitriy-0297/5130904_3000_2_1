@@ -222,7 +222,7 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
                 std::cout << "<INVALID COMMAND>\n";
                 return;
             }
-            if (targetPolygon.points.empty() && !(targetPolygon.points.size() == numPoints)) {
+            if (targetPolygon.points.empty() || !(targetPolygon.points.size() == numPoints)) {
                 std::cout << "<INVALID COMMAND>\n";
                 return;
             }
