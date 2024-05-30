@@ -48,15 +48,18 @@ double simonov::Polygon::area(void) const
 
 bool simonov::rightAngle(const Polygon& poly)
 {
-  return std::any_of(poly.points.begin() + 2, poly.points.end(), [&poly](const Point& point)
-    {
-      size_t index = std::distance(&poly.points[0], &point);
-      if (index >= 2)
-      {
-        return poly.rightTriangle(poly.points[index - 2], poly.points[index - 1], poly.points[index]);
-      }
-      return false;
-    });
+  if (poly.points.size() < 3)
+    throw "<INVALID COMMAND>";
+  Polygon temp = poly;
+  temp.points.push_back(poly.points[0]);
+  temp.points.push_back(poly.points[1]);
+
+  for (size_t i = 2; i < temp.points.size(); ++i) {
+    if (temp.rightTriangle(temp.points[i], temp.points[i - 1], temp.points[i - 2])) {
+      return true;
+    }
+  }
+  return false;
 }
 
 bool simonov::Polygon::rightTriangle(const Point& p1, const Point& p2, const Point& p3) const
