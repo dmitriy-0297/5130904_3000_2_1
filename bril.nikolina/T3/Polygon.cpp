@@ -121,6 +121,10 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
                 std::cout << "<INVALID COMMAND>\n";
                 return;
             }
+            if (numVertices <= 2) {
+                std::cout << "<INVALID COMMAND>\n";
+                return;
+            }
             double sumArea = std::accumulate(polygons.begin(), polygons.end(), 0.0, [&](double acc, const Polygon& p) {
                 return p.points.size() == numVertices ? acc + polygonArea(p) : acc;
                 });
