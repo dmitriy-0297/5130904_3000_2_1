@@ -49,3 +49,4 @@ namespace simonov
   std::ostream& operator << (std::ostream& out, Polygon& poly);
 }
 #endif
+

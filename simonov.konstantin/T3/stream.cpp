@@ -38,8 +38,16 @@ std::istream& simonov::operator>>(std::istream& in, Polygon& poly)
   poly.points.resize(size);
 
   for (auto& p : poly.points)
+  {
+    if (in.peek() == '\n')
+    {
+      in.setstate(std::ios_base::failbit);
+      return in;
+    }
     in >> p;
-
+  }
+  if (in.peek() != '\n')
+    in.setstate(std::ios_base::failbit);
   return in;
 }
 

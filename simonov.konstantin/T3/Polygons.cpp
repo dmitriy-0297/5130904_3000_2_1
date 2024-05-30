@@ -50,7 +50,7 @@ bool simonov::rightAngle(const Polygon& poly)
 {
   return std::any_of(poly.points.begin() + 2, poly.points.end(), [&poly](const Point& point)
     {
-      size_t index = &point - &poly.points[0];
+      size_t index = std::distance(&poly.points[0], &point);
       if (index >= 2)
       {
         return poly.rightTriangle(poly.points[index - 2], poly.points[index - 1], poly.points[index]);
