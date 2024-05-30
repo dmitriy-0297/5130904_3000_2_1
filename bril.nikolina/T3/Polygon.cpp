@@ -59,7 +59,7 @@ std::vector<Polygon> readPolygonsFromFile(const std::string& filename) {
         for (size_t i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
-            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')' || numPoints <= 2) {
+            if (!(iss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')' || (numPoints <= 2)) {
                 polygon.points.clear();
                 break;
             }
