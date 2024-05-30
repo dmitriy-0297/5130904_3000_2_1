@@ -225,7 +225,6 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
                 targetPolygon.points.push_back(p);
             }
         }
-        
         int count = 0;
         auto it = polygons.begin();
         while (it != polygons.end()) {
