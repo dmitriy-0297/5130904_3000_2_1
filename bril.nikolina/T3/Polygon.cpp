@@ -158,10 +158,6 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
     else if (cmd == "COUNT") {
         std::string type;
         iss >> type;
-        if (polygons.empty()) {
-            std::cout << "<INVALID COMMAND>";
-            return;
-        }
         if (type == "EVEN") {
             auto isEven = [](const Polygon& p) { return p.points.size() % 2 == 0; };
             int count = std::count_if(polygons.begin(), polygons.end(), isEven);
@@ -178,6 +174,10 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
                 numVertices = std::stoi(type);
             }
             catch (...) {
+                std::cout << "<INVALID COMMAND>";
+                return;
+            }
+            if (numVertices <= 2) {
                 std::cout << "<INVALID COMMAND>";
                 return;
             }
