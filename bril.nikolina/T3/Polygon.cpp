@@ -219,7 +219,10 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
                 actualPoints++;
             }
             if (iss.rdbuf()->in_avail() > 0) {
-                targetPolygon.points.clear();
+                std::cout << "<INVALID COMMAND>\n";
+                return;
+            }
+            if (targetPolygon.points.empty() && !(targetPolygon.points.size() == numPoints)) {
                 std::cout << "<INVALID COMMAND>\n";
                 return;
             }
