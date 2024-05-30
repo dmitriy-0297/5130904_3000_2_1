@@ -11,16 +11,6 @@ int main(int argc, char* argv[]) {
 
     std::string filename = argv[1];
     std::vector<Polygon> polygons = readPolygonsFromFile(filename);
-
-    std::cerr << "Polygons read from file:\n";
-    for (const auto& poly : polygons) {
-        std::cerr << poly.points.size() << " ";
-        for (const auto& point : poly.points) {
-            std::cerr << "(" << point.x << ";" << point.y << ")";
-        }
-        std::cerr << "\n";
-    }
-
     std::string command;
     while (std::getline(std::cin, command)) {
         executeCommand(command, polygons);
