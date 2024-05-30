@@ -202,7 +202,7 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
         polyStr = polyStr.substr(1);
 
         std::istringstream polyIss(polyStr);
-        int numPoints;
+        size_t numPoints;
         polyIss >> numPoints;
 
         Polygon targetPolygon;
@@ -222,10 +222,10 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
                 targetPolygon.points.clear();
             }
             if (!targetPolygon.points.empty() && targetPolygon.points.size() == numPoints) {
-                targetPolygon.push_back(p);
+                targetPolygon.points.push_back(p);
             }
         }
-
+        
         int count = 0;
         auto it = polygons.begin();
         while (it != polygons.end()) {
