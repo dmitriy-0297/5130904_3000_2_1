@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     for (const auto& poly : polygons) {
         std::cerr << poly.points.size() << " ";
         for (const auto& point : poly.points) {
-            std::cerr << "(" << point.x << ";" << point.y << ") ";
+            std::cerr << "(" << point.x << ";" << point.y << ")";
         }
         std::cerr << "\n";
     }

@@ -131,7 +131,6 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
         std::string type;
         iss >> type;
 
-
         if (type == "AREA") {
             if (polygons.empty()) {
                 std::cout << "<INVALID COMMAND>\n";
@@ -163,12 +162,12 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
         if (type == "EVEN") {
             auto isEven = [](const Polygon& p) { return p.points.size() % 2 == 0; };
             int count = std::count_if(polygons.begin(), polygons.end(), isEven);
-            std::cout << count << "\n";
+            std::cout << count;
         }
         else if (type == "ODD") {
             auto isOdd = [](const Polygon& p) { return p.points.size() % 2 == 1; };
             int count = std::count_if(polygons.begin(), polygons.end(), isOdd);
-            std::cout << count << "\n";
+            std::cout << count;
         }
         else {
             size_t numVertices;
@@ -176,14 +175,15 @@ void executeCommand(const std::string& command, std::vector<Polygon>& polygons) 
                 numVertices = std::stoi(type);
             }
             catch (...) {
-                std::cout << "<INVALID COMMAND>\n";
+                std::cout << "<INVALID COMMAND>";
                 return;
             }
             int count = std::count_if(polygons.begin(), polygons.end(), [&](const Polygon& p) {
                 return p.points.size() == numVertices;
                 });
-            std::cout << count << "\n";
+            std::cout << count;
         }
+        std::cout << '\n';
     }
     else if (cmd == "ECHO") {
         std::string polyStr;
