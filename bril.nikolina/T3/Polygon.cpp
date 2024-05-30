@@ -206,14 +206,24 @@ void executeCommand(const std::string & command, std::vector<Polygon>&polygons) 
         polyIss >> numPoints;
 
         Polygon targetPolygon;
+        size_t actualPoints = 0;
         for (int i = 0; i < numPoints; ++i) {
             char sep1, sep2, sep3;
             Point p;
-            if (!(polyIss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')') {
+            if (!(polyIss >> sep1 >> p.x >> sep2 >> p.y >> sep3) || sep1 != '(' || sep2 != ';' || sep3 != ')' || (numPoints <= 2)) {
                 std::cout << "<INVALID COMMAND>\n";
                 return;
             }
-            targetPolygon.points.push_back(p);
+            else {
+                targetPolygon.points.push_back(p);
+                actualPoints++;
+            }
+            if (iss.rdbuf()->in_avail() > 0) {
+                targetPolygon.points.clear();
+            }
+            if (!targetPolygon.points.empty() && targetPolygon.points.size() == numPoints) {
+                targetPolygon.push_back(p);
+            }
         }
 
         int count = 0;
