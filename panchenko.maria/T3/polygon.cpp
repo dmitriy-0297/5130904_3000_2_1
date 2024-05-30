@@ -1,6 +1,7 @@
 #include "polygon.h"
 #include "delimiter.h"
 #include <algorithm>
+#include <iterator>
 
 std::istream& panchenko::operator>>(std::istream& in, Point& point) {
     std::istream::sentry guard(in);
