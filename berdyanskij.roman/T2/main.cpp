@@ -7,7 +7,7 @@
 
 using namespace berdyanskij;
 
-int main(void)  // (:key1 5.45e-2:key2 2ll:key3 "Hello world!")
+int main()  // (:key1 5.45e-2:key2 2ll:key3 "Hello world!")
 {
     std::vector<DataStruct> data;
     std::copy_if(
